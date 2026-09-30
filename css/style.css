@@ -670,4 +670,12 @@
 
     /* to-top button */
     .to-top{width:42px;height:42px;font-size:15px;bottom:18px;right:18px;}
+
+    /* about badge: avoid it poking past the left edge on phones */
+    .about-badge{left:10px;bottom:-20px;padding:16px 18px;max-width:220px;}
+  }
+
+  /* absolute safety net: nothing may ever create horizontal scroll on phones */
+  @media(max-width:900px){
+    html, body{max-width:100%;overflow-x:hidden;}
   }
