@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contacto | Iglesia Cuadrangular Galilea</title>
 <meta name="description" content="Ponte en contacto con Iglesia Cuadrangular Galilea. Dirección, teléfono, correo y formulario de contacto.">
-<link rel="icon" type="image/png" href="img/logo-emblem.png">
-<link rel="apple-touch-icon" href="img/logo-emblem.png">
+<link rel="icon" type="image/png" href="img/logo-galilea.png">
+<link rel="apple-touch-icon" href="img/logo-galilea.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=1790744979">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -41,8 +41,7 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner">
-  <i class="fa-solid fa-envelope-open-text banner-icon"></i>
+<section class="page-banner" style="--banner-img:url('https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=2000&auto=format&fit=crop');">
   <div class="container">
     <div class="eyebrow">Contacto</div>
     <h1>Estamos aquí para ti</h1>
@@ -55,88 +54,77 @@
 </section>
 
 <!-- ===== CONTACTO ===== -->
-<section class="contact-card-section" id="contacto">
+<section class="section-pad contact" id="contacto">
   <div class="container">
-    <div class="contact-card reveal">
-      <div class="contact-card-info">
-        <div class="eyebrow">Escríbenos</div>
-        <h2 class="section-title">Ponte en <span>contacto</span></h2>
-        <p>¿Tienes preguntas, necesitas oración o quieres visitarnos? Escríbenos y con gusto te atenderemos.</p>
-
-        <div class="contact-card-item">
-          <div class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+    <div class="section-head reveal">
+      <div class="eyebrow">Escríbenos</div>
+      <h2 class="section-title">Hablemos, <span>estamos aquí para ti</span></h2>
+      <p class="section-desc">¿Tienes preguntas, necesitas oración o quieres visitarnos? Escríbenos y con gusto te atenderemos.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-info-item">
+          <i class="fa-solid fa-location-dot"></i>
           <div>
             <h4>Dirección</h4>
             <p>Milagro, Guayas, Ecuador</p>
-            <a href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener">Ver en Google Maps <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener" style="color:var(--accent-400);font-size:13px;font-weight:600;">Ver en Google Maps <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
           </div>
         </div>
-        <div class="contact-card-item">
-          <div class="contact-card-icon"><i class="fa-solid fa-phone"></i></div>
+        <div class="contact-info-item">
+          <i class="fa-solid fa-phone"></i>
           <div><h4>Teléfono</h4><p>+1 (555) 123-4567</p></div>
         </div>
-        <div class="contact-card-item">
-          <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="contact-info-item">
+          <i class="fa-solid fa-envelope"></i>
           <div><h4>Correo electrónico</h4><p>hola@iglesiagalilea.org</p></div>
         </div>
-        <div class="contact-card-item">
-          <div class="contact-card-icon"><i class="fa-solid fa-clock"></i></div>
+        <div class="contact-info-item">
+          <i class="fa-solid fa-clock"></i>
           <div><h4>Oficina pastoral</h4><p>Lunes a Viernes, 9:00 AM - 5:00 PM</p></div>
         </div>
-
-        <div class="contact-card-divider"></div>
-        <span class="contact-card-label">Síguenos en redes sociales</span>
-        <div class="contact-card-social">
+        <div class="contact-social">
           <a href="https://www.facebook.com/people/Iglesia-Cuadrangular-Galilea/100064515503745/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/icgalilea/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://youtube.com/@iglesiacuadrangulargalilea2571" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
-          <a href="https://www.tiktok.com/@icgalilea" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/iglesiagalileaec/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
           <a href="#"><i class="fa-brands fa-spotify"></i></a>
         </div>
       </div>
-
-      <div class="contact-card-form">
-        <h3>Envíanos un mensaje</h3>
-        <form id="contactForm">
-          <div class="form-row2">
-            <div class="fg">
-              <label>Nombre completo</label>
-              <input type="text" placeholder="Tu nombre" required>
-            </div>
-            <div class="fg">
-              <label>Correo electrónico</label>
-              <input type="email" placeholder="tucorreo@ejemplo.com" required>
-            </div>
+      <form class="contact-form reveal" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" placeholder="Tu nombre" required>
           </div>
-          <div class="form-row2">
-            <div class="fg">
-              <label>Teléfono</label>
-              <input type="tel" placeholder="+1 (555) 000-0000">
-            </div>
-            <div class="fg">
-              <label>Motivo</label>
-              <select>
-                <option>Petición de oración</option>
-                <option>Quiero visitar la iglesia</option>
-                <option>Unirme a un ministerio</option>
-                <option>Otro</option>
-              </select>
-            </div>
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="email" placeholder="tucorreo@ejemplo.com" required>
           </div>
-          <div class="fg">
-            <label>Mensaje</label>
-            <textarea placeholder="Escribe tu mensaje aquí..." required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+1 (555) 000-0000">
           </div>
-          <button type="submit" class="btn btn-accent"><i class="fa-solid fa-paper-plane"></i> Enviar mensaje</button>
-        </form>
-      </div>
+          <div class="form-group">
+            <label>Motivo</label>
+            <select>
+              <option>Petición de oración</option>
+              <option>Quiero visitar la iglesia</option>
+              <option>Unirme a un ministerio</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea placeholder="Escribe tu mensaje aquí..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-accent"><i class="fa-solid fa-paper-plane"></i> Enviar mensaje</button>
+      </form>
     </div>
   </div>
-</section>
-
-<!-- ===== MAPA (contacto) ===== -->
-<section class="contact-map-full">
-  <iframe title="Mapa Iglesia Cuadrangular Galilea" src="https://www.google.com/maps?q=-2.1495905,-79.5821205&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
 
 <!-- ===== FAQ ===== -->
@@ -194,9 +182,9 @@
         <p>Un lugar para encontrarte con Dios, crecer en comunidad y descubrir tu propósito.</p>
         <div class="contact-social">
           <a href="https://www.facebook.com/people/Iglesia-Cuadrangular-Galilea/100064515503745/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/icgalilea/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://youtube.com/@iglesiacuadrangulargalilea2571" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i></a>
-          <a href="https://www.tiktok.com/@icgalilea" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/iglesiagalileaec/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
         </div>
       </div>
       <div>
@@ -220,10 +208,10 @@
       <div>
         <h4>Horarios</h4>
         <ul class="footer-hours">
-          <li><span>Domingo</span><span>10:00 AM</span></li>
-          <li><span>Miércoles</span><span>7:30 PM</span></li>
-          <li><span>Viernes (Células)</span><span>7:30 PM</span></li>
-          <li><span>Sábado (Jóvenes)</span><span>7:30 PM</span></li>
+          <li><span>Domingo</span><span>9:00 &amp; 11:30 AM</span></li>
+          <li><span>Miércoles</span><span>7:00 PM</span></li>
+          <li><span>Viernes (Jóvenes)</span><span>7:30 PM</span></li>
+          <li><span>Oficina</span><span>Lun - Vie</span></li>
         </ul>
       </div>
     </div>
@@ -236,6 +224,6 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=1790744979"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
