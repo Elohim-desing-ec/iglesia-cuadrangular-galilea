@@ -540,9 +540,12 @@
     position:absolute;right:-3%;top:50%;transform:translateY(-50%);
     font-size:min(32vw,340px);color:rgba(255,255,255,0.05);pointer-events:none;z-index:0;
   }
-  .page-banner .container{position:relative;z-index:2;}
-  .page-banner .eyebrow{color:var(--accent-400);}
-  .page-banner h1{color:var(--white);font-size:clamp(32px,5vw,54px);margin-bottom:16px;max-width:720px;}
+  .page-banner .container{position:relative;z-index:3;width:100%;}
+  .page-banner .eyebrow{color:var(--accent-400);position:relative;z-index:3;}
+  .page-banner h1{
+    color:#ffffff !important;font-size:clamp(32px,5vw,54px);margin-bottom:16px;max-width:720px;
+    position:relative;z-index:3;text-shadow:0 2px 18px rgba(0,0,0,0.55);display:block;opacity:1;visibility:visible;
+  }
   .breadcrumb{display:flex;gap:10px;align-items:center;color:var(--text-muted);font-size:14px;flex-wrap:wrap;}
   .breadcrumb a{color:var(--accent-400);font-weight:600;}
   .breadcrumb a:hover{text-decoration:underline;}
