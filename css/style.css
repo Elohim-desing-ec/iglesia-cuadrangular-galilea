@@ -104,6 +104,31 @@
   .nav-links a:hover::after{width:100%;}
   .nav-links a.active{color:var(--accent-400);}
   .nav-links a.active::after{width:100%;}
+  /* dropdown (Eventos) */
+  .has-dropdown{position:relative;}
+  .dropdown-toggle i{font-size:10px;margin-left:5px;transition:transform .25s;}
+  .dropdown{
+    position:absolute;top:calc(100% + 18px);left:50%;width:290px;padding:10px;
+    background:rgba(10,26,51,0.97);backdrop-filter:blur(14px);
+    border:1px solid var(--navy-700);border-radius:var(--radius-md);box-shadow:var(--shadow-soft);
+    opacity:0;visibility:hidden;transform:translate(-50%,10px);transition:opacity .25s,transform .25s,visibility .25s;
+  }
+  .dropdown::before{content:'';position:absolute;left:0;right:0;top:-20px;height:20px;}
+  .has-dropdown:hover .dropdown,.has-dropdown:focus-within .dropdown{opacity:1;visibility:visible;transform:translate(-50%,0);}
+  .has-dropdown:hover .dropdown-toggle i,.has-dropdown:focus-within .dropdown-toggle i{transform:rotate(180deg);}
+  .nav-links .dropdown a{display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border-radius:var(--radius-sm);transition:background .2s;}
+  .nav-links .dropdown a::after{display:none;}
+  .nav-links .dropdown a:hover{background:var(--navy-800);}
+  .dropdown a > i{
+    width:36px;height:36px;flex-shrink:0;border-radius:10px;display:grid;place-items:center;
+    background:rgba(47,95,224,0.16);color:var(--accent-400);font-size:15px;
+  }
+  .dropdown strong{display:block;font-size:14.5px;color:var(--white);font-weight:600;}
+  .dropdown small{display:block;font-size:12.5px;color:var(--text-muted);font-weight:400;line-height:1.4;}
+  .dropdown .dropdown-all{border-top:1px solid var(--navy-700);margin-top:6px;padding-top:6px;}
+  .nav-links .dropdown .dropdown-all a{align-items:center;font-size:13.5px;color:var(--accent-400);}
+  .dropdown .dropdown-all a > i{width:auto;height:auto;background:none;font-size:13px;}
+
   .nav-cta{display:flex;align-items:center;gap:18px;}
   .burger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;padding:0;z-index:1100;flex-shrink:0;}
   .burger span{height:2px;width:24px;background:var(--white);border-radius:2px;transition:var(--transition);}
@@ -115,6 +140,20 @@
       gap:30px;transition:right .4s cubic-bezier(.4,0,.2,1);box-shadow:-10px 0 40px rgba(0,0,0,0.3);
     }
     .nav-links.open{right:0;}
+    .nav-links{overflow-y:auto;}
+    .has-dropdown{text-align:center;}
+    .dropdown{
+      position:static;width:auto;transform:none;opacity:1;visibility:visible;display:none;
+      margin-top:14px;padding:6px;text-align:left;background:var(--navy-800);box-shadow:none;
+    }
+    .dropdown::before{display:none;}
+    .has-dropdown:hover .dropdown,.has-dropdown:focus-within .dropdown{transform:none;}
+    .has-dropdown:hover .dropdown-toggle i,.has-dropdown:focus-within .dropdown-toggle i{transform:none;}
+    .has-dropdown.open .dropdown{display:block;}
+    .has-dropdown.open .dropdown-toggle i{transform:rotate(180deg);}
+    .dropdown small{display:none;}
+    .nav-links .dropdown a{padding:10px 12px;align-items:center;}
+    .dropdown a > i{width:30px;height:30px;font-size:13px;}
     .nav-cta .btn-outline{display:none;}
     .burger{display:flex;}
     .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -680,6 +719,63 @@
 
     /* about badge: avoid it poking past the left edge on phones */
     .about-badge{left:10px;bottom:-20px;padding:16px 18px;max-width:220px;}
+  }
+
+  /* ===== JUVENTUD / GRUPOS / INGLES (eventos) ===== */
+  .map-intro{padding:110px 0 0;}
+  .map-intro .section-head{margin-bottom:50px;}
+  @media(max-width:768px){.map-intro{padding-top:80px;}}
+  .lang-note{
+    display:flex;gap:14px;align-items:flex-start;margin-bottom:30px;padding:16px 18px;
+    background:rgba(47,95,224,0.08);border-left:3px solid var(--accent-500);border-radius:var(--radius-sm);
+  }
+  .lang-note i{color:var(--accent-500);font-size:20px;margin-top:2px;}
+  .lang-note p{font-size:14px;color:#5b6478;margin:0;}
+  /* contact card placed mid-page (english page) instead of floating over the banner */
+  .contact-card.contact-card-inline{margin-top:0;}
+  .service-card .group-leader{margin-top:14px;font-size:14px;color:var(--text-light);}
+  .service-card .group-leader i{color:var(--accent-400);margin-right:6px;font-size:12px;}
+  .ministry-ph{height:420px;border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);font-size:90px;}
+  @media(max-width:560px){.ministry-ph{height:240px;font-size:64px;}}
+
+  /* ===== JUVENTUD: tarjetas con foto y galeria ===== */
+  .service-card.has-photo{padding-top:0;}
+  .card-photo{margin:0 -32px;height:230px;overflow:hidden;}
+  .card-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform var(--transition);}
+  .service-card.has-photo:hover .card-photo img{transform:scale(1.06);}
+  .service-card.has-photo .day-icon{
+    position:relative;margin-top:-30px;background:var(--navy-700);border:4px solid var(--navy-800);
+  }
+  .youth-gallery{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:20px;}
+  .youth-gallery img{width:100%;height:420px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);}
+  @media(max-width:768px){
+    .card-photo{margin:0 -22px;height:200px;}
+    .youth-gallery{grid-template-columns:1fr 1fr;gap:14px;}
+    .youth-gallery img{height:260px;}
+    .youth-gallery img:nth-child(2){grid-column:1 / -1;grid-row:1;}
+  }
+
+  /* ===== CARRUSEL DE FOTOS (inicio) ===== */
+  .community{padding:0 0 120px;overflow:hidden;}
+  .community .section-head{margin-bottom:48px;}
+  .community .section-desc{margin-left:auto;margin-right:auto;}
+  .photo-marquee{overflow:hidden;}
+  .photo-track{display:flex;align-items:center;width:max-content;animation:scroll-left 70s linear infinite;}
+  .photo-marquee:hover .photo-track{animation-play-state:paused;}
+  .photo-card{
+    flex:0 0 auto;width:256px;aspect-ratio:1/1;margin-right:34px;
+    overflow:hidden;box-shadow:0 10px 28px rgba(5,11,26,0.14);background:#dfe6f2;
+  }
+  .photo-card.tall{aspect-ratio:4/5;}
+  .photo-card img{width:100%;height:100%;object-fit:cover;transition:transform var(--transition);}
+  .photo-card:hover img{transform:scale(1.05);}
+  @media(max-width:768px){
+    .community{padding-bottom:80px;}
+    .photo-card{width:190px;margin-right:20px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .photo-track{animation:none;}
+    .photo-marquee{overflow-x:auto;}
   }
 
   /* absolute safety net: nothing may ever create horizontal scroll on phones */

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=1790744979">
+<link rel="stylesheet" href="css/style.css?v=1790744984">
 </head>
 <body>
 
@@ -27,7 +27,15 @@
         <li><a href="nosotros.html">Nosotros</a></li>
         <li><a href="horarios.html">Horarios</a></li>
         <li><a href="ubicacion.html">Ubicación</a></li>
-        <li><a href="eventos.html">Eventos</a></li>
+        <li class="has-dropdown">
+          <a href="eventos.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Eventos <i class="fa-solid fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="juventud.html"><i class="fa-solid fa-fire"></i><span><strong>Juventud</strong><small>Culto de jóvenes y actividades</small></span></a></li>
+            <li><a href="grupos.html"><i class="fa-solid fa-people-group"></i><span><strong>Grupos</strong><small>Células, damas, caballeros y parejas</small></span></a></li>
+            <li><a href="ingles.html"><i class="fa-solid fa-language"></i><span><strong>English</strong><small>Información para visitantes en inglés</small></span></a></li>
+            <li class="dropdown-all"><a href="eventos.html"><i class="fa-solid fa-calendar-days"></i><span>Ver todos los eventos</span></a></li>
+          </ul>
+        </li>
         <li><a href="predicas.html">Prédicas</a></li>
         <li><a href="contacto.html">Contacto</a></li>
       </ul>
@@ -175,6 +183,6 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=1790744979"></script>
+<script src="js/script.js?v=1790744984"></script>
 </body>
 </html>

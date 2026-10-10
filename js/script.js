@@ -17,11 +17,25 @@ if (burger && navLinks) {
     burger.classList.toggle('open');
     navLinks.classList.toggle('open');
   });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.querySelectorAll('a:not(.dropdown-toggle)').forEach(a => a.addEventListener('click', () => {
     burger.classList.remove('open');
     navLinks.classList.remove('open');
   }));
 }
+
+// Dropdown (Eventos) - on mobile the first tap opens the submenu instead of navigating
+document.querySelectorAll('.has-dropdown').forEach(item => {
+  const toggle = item.querySelector('.dropdown-toggle');
+  if (!toggle) return;
+  toggle.addEventListener('click', (e) => {
+    if (!window.matchMedia('(max-width:960px)').matches) return;
+    e.preventDefault();
+    const isOpen = item.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+  // close the desktop dropdown after jumping to a section on the same page
+  item.querySelectorAll('.dropdown a').forEach(a => a.addEventListener('click', () => a.blur()));
+});
 
 // Reveal on scroll
 const revealEls = document.querySelectorAll('.reveal');
@@ -66,7 +80,19 @@ if (track && dotsWrap) {
   setInterval(() => { goToSlide((current + 1) % slides); }, 6000);
 }
 
-// Contact form (only present on contacto.html) - sends to Supabase
+// Photo carousel (only present on index.html) - duplicate the photos so the loop is seamless
+const photoTrack = document.getElementById('photoTrack');
+if (photoTrack && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  [...photoTrack.children].forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelector('img').alt = '';
+    photoTrack.appendChild(clone);
+  });
+}
+
+// Contact form (contacto.html and ingles.html) - sends to Supabase.
+// Status messages can be overridden per page with data-msg-* attributes on the form.
 const SUPABASE_URL = 'https://vmujhqeswldmsonoozps.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_mXiB9Ox4HWVjFVJZO55gPA_m1pzgpEo';
 
@@ -74,6 +100,11 @@ const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   const statusEl = document.getElementById('contactFormStatus');
   const submitBtn = document.getElementById('contactSubmitBtn');
+  const msg = {
+    sending: contactForm.dataset.msgSending || 'Enviando...',
+    success: contactForm.dataset.msgSuccess || '¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.',
+    error: contactForm.dataset.msgError || 'No pudimos enviar tu mensaje. Intenta de nuevo en un momento.'
+  };
   contactForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const data = new FormData(contactForm);
@@ -85,7 +116,7 @@ if (contactForm) {
       mensaje: data.get('mensaje') || ''
     };
     if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.7'; }
-    if (statusEl) { statusEl.textContent = 'Enviando...'; statusEl.style.color = 'var(--text-muted)'; }
+    if (statusEl) { statusEl.textContent = msg.sending; statusEl.style.color = 'var(--text-muted)'; }
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/mensajes_contacto`, {
         method: 'POST',
@@ -97,10 +128,10 @@ if (contactForm) {
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error('request failed');
-      if (statusEl) { statusEl.textContent = '¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.'; statusEl.style.color = 'var(--accent-600)'; }
+      if (statusEl) { statusEl.textContent = msg.success; statusEl.style.color = 'var(--accent-600)'; }
       contactForm.reset();
     } catch (err) {
-      if (statusEl) { statusEl.textContent = 'No pudimos enviar tu mensaje. Intenta de nuevo en un momento.'; statusEl.style.color = '#c0392b'; }
+      if (statusEl) { statusEl.textContent = msg.error; statusEl.style.color = '#c0392b'; }
     } finally {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = '1'; }
     }
