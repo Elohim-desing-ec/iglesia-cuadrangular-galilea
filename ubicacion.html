@@ -5,13 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ubicación | Iglesia Cuadrangular Galilea</title>
 <meta name="description" content="Dirección, mapa y cómo llegar a la sede principal de Iglesia Cuadrangular Galilea.">
-<link rel="icon" type="image/png" href="img/logo-galilea.png">
-<link rel="apple-touch-icon" href="img/logo-galilea.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="css/style.css?v=20261019e">
 </head>
 <body>
 
@@ -84,6 +86,129 @@
       </div>
       <div class="reveal" style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-soft);">
         <iframe title="Mapa Iglesia Cuadrangular Galilea - Sede Principal" src="https://www.google.com/maps?q=-2.1495905,-79.5821205&z=16&output=embed" width="100%" height="420" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CELULAS HOGARES =====
+     Cada célula es un <article class="cell-card">. data-lat / data-lng ponen el marcador en el mapa;
+     el botón "Cómo llegar" abre la ruta en Google Maps hasta esas coordenadas. -->
+<section class="section-pad cells" id="celulas">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Células hogares</div>
+      <h2 class="section-title">Hay un hogar <span>cerca de ti</span></h2>
+      <p class="section-desc">Cada viernes a las 7:30 PM nos reunimos en casas de hermanos en distintos sectores de Milagro. Toca una célula para verla en el mapa.</p>
+    </div>
+    <div class="cells-layout">
+      <div class="cells-map-wrap reveal">
+        <div id="cellsMap" class="cells-map" role="region" aria-label="Mapa de células hogares"></div>
+        <div class="cells-legend">
+          <span><i class="cell-dot"></i> Célula hogar</span>
+          <span><i class="cell-dot cell-dot-church"></i> Templo Galilea</span>
+          <span><i class="fa-regular fa-clock"></i> Viernes · 7:30 PM</span>
+        </div>
+      </div>
+      <div class="cells-list reveal">
+      <article class="cell-card" data-num="1" data-lat="-2.184591" data-lng="-79.618083">
+        <div class="cell-num">1</div>
+        <div class="cell-body">
+          <h3>Célula #1</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hno. Leonardo Macías</p>
+          <p class="cell-tag">¡Hay un hogar cerca de ti! <strong>Encuentra tu célula.</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.184591,-79.618083" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      <article class="cell-card" data-num="2" data-lat="-2.147901" data-lng="-79.583765">
+        <div class="cell-num">2</div>
+        <div class="cell-body">
+          <h3>Célula #2</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hna. Carmen Lucio</p>
+          <p class="cell-tag">Menos distancia, más comunidad. <strong>¡Acompáñanos!</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.147901,-79.583765" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      <article class="cell-card" data-num="3" data-lat="-2.15163" data-lng="-79.585101">
+        <div class="cell-num">3</div>
+        <div class="cell-body">
+          <h3>Célula #3</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hna. Patricia Llerena</p>
+          <p class="cell-tag">Un lugar para crecer en familia. <strong>Te esperamos.</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.15163,-79.585101" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      <article class="cell-card" data-num="4" data-lat="-2.155937" data-lng="-79.581713">
+        <div class="cell-num">4</div>
+        <div class="cell-body">
+          <h3>Célula #4</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hna. Isabel Pincay</p>
+          <p class="cell-tag">Cerca de tu casa, cerca de Dios. <strong>¡Súmate hoy!</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.155937,-79.581713" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      <article class="cell-card" data-num="5" data-lat="-2.149483" data-lng="-79.582443">
+        <div class="cell-num">5</div>
+        <div class="cell-body">
+          <h3>Célula #5</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hna. Marianela Bejarano</p>
+          <p class="cell-tag">No pases la semana a solas; <strong>hay una célula para ti.</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.149483,-79.582443" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      <article class="cell-card" data-num="6" data-lat="-2.149483" data-lng="-79.582443">
+        <div class="cell-num">6</div>
+        <div class="cell-body">
+          <h3>Célula #6</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hno. Efrem Duarte</p>
+          <p class="cell-tag">Palabra y buena compañía. <strong>Encuentra tu grupo.</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.149483,-79.582443" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      <article class="cell-card" data-num="7" data-lat="-2.146416" data-lng="-79.584329">
+        <div class="cell-num">7</div>
+        <div class="cell-body">
+          <h3>Célula #7</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hna. María Barahona</p>
+          <p class="cell-tag">Tu próxima gran amistad está <strong>en una célula hogar.</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.146416,-79.584329" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      <article class="cell-card" data-num="8" data-lat="-2.146416" data-lng="-79.584329">
+        <div class="cell-num">8</div>
+        <div class="cell-body">
+          <h3>Célula #8</h3>
+          <p class="cell-leader"><i class="fa-solid fa-house-user"></i> Hno. Marcos Gutierres</p>
+          <p class="cell-tag">Iglesia en casa. <strong>¡Busca la ubicación más cercana!</strong></p>
+        </div>
+        <a class="cell-go" href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.146416,-79.584329" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+      </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ATENCION POR WHATSAPP ===== -->
+<section class="section-pad wa-help" id="whatsapp">
+  <div class="container">
+    <div class="wa-card reveal">
+      <div class="wa-intro">
+        <div class="wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="eyebrow">Atención por WhatsApp</div>
+        <h2 class="section-title">¿Necesitas <span>ayuda?</span></h2>
+        <p>Escríbenos directamente y te ayudamos a llegar al templo, a encontrar la célula más cercana a tu casa o con cualquier pregunta que tengas.</p>
+      </div>
+      <div class="wa-contacts">
+        <a class="wa-contact" href="https://wa.me/593959009768?text=Hola%20Pastor%20V%C3%ADctor%2C%20vi%20la%20p%C3%A1gina%20web%20de%20Galilea%20y%20quisiera%20ayuda." target="_blank" rel="noopener">
+          <span class="wa-avatar">VR</span>
+          <span class="wa-info"><strong>Pastor Víctor Rivera</strong><small>+593 95 900 9768</small></span>
+          <span class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Escribir</span>
+        </a>
+        <a class="wa-contact" href="https://wa.me/593991060099?text=Hola%20Pastora%20Daniela%2C%20vi%20la%20p%C3%A1gina%20web%20de%20Galilea%20y%20quisiera%20ayuda." target="_blank" rel="noopener">
+          <span class="wa-avatar">DM</span>
+          <span class="wa-info"><strong>Pastora Daniela Macías</strong><small>+593 99 106 0099</small></span>
+          <span class="wa-btn"><i class="fa-brands fa-whatsapp"></i> Escribir</span>
+        </a>
       </div>
     </div>
   </div>
@@ -167,6 +292,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="js/script.js?v=20261019e"></script>
 </body>
 </html>

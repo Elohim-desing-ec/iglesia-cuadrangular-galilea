@@ -1,2 +1,5 @@
 .DS_Store
 .vscode/
+
+# fotos originales sin comprimir (215 MB); el sitio usa las copias de fotos/portada y fotos/carrusel
+fotos evangelismos/

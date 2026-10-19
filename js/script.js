@@ -80,6 +80,134 @@ if (track && dotsWrap) {
   setInterval(() => { goToSlide((current + 1) % slides); }, 6000);
 }
 
+// Hero slideshow (only present on index.html) - crossfades the cover photos every few seconds.
+// Each photo is downloaded just before it is shown, so the page does not load all of them at once.
+const heroSlides = document.getElementById('heroSlides');
+if (heroSlides && heroSlides.children.length > 1) {
+  const slides = [...heroSlides.children];
+  const portrait = window.matchMedia('(max-aspect-ratio: 1/1)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const loading = new Map();
+  const loadSlide = (slide) => {
+    if (loading.has(slide)) return loading.get(slide);
+    const img = slide.querySelector('img');
+    const src = (portrait && img.dataset.srcMovil) || img.dataset.src;
+    const p = new Promise(resolve => {
+      if (!src) return resolve();
+      img.onload = img.onerror = () => resolve();
+      img.src = src;
+    });
+    loading.set(slide, p);
+    return p;
+  };
+  let current = 0;
+  let busy = false;
+  const showNext = () => {
+    if (busy || document.hidden) return;
+    busy = true;
+    const next = (current + 1) % slides.length;
+    loadSlide(slides[next]).then(() => {
+      slides.forEach(s => s.classList.remove('prev'));
+      slides[current].classList.replace('active', 'prev');
+      slides[next].classList.add('active');
+      current = next;
+      loadSlide(slides[(next + 1) % slides.length]);
+      busy = false;
+    });
+  };
+  loadSlide(slides[1]);
+  setInterval(showNext, reduceMotion ? 9000 : 6000);
+}
+
+// Upcoming events row (horarios.html) - drops events whose date has passed and drives the arrow buttons.
+const eventsReel = document.getElementById('eventsReel');
+if (eventsReel) {
+  const now = new Date();
+  eventsReel.querySelectorAll('[data-fecha]').forEach(card => {
+    if (new Date(card.dataset.fecha + 'T23:59:59') < now) card.remove();
+  });
+  const section = eventsReel.closest('section');
+  if (!eventsReel.children.length) {
+    section.hidden = true;
+  } else {
+    const buttons = section.querySelectorAll('.reel-btn');
+    const updateButtons = () => {
+      const max = eventsReel.scrollWidth - eventsReel.clientWidth - 2;
+      buttons.forEach(b => { b.disabled = b.dataset.dir === '-1' ? eventsReel.scrollLeft <= 2 : eventsReel.scrollLeft >= max; });
+    };
+    buttons.forEach(b => b.addEventListener('click', () => {
+      eventsReel.scrollBy({left: Number(b.dataset.dir) * eventsReel.clientWidth * 0.8});
+    }));
+    eventsReel.addEventListener('scroll', updateButtons, {passive: true});
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  }
+}
+
+// House-cell map (ubicacion.html) - one numbered pin per .cell-card with data-lat/data-lng, plus the church.
+// Clicking a card flies the map to its pin; clicking a pin highlights its card.
+const cellsMapEl = document.getElementById('cellsMap');
+if (cellsMapEl && window.L) {
+  const CHURCH = [-2.1495905, -79.5821205];
+  const map = L.map(cellsMapEl, {scrollWheelZoom: false});
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  const pinIcon = (html, extra = '') => L.divIcon({
+    className: '', html: `<div class="cell-pin ${extra}">${html}</div>`,
+    iconSize: [36, 36], iconAnchor: [18, 40], popupAnchor: [0, -38]
+  });
+  L.marker(CHURCH, {icon: pinIcon('<i class="fa-solid fa-cross"></i>', 'church'), zIndexOffset: 1000})
+    .addTo(map)
+    .bindPopup('<strong>Templo Galilea</strong><br>Sede principal<br><a href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener">Ver en Google Maps →</a>');
+
+  const cards = [...document.querySelectorAll('.cell-card')];
+  const points = [CHURCH];
+  const entries = [];
+  cards.forEach(card => {
+    if (!card.dataset.lat) return;
+    const pos = [Number(card.dataset.lat), Number(card.dataset.lng)];
+    // two cells sharing the exact same point: nudge the later pin ~20 m east so both numbers are visible
+    while (points.some(p => Math.abs(p[0] - pos[0]) < 0.00005 && Math.abs(p[1] - pos[1]) < 0.00005)) pos[1] += 0.00018;
+    const num = card.dataset.num;
+    const leader = card.querySelector('.cell-leader').textContent.trim();
+    const route = card.querySelector('.cell-go').href;
+    const marker = L.marker(pos, {icon: pinIcon(`<span>${num}</span>`)}).addTo(map)
+      .bindPopup(`<strong>Célula #${num}</strong><br>${leader}<br>Viernes · 7:30 PM<br><a href="${route}" target="_blank" rel="noopener">Cómo llegar →</a>`);
+    points.push(pos);
+    entries.push({card, marker, pos});
+  });
+
+  const select = (entry) => {
+    entries.forEach(e => {
+      const on = e === entry;
+      e.card.classList.toggle('active', on);
+      e.marker.getElement()?.querySelector('.cell-pin').classList.toggle('active', on);
+    });
+  };
+  entries.forEach(entry => {
+    entry.card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // let "Cómo llegar" open normally
+      select(entry);
+      map.flyTo(entry.pos, 16, {duration: 0.8});
+      entry.marker.openPopup();
+      if (window.matchMedia('(max-width:900px)').matches) {
+        cellsMapEl.scrollIntoView({behavior: 'smooth', block: 'center'});
+      }
+    });
+    entry.marker.on('click', () => {
+      select(entry);
+      if (!window.matchMedia('(max-width:900px)').matches) {
+        const list = entry.card.parentElement;
+        list.scrollTo({top: entry.card.offsetTop - list.offsetTop - 4, behavior: 'smooth'});
+      }
+    });
+  });
+  map.fitBounds(points, {padding: [40, 40]});
+}
+
 // Photo carousel (only present on index.html) - duplicate the photos so the loop is seamless
 const photoTrack = document.getElementById('photoTrack');
 if (photoTrack && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

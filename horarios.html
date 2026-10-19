@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Horarios | Iglesia Cuadrangular Galilea</title>
 <meta name="description" content="Consulta los horarios de servicios, estudios bíblicos y actividades de Iglesia Cuadrangular Galilea.">
-<link rel="icon" type="image/png" href="img/logo-emblem.png">
-<link rel="apple-touch-icon" href="img/logo-emblem.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=1790744984">
+<link rel="stylesheet" href="css/style.css?v=20261019e">
 </head>
 <body>
 
@@ -49,7 +50,7 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('img/banner-horarios-cantantes.jpg') center 25%/cover no-repeat;">
+<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('fotos/portada/iglesia.jpg') 72% 50%/cover no-repeat;">
   <div class="container">
     <div class="eyebrow">Horarios de servicio</div>
     <h1>Te esperamos esta semana</h1>
@@ -124,6 +125,71 @@
     <div class="sermon-links reveal" style="margin-top:44px;">
       <a href="predicas.html" class="btn btn-dark"><i class="fa-brands fa-youtube"></i> Ver prédicas en YouTube</a>
       <a href="predicas.html#envivo" class="btn btn-accent"><i class="fa-solid fa-tower-broadcast"></i> Transmisión en vivo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROXIMOS EVENTOS (fila tipo Netflix) =====
+     Para agregar un evento copia un <a class="reel-card">, cambia la foto (de preferencia vertical 4:5, ej. el flyer)
+     y los textos. data-fecha (AAAA-MM-DD) hace que el evento desaparezca solo al día siguiente de realizarse. -->
+<section class="section-pad events-reel" id="proximos-eventos">
+  <div class="container">
+    <div class="reel-head reveal">
+      <div>
+        <div class="eyebrow">Agenda</div>
+        <h2 class="section-title">Próximos <span>eventos</span></h2>
+      </div>
+      <div class="reel-arrows">
+        <button class="reel-btn" data-dir="-1" aria-label="Eventos anteriores"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="reel-btn" data-dir="1" aria-label="Más eventos"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="reel-row reveal" id="eventsReel">
+      <a class="reel-card" href="eventos.html" data-fecha="2026-10-25">
+        <img src="fotos/eventos/retiro-matrimonios.jpg" alt="" loading="lazy">
+        <div class="reel-date"><strong>25</strong><span>Oct</span></div>
+        <div class="reel-info">
+          <h3>Retiro de Matrimonios</h3>
+          <p><i class="fa-solid fa-clock"></i> Todo el día</p>
+          <p><i class="fa-solid fa-location-dot"></i> Centro de Retiros Betel</p>
+        </div>
+      </a>
+      <a class="reel-card" href="eventos.html" data-fecha="2026-11-08">
+        <img src="fotos/eventos/noche-adoracion.jpg" alt="" loading="lazy">
+        <div class="reel-date"><strong>08</strong><span>Nov</span></div>
+        <div class="reel-info">
+          <h3>Noche de Adoración</h3>
+          <p><i class="fa-solid fa-clock"></i> 7:30 PM - 10:00 PM</p>
+          <p><i class="fa-solid fa-location-dot"></i> Templo Principal</p>
+        </div>
+      </a>
+      <a class="reel-card" href="eventos.html" data-fecha="2026-11-21">
+        <img src="fotos/eventos/galilea-kids.jpg" alt="" loading="lazy">
+        <div class="reel-date"><strong>21</strong><span>Nov</span></div>
+        <div class="reel-info">
+          <h3>Campamento Galilea Kids</h3>
+          <p><i class="fa-solid fa-clock"></i> 9:00 AM - 6:00 PM</p>
+          <p><i class="fa-solid fa-location-dot"></i> Campamento Monte Sión</p>
+        </div>
+      </a>
+      <a class="reel-card" href="eventos.html" data-fecha="2026-12-05">
+        <img src="fotos/eventos/accion-social.jpg" alt="" loading="lazy">
+        <div class="reel-date"><strong>05</strong><span>Dic</span></div>
+        <div class="reel-info">
+          <h3>Jornada de Acción Social</h3>
+          <p><i class="fa-solid fa-clock"></i> 8:00 AM - 1:00 PM</p>
+          <p><i class="fa-solid fa-location-dot"></i> Comunidad Vista Hermosa</p>
+        </div>
+      </a>
+      <a class="reel-card" href="eventos.html" data-fecha="2026-12-24">
+        <img src="fotos/eventos/navidad.jpg" alt="" loading="lazy">
+        <div class="reel-date"><strong>24</strong><span>Dic</span></div>
+        <div class="reel-info">
+          <h3>Celebración de Navidad</h3>
+          <p><i class="fa-solid fa-clock"></i> 7:00 PM - 9:00 PM</p>
+          <p><i class="fa-solid fa-location-dot"></i> Templo Principal</p>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -206,6 +272,6 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=1790744984"></script>
+<script src="js/script.js?v=20261019e"></script>
 </body>
 </html>
