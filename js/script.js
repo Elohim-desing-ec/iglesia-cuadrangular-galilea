@@ -285,6 +285,17 @@ if (nextEvent && upcomingGrid) {
 // it shows the YouTube live player instead. Times are Ecuador time (UTC-5, no daylight saving), so the
 // countdown is correct for visitors in any time zone.
 const LIVE_SCHEDULE = {day: 0, hour: 10, minute: 0, durationMin: 150, utcOffset: -5}; // Sunday 10:00 AM, 2.5 h
+const LIVE_OFFSET = LIVE_SCHEDULE.utcOffset * 3600e3;
+const LIVE_DURATION = LIVE_SCHEDULE.durationMin * 60e3;
+// start of the current or next service, as a timestamp (shared by predicas.html and the home page)
+const nextServiceStart = (now) => {
+  const local = new Date(now + LIVE_OFFSET); // UTC fields of this date = Ecuador wall-clock time
+  const ahead = (LIVE_SCHEDULE.day - local.getUTCDay() + 7) % 7;
+  let start = Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate() + ahead,
+    LIVE_SCHEDULE.hour, LIVE_SCHEDULE.minute) - LIVE_OFFSET;
+  if (now >= start + LIVE_DURATION) start += 7 * 864e5;
+  return start;
+};
 const liveBox = document.getElementById('liveCountdown');
 if (liveBox) {
   const embed = document.getElementById('liveEmbed');
@@ -292,21 +303,13 @@ if (liveBox) {
   const part = name => liveBox.querySelector(`[data-live="${name}"]`);
   const cd = part('countdown');
   const countdownHTML = cd.innerHTML;
-  const offset = LIVE_SCHEDULE.utcOffset * 3600e3;
-  const duration = LIVE_SCHEDULE.durationMin * 60e3;
+  const offset = LIVE_OFFSET;
+  const duration = LIVE_DURATION;
   const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
   const pad = n => String(n).padStart(2, '0');
 
-  // start of the current or next service, as a timestamp
-  const nextStart = (now) => {
-    const local = new Date(now + offset); // UTC fields of this date = Ecuador wall-clock time
-    const ahead = (LIVE_SCHEDULE.day - local.getUTCDay() + 7) % 7;
-    let start = Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate() + ahead,
-      LIVE_SCHEDULE.hour, LIVE_SCHEDULE.minute) - offset;
-    if (now >= start + duration) start += 7 * 864e5;
-    return start;
-  };
+  const nextStart = nextServiceStart;
   const showEmbed = () => {
     const iframe = embed.querySelector('iframe');
     if (!iframe.src) iframe.src = iframe.dataset.src;
@@ -345,6 +348,37 @@ if (liveBox) {
   };
   tick();
   setInterval(tick, 1000);
+}
+
+// Home "Destacados" (index.html): hide highlights whose date has passed, keep only the next featured event,
+// tick off finished sermons in the series list, and show a compact countdown to Sunday's live service.
+const highlights = document.getElementById('destacados');
+if (highlights) {
+  const now = new Date();
+  highlights.querySelectorAll('[data-fin]').forEach(el => {
+    if (new Date(el.dataset.fin) >= now) return;
+    if (el.matches('.hl-card')) el.remove(); else el.classList.add('done');
+  });
+  highlights.querySelectorAll('.hl-event').forEach((card, i) => { if (i > 0) card.remove(); });
+  const mini = highlights.querySelector('[data-live-mini]');
+  if (mini) {
+    const update = () => {
+      const t = Date.now(), start = nextServiceStart(t);
+      const card = mini.closest('.hl-card');
+      if (t >= start) {
+        card.classList.add('is-live');
+        mini.innerHTML = '<span class="live-dot"></span> <strong>¡En vivo ahora!</strong>';
+        return;
+      }
+      card.classList.remove('is-live');
+      const min = Math.floor((start - t) / 60000);
+      const d = Math.floor(min / 1440), h = Math.floor(min % 1440 / 60), m = min % 60;
+      mini.innerHTML = `Faltan <strong>${d ? d + 'd ' : ''}${h}h ${String(m).padStart(2, '0')}m</strong>`;
+    };
+    update();
+    setInterval(update, 30000);
+  }
+  if (!highlights.querySelector('.hl-card')) highlights.remove();
 }
 
 // Photo carousel (only present on index.html) - duplicate the photos so the loop is seamless

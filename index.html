@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261019r">
+<link rel="stylesheet" href="css/style.css?v=20261019s">
 </head>
 <body>
 
@@ -103,6 +103,61 @@
     <span><i class="fa-solid fa-heart"></i> "Todo lo puedo en Cristo que me fortalece" — Filipenses 4:13</span>
   </div>
 </div>
+
+<!-- ===== DESTACADOS =====
+     Lo más importante del momento. Cada tarjeta con data-fin desaparece sola cuando pasa su fecha.
+     De las tarjetas .hl-event solo se muestra la primera que siga vigente (el próximo evento destacado). -->
+<section class="section-pad highlights" id="destacados">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Destacados</div>
+      <h2 class="section-title">Lo que <span>no te puedes perder</span></h2>
+    </div>
+    <div class="hl-grid">
+      <a class="hl-card hl-main reveal" href="eventos.html#serie-camaleon" data-fin="2026-11-21T22:00:00-05:00">
+        <i class="fa-solid fa-masks-theater hl-watermark"></i>
+        <span class="hl-tag"><i class="fa-solid fa-fire"></i> Serie de noviembre · Jóvenes Zona 5</span>
+        <h3>El Síndrome del Camaleón</h3>
+        <p class="hl-sub">Tres síntomas en un corazón desconectado</p>
+        <ul class="hl-list">
+          <li data-fin="2026-11-07T22:00:00-05:00"><span class="hl-day"><strong>07</strong>nov</span><div><strong>La pérdida de identidad por aceptación</strong><small>Hno. Alejandro García · Gálatas 1:10</small></div></li>
+          <li data-fin="2026-11-14T22:00:00-05:00"><span class="hl-day"><strong>14</strong>nov</span><div><strong>El rechazo: el muro de aislamiento y la amargura</strong><small>Hno. Adrián Alvarado · Hebreos 12:15</small></div></li>
+          <li data-fin="2026-11-21T22:00:00-05:00"><span class="hl-day"><strong>21</strong>nov</span><div><strong>La superioridad</strong><small>Hno. Eduardo Lara · Filipenses 2:3</small></div></li>
+        </ul>
+        <span class="hl-cta">Sábados · 7:30 PM · Ver la serie <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="hl-card hl-photo hl-live reveal" href="predicas.html#envivo">
+        <span class="hl-bg" style="background-image:url('fotos/portada/iglesia.jpg');"></span>
+        <span class="hl-tag"><span class="live-dot"></span> En vivo</span>
+        <h3>Culto Dominical</h3>
+        <p class="hl-sub">Cada domingo · 10:00 AM por YouTube</p>
+        <div class="hl-count" data-live-mini>Cada domingo a las 10:00 AM</div>
+        <span class="hl-cta">Ver transmisión <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="hl-card hl-photo hl-event reveal" href="eventos.html" data-fin="2026-10-24T03:00:00-05:00">
+        <span class="hl-bg" style="background-image:url('fotos/eventos/vigilia.jpg');"></span>
+        <span class="hl-tag"><i class="fa-solid fa-star"></i> Próximo evento · Viernes 23 oct</span>
+        <h3>Vigilia: Familias en la Brecha</h3>
+        <p class="hl-sub">9:00 PM · Templo Galilea</p>
+        <span class="hl-cta">Más detalles <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="hl-card hl-photo hl-event reveal" href="eventos.html" data-fin="2026-10-31T15:00:00-05:00">
+        <span class="hl-bg" style="background-image:url('fotos/eventos/concentracion-bautismo.jpg');"></span>
+        <span class="hl-tag"><i class="fa-solid fa-star"></i> Próximo evento · Sábado 31 oct</span>
+        <h3>Concentración y Bautismo · Zona 5</h3>
+        <p class="hl-sub">10:00 AM · Iglesia Cuadrangular Betel</p>
+        <span class="hl-cta">Más detalles <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a class="hl-card hl-photo hl-event reveal" href="eventos.html" data-fin="2026-11-01T13:00:00-05:00">
+        <span class="hl-bg" style="background-image:url('fotos/eventos/santa-cena.jpg');"></span>
+        <span class="hl-tag"><i class="fa-solid fa-star"></i> Próximo evento · Domingo 1 nov</span>
+        <h3>Culto Dominical y Santa Cena</h3>
+        <p class="hl-sub">10:00 AM · Templo Galilea</p>
+        <span class="hl-cta">Más detalles <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- ===== NOSOTROS (resumen) ===== -->
 <section class="section-pad" id="nosotros">
@@ -444,7 +499,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261019r"></script>
-<script src="js/asistente.js?v=20261019r"></script>
+<script src="js/script.js?v=20261019s"></script>
+<script src="js/asistente.js?v=20261019s"></script>
 </body>
 </html>
