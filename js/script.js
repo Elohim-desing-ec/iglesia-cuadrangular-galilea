@@ -227,6 +227,18 @@ document.querySelectorAll('[data-past]').forEach(grid => {
   });
 });
 
+// Home page: show only the next N events (data-limit) after past ones were removed.
+document.querySelectorAll('.events-grid[data-limit]').forEach(grid => {
+  [...grid.querySelectorAll('.event-card')].slice(Number(grid.dataset.limit)).forEach(card => card.remove());
+});
+
+// Monthly sermon series (eventos.html) - sermons whose date has passed are marked "Realizada".
+document.querySelectorAll('.series-card[data-fin]').forEach(card => {
+  if (new Date(card.dataset.fin) >= new Date()) return;
+  card.classList.add('is-past');
+  card.querySelector('.series-date').innerHTML = '<span class="series-done"><i class="fa-solid fa-check"></i> Realizada</span>';
+});
+
 // "Próximo evento" with countdown (eventos.html) - shows the first upcoming card that has data-inicio.
 const nextEvent = document.getElementById('nextEvent');
 const upcomingGrid = document.getElementById('eventsUpcoming');
