@@ -208,6 +208,67 @@ if (cellsMapEl && window.L) {
   map.fitBounds(points, {padding: [40, 40]});
 }
 
+// Event lists (eventos.html, index.html) - a grid with data-past moves cards whose data-fin has passed
+// into that grid (marked "Realizado"); with data-past="" they are simply removed.
+document.querySelectorAll('[data-past]').forEach(grid => {
+  const now = new Date();
+  const pastGrid = grid.dataset.past ? document.getElementById(grid.dataset.past) : null;
+  grid.querySelectorAll('.event-card[data-fin]').forEach(card => {
+    if (new Date(card.dataset.fin) >= now) return;
+    if (!pastGrid) { card.remove(); return; }
+    card.classList.add('is-past');
+    card.querySelector('.event-status')?.remove();
+    card.querySelector('.event-body > a')?.remove();
+    const badge = document.createElement('div');
+    badge.className = 'event-status';
+    badge.innerHTML = '<i class="fa-solid fa-check"></i> Realizado';
+    card.querySelector('.event-img').appendChild(badge);
+    pastGrid.prepend(card);
+  });
+});
+
+// "Próximo evento" with countdown (eventos.html) - shows the first upcoming card that has data-inicio.
+const nextEvent = document.getElementById('nextEvent');
+const upcomingGrid = document.getElementById('eventsUpcoming');
+if (nextEvent && upcomingGrid) {
+  const card = [...upcomingGrid.querySelectorAll('.event-card[data-inicio]')]
+    .sort((a, b) => new Date(a.dataset.inicio) - new Date(b.dataset.inicio))[0];
+  if (card) {
+    const part = name => nextEvent.querySelector(`[data-ne="${name}"]`);
+    part('title').textContent = card.querySelector('h3').textContent;
+    part('meta').innerHTML = card.querySelector('.event-meta').innerHTML;
+    const link = card.querySelector('.event-body > a');
+    if (link) {
+      part('link').href = link.href;
+      part('link').target = link.target;
+      part('link').rel = link.rel;
+      part('link').innerHTML = link.innerHTML;
+    } else {
+      part('link').remove();
+    }
+    const start = new Date(card.dataset.inicio);
+    const cd = part('countdown');
+    const pad = n => String(n).padStart(2, '0');
+    const tick = () => {
+      const diff = start - new Date();
+      if (diff <= 0) {
+        cd.innerHTML = '<div class="countdown-live"><span class="live-dot"></span> ¡Está sucediendo ahora!</div>';
+        return false;
+      }
+      const sec = Math.floor(diff / 1000);
+      cd.querySelector('[data-cd="d"]').textContent = Math.floor(sec / 86400);
+      cd.querySelector('[data-cd="h"]').textContent = pad(Math.floor(sec % 86400 / 3600));
+      cd.querySelector('[data-cd="m"]').textContent = pad(Math.floor(sec % 3600 / 60));
+      cd.querySelector('[data-cd="s"]').textContent = pad(sec % 60);
+      return true;
+    };
+    if (tick()) {
+      const timer = setInterval(() => { if (!tick()) clearInterval(timer); }, 1000);
+    }
+    nextEvent.hidden = false;
+  }
+}
+
 // Photo carousel (only present on index.html) - duplicate the photos so the loop is seamless
 const photoTrack = document.getElementById('photoTrack');
 if (photoTrack && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

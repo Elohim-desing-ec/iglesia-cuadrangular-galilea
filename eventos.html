@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261019e">
+<link rel="stylesheet" href="css/style.css?v=20261019g">
 </head>
 <body>
 
@@ -50,8 +50,7 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner">
-  <i class="fa-solid fa-calendar-days banner-icon"></i>
+<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('fotos/portada/evangelismo-8.jpg') center 35%/cover no-repeat;">
   <div class="container">
     <div class="eyebrow">Próximos eventos</div>
     <h1>No te lo pierdas</h1>
@@ -63,7 +62,11 @@
   </div>
 </section>
 
-<!-- ===== EVENTOS ===== -->
+<!-- ===== EVENTOS =====
+     Cada evento es un .event-card. data-inicio / data-fin (fecha y hora con -05:00, hora de Ecuador):
+     - el primer evento con data-inicio se muestra arriba como "Próximo evento" con cuenta regresiva;
+     - cuando pasa data-fin, el evento se mueve solo a "Eventos realizados".
+     Sin data-inicio (fecha por confirmar) el evento se lista pero no tiene cuenta regresiva. -->
 <section class="section-pad events" id="eventos">
   <div class="container">
     <div class="section-head center reveal">
@@ -71,89 +74,150 @@
       <h2 class="section-title">Actividades para <span>toda la familia</span></h2>
       <p class="section-desc">Actividades para todas las edades durante todo el año. Ven y sé parte de lo que Dios está haciendo.</p>
     </div>
-    <div class="events-grid">
-      <div class="event-card reveal">
+
+    <div class="next-event reveal" id="nextEvent" hidden>
+      <div class="next-event-info">
+        <span class="next-badge"><span class="live-dot"></span> Próximo evento</span>
+        <h3 data-ne="title"></h3>
+        <div class="event-meta" data-ne="meta"></div>
+        <a class="btn btn-accent" data-ne="link" href="#"></a>
+      </div>
+      <div class="countdown" data-ne="countdown">
+        <div><strong data-cd="d">0</strong><span>Días</span></div>
+        <div><strong data-cd="h">00</strong><span>Horas</span></div>
+        <div><strong data-cd="m">00</strong><span>Min</span></div>
+        <div><strong data-cd="s">00</strong><span>Seg</span></div>
+      </div>
+    </div>
+
+    <h3 class="events-subtitle reveal">Próximos eventos</h3>
+    <div class="events-grid" id="eventsUpcoming" data-past="eventsPast">
+      <div class="event-card reveal" data-inicio="2026-10-23T21:00:00-05:00" data-fin="2026-10-24T03:00:00-05:00">
         <div class="event-img">
-          <div class="ph-block grad-1"><i class="fa-solid fa-bullhorn"></i></div>
-          <div class="event-date"><strong>12</strong><span>Oct</span></div>
+          <div class="ph-block grad-3"><i class="fa-solid fa-fire"></i></div>
+          <div class="event-date"><strong>23</strong><span>Oct</span></div>
         </div>
         <div class="event-body">
-          <h3>Conferencia de Jóvenes 2026</h3>
+          <h3>Vigilia: Familias en la Brecha</h3>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 5:00 PM - 9:00 PM</span>
-            <span><i class="fa-solid fa-location-dot"></i> Auditorio Principal</span>
+            <span><i class="fa-solid fa-calendar-day"></i> Viernes 23 de octubre · 9:00 PM</span>
+            <span><i class="fa-solid fa-location-dot"></i> Templo Galilea</span>
+          </div>
+          <a href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener">Cómo llegar <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="event-card reveal" data-inicio="2026-10-31T10:00:00-05:00" data-fin="2026-10-31T15:00:00-05:00">
+        <div class="event-img">
+          <div class="ph-block grad-5"><i class="fa-solid fa-water"></i></div>
+          <div class="event-date"><strong>31</strong><span>Oct</span></div>
+        </div>
+        <div class="event-body">
+          <h3>Concentración y Bautismo · Zona 5</h3>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-calendar-day"></i> Sábado 31 de octubre · 10:00 AM</span>
+            <span><i class="fa-solid fa-location-dot"></i> Iglesia Cuadrangular Betel, Recinto Maravilla 2</span>
           </div>
           <a href="contacto.html">Más información <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="event-card reveal">
+      <div class="event-card reveal" data-inicio="2026-11-01T10:00:00-05:00" data-fin="2026-11-01T13:00:00-05:00">
         <div class="event-img">
-          <div class="ph-block grad-2"><i class="fa-solid fa-heart"></i></div>
-          <div class="event-date"><strong>25</strong><span>Oct</span></div>
+          <div class="ph-block grad-1"><i class="fa-solid fa-cross"></i></div>
+          <div class="event-date"><strong>01</strong><span>Nov</span></div>
         </div>
         <div class="event-body">
-          <h3>Retiro de Matrimonios</h3>
+          <h3>Culto Dominical y Santa Cena</h3>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> Todo el día</span>
-            <span><i class="fa-solid fa-location-dot"></i> Centro de Retiros Betel</span>
+            <span><i class="fa-solid fa-calendar-day"></i> Domingo 1 de noviembre · 10:00 AM</span>
+            <span><i class="fa-solid fa-location-dot"></i> Templo Galilea</span>
           </div>
-          <a href="contacto.html">Más información <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener">Cómo llegar <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="event-card reveal">
+      <div class="event-card reveal" data-fin="2026-12-31T23:59:00-05:00">
         <div class="event-img">
-          <div class="ph-block grad-3"><i class="fa-solid fa-music"></i></div>
-          <div class="event-date"><strong>08</strong><span>Nov</span></div>
+          <div class="ph-block grad-2"><i class="fa-solid fa-microphone-lines"></i></div>
+          <div class="event-date"><strong>Dic</strong><span>2026</span></div>
+          <div class="event-status">Fecha por confirmar</div>
         </div>
         <div class="event-body">
-          <h3>Noche de Adoración</h3>
+          <h3>Podcast Galilea</h3>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 7:30 PM - 10:00 PM</span>
-            <span><i class="fa-solid fa-location-dot"></i> Templo Principal</span>
+            <span><i class="fa-solid fa-calendar-day"></i> Diciembre 2026 · fecha por confirmar</span>
+            <span><i class="fa-solid fa-location-dot"></i> Transmisión en YouTube</span>
           </div>
-          <a href="contacto.html">Más información <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="https://youtube.com/@iglesiacuadrangulargalilea2571" target="_blank" rel="noopener">Ir al canal <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="event-card reveal" data-fin="2026-12-31T23:59:00-05:00">
+        <div class="event-img">
+          <div class="ph-block grad-6"><i class="fa-solid fa-earth-americas"></i></div>
+          <div class="event-date"><strong>Dic</strong><span>2026</span></div>
+          <div class="event-status">Fecha por confirmar</div>
+        </div>
+        <div class="event-body">
+          <h3>Viaje Misionero</h3>
+          <div class="event-meta">
+            <span><i class="fa-solid fa-calendar-day"></i> Diciembre 2026 · fechas por confirmar</span>
+            <span><i class="fa-solid fa-location-dot"></i> Por anunciar</span>
+          </div>
+          <a href="contacto.html">Quiero participar <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
       <div class="event-card reveal">
         <div class="event-img">
           <div class="ph-block grad-4"><i class="fa-solid fa-child-reaching"></i></div>
-          <div class="event-date"><strong>21</strong><span>Nov</span></div>
+          <div class="event-date"><strong>Pronto</strong><span></span></div>
+          <div class="event-status">Próximamente</div>
         </div>
         <div class="event-body">
-          <h3>Campamento Galilea Kids</h3>
+          <h3>Culto de Niños</h3>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 9:00 AM - 6:00 PM</span>
-            <span><i class="fa-solid fa-location-dot"></i> Campamento Monte Sión</span>
+            <span><i class="fa-solid fa-calendar-day"></i> Próximamente</span>
+            <span><i class="fa-solid fa-location-dot"></i> Templo Galilea</span>
           </div>
           <a href="contacto.html">Más información <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="event-card reveal">
+    </div>
+  </div>
+</section>
+
+<!-- ===== EVENTOS REALIZADOS ===== -->
+<section class="section-pad events-past" id="realizados">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Eventos realizados</div>
+      <h2 class="section-title">Lo que <span>ya vivimos</span></h2>
+      <p class="section-desc">Gracias a todos los que fueron parte. ¡Dios ha sido fiel en cada encuentro!</p>
+    </div>
+    <div class="events-grid" id="eventsPast">
+      <div class="event-card reveal is-past" data-fin="2026-10-17T18:00:00-05:00">
         <div class="event-img">
-          <div class="ph-block grad-5"><i class="fa-solid fa-hand-holding-heart"></i></div>
-          <div class="event-date"><strong>05</strong><span>Dic</span></div>
+          <div class="ph-block grad-2"><i class="fa-solid fa-utensils"></i></div>
+          <div class="event-date"><strong>17</strong><span>Oct</span></div>
+          <div class="event-status"><i class="fa-solid fa-check"></i> Realizado</div>
         </div>
         <div class="event-body">
-          <h3>Jornada de Acción Social</h3>
+          <h3>Festival Gastronómico 2026</h3>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 8:00 AM - 1:00 PM</span>
-            <span><i class="fa-solid fa-location-dot"></i> Comunidad Vista Hermosa</span>
+            <span><i class="fa-solid fa-calendar-day"></i> Sábado 17 de octubre · 9:00 AM</span>
+            <span><i class="fa-solid fa-location-dot"></i> Templo Galilea</span>
           </div>
-          <a href="contacto.html">Más información <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="event-card reveal">
+      <div class="event-card reveal is-past" data-fin="2026-09-29T22:00:00-05:00">
         <div class="event-img">
-          <div class="ph-block grad-6"><i class="fa-solid fa-star"></i></div>
-          <div class="event-date"><strong>24</strong><span>Dic</span></div>
+          <div class="ph-block grad-5"><i class="fa-solid fa-heart"></i></div>
+          <div class="event-date"><strong>29</strong><span>Sep</span></div>
+          <div class="event-status"><i class="fa-solid fa-check"></i> Realizado</div>
         </div>
         <div class="event-body">
-          <h3>Celebración de Navidad</h3>
+          <h3>Noche de Parejas</h3>
           <div class="event-meta">
-            <span><i class="fa-solid fa-clock"></i> 7:00 PM - 9:00 PM</span>
-            <span><i class="fa-solid fa-location-dot"></i> Templo Principal</span>
+            <span><i class="fa-solid fa-calendar-day"></i> Martes 29 de septiembre · 7:30 PM</span>
+            <span><i class="fa-solid fa-location-dot"></i> Templo Galilea</span>
           </div>
-          <a href="contacto.html">Más información <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -269,6 +333,6 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261019e"></script>
+<script src="js/script.js?v=20261019g"></script>
 </body>
 </html>
