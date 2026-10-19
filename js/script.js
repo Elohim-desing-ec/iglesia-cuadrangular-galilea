@@ -269,6 +269,72 @@ if (nextEvent && upcomingGrid) {
   }
 }
 
+// Weekly live-stream countdown (predicas.html). Counts down to the next service; during the service window
+// it shows the YouTube live player instead. Times are Ecuador time (UTC-5, no daylight saving), so the
+// countdown is correct for visitors in any time zone.
+const LIVE_SCHEDULE = {day: 0, hour: 10, minute: 0, durationMin: 150, utcOffset: -5}; // Sunday 10:00 AM, 2.5 h
+const liveBox = document.getElementById('liveCountdown');
+if (liveBox) {
+  const embed = document.getElementById('liveEmbed');
+  const toggle = document.getElementById('liveShow');
+  const part = name => liveBox.querySelector(`[data-live="${name}"]`);
+  const cd = part('countdown');
+  const countdownHTML = cd.innerHTML;
+  const offset = LIVE_SCHEDULE.utcOffset * 3600e3;
+  const duration = LIVE_SCHEDULE.durationMin * 60e3;
+  const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const pad = n => String(n).padStart(2, '0');
+
+  // start of the current or next service, as a timestamp
+  const nextStart = (now) => {
+    const local = new Date(now + offset); // UTC fields of this date = Ecuador wall-clock time
+    const ahead = (LIVE_SCHEDULE.day - local.getUTCDay() + 7) % 7;
+    let start = Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate() + ahead,
+      LIVE_SCHEDULE.hour, LIVE_SCHEDULE.minute) - offset;
+    if (now >= start + duration) start += 7 * 864e5;
+    return start;
+  };
+  const showEmbed = () => {
+    const iframe = embed.querySelector('iframe');
+    if (!iframe.src) iframe.src = iframe.dataset.src;
+    embed.hidden = false;
+    toggle.parentElement.hidden = true;
+  };
+  toggle.addEventListener('click', showEmbed);
+
+  let wasLive = null;
+  let start = 0;
+  const tick = () => {
+    const now = Date.now();
+    if (now >= start + duration || !start) start = nextStart(now);
+    const live = now >= start;
+    if (live !== wasLive) {
+      wasLive = live;
+      liveBox.classList.toggle('is-live', live);
+      part('badge').textContent = live ? '¡Estamos en vivo!' : 'Próxima transmisión';
+      if (live) {
+        cd.innerHTML = '<div class="countdown-live"><span class="live-dot"></span> En vivo ahora</div>';
+        showEmbed();
+      } else {
+        cd.innerHTML = countdownHTML;
+        const d = new Date(start + offset);
+        const h = d.getUTCHours();
+        part('when').textContent = `${days[d.getUTCDay()]} ${d.getUTCDate()} de ${months[d.getUTCMonth()]} · ` +
+          `${h % 12 || 12}:${pad(d.getUTCMinutes())} ${h < 12 ? 'AM' : 'PM'} (hora de Ecuador)`;
+      }
+    }
+    if (live) return;
+    const sec = Math.floor((start - now) / 1000);
+    cd.querySelector('[data-cd="d"]').textContent = Math.floor(sec / 86400);
+    cd.querySelector('[data-cd="h"]').textContent = pad(Math.floor(sec % 86400 / 3600));
+    cd.querySelector('[data-cd="m"]').textContent = pad(Math.floor(sec % 3600 / 60));
+    cd.querySelector('[data-cd="s"]').textContent = pad(sec % 60);
+  };
+  tick();
+  setInterval(tick, 1000);
+}
+
 // Photo carousel (only present on index.html) - duplicate the photos so the loop is seamless
 const photoTrack = document.getElementById('photoTrack');
 if (photoTrack && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -336,3 +402,16 @@ if (newsletterForm) {
     this.reset();
   });
 }
+
+// Copy buttons (ofrendas.html bank details) - <button class="copy-btn" data-copy="text">
+document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+  const original = btn.innerHTML;
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy);
+      btn.classList.add('copied');
+      btn.innerHTML = '<i class="fa-solid fa-check"></i> Copiado';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = original; }, 2000);
+    } catch (e) { /* clipboard blocked: the number stays visible to copy by hand */ }
+  });
+});

@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261019g">
+<link rel="stylesheet" href="css/style.css?v=20261019k">
 </head>
 <body>
 
@@ -50,8 +50,7 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner">
-  <i class="fa-solid fa-hand-holding-heart banner-icon"></i>
+<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('img/cantantes.jpg') center 35%/cover no-repeat;">
   <div class="container">
     <div class="eyebrow">Generosidad</div>
     <h1>Tu ofrenda transforma vidas</h1>
@@ -63,29 +62,105 @@
   </div>
 </section>
 
-<!-- ===== OFRENDAS / GIVING ===== -->
-<section class="section-pad giving" id="ofrendas">
+<!-- ===== VERSICULO / INTRO ===== -->
+<section class="section-pad give-intro">
   <div class="container">
-    <div class="giving-wrap reveal">
-      <div class="giving-text">
-        <div class="eyebrow" style="color:var(--accent-400);">Generosidad</div>
-        <h2>Tu ofrenda transforma <br>vidas y comunidades</h2>
-        <p>Cada contribución nos ayuda a seguir predicando el evangelio, apoyando familias necesitadas y expandiendo el Reino de Dios.</p>
-        <a href="contacto.html" class="btn btn-accent"><i class="fa-solid fa-hand-holding-heart"></i> Contáctanos para dar</a>
+    <div class="give-verse reveal">
+      <i class="fa-solid fa-quote-left"></i>
+      <p>Cada uno dé como propuso en su corazón: no con tristeza, ni por necesidad, porque Dios ama al dador alegre.</p>
+      <span>2 Corintios 9:7</span>
+    </div>
+    <p class="section-desc give-lead reveal">Dar es un acto de adoración y gratitud. Cada ofrenda y diezmo nos ayuda a seguir predicando el evangelio, apoyando a familias necesitadas y extendiendo el Reino de Dios en Milagro y más allá.</p>
+  </div>
+</section>
+
+<!-- ===== FORMAS DE DAR =====
+     Datos bancarios en .bank-account; cada botón "Copiar" copia el texto de su data-copy. -->
+<section class="section-pad give-ways" id="formas">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Formas de dar</div>
+      <h2 class="section-title">Elige cómo <span>sembrar</span></h2>
+      <p class="section-desc">Puedes dar desde tu casa con una transferencia o en persona durante cualquier servicio.</p>
+    </div>
+    <div class="give-grid">
+      <div class="give-card give-card-main reveal">
+        <div class="give-card-head">
+          <div class="give-icon"><i class="fa-solid fa-building-columns"></i></div>
+          <div>
+            <h3>Transferencia o depósito</h3>
+            <p>Desde la app de tu banco, Deuna o en ventanilla.</p>
+          </div>
+        </div>
+        <div class="bank-account">
+          <div class="bank-row"><span>Banco</span><strong>Produbanco</strong></div>
+          <div class="bank-row"><span>Tipo</span><strong>Cuenta de ahorros</strong></div>
+          <div class="bank-row bank-row-key"><span>N.º de cuenta</span><strong>20300055003</strong><button type="button" class="copy-btn" data-copy="20300055003"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+          <div class="bank-row"><span>Titular</span><strong>Daniela Macias Valle</strong><button type="button" class="copy-btn" data-copy="Daniela Macias Valle"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+          <div class="bank-row"><span>Cédula</span><strong>1204910622</strong><button type="button" class="copy-btn" data-copy="1204910622"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+          <div class="bank-row"><span>Correo</span><strong>iglesiacgalilea@gmail.com</strong><button type="button" class="copy-btn" data-copy="iglesiacgalilea@gmail.com"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+        </div>
+        <button type="button" class="copy-btn copy-all" data-copy="Banco: Produbanco&#10;Tipo: Cuenta de ahorros&#10;N. de cuenta: 20300055003&#10;Titular: Daniela Macias Valle&#10;Cédula: 1204910622&#10;Correo: iglesiacgalilea@gmail.com"><i class="fa-regular fa-copy"></i> Copiar todos los datos</button>
+        <ol class="give-steps">
+          <li><strong>Copia los datos</strong> de la cuenta.</li>
+          <li><strong>Transfiere</strong> desde tu banco o app.</li>
+          <li><strong>Envía el comprobante</strong> por WhatsApp.</li>
+        </ol>
+        <div class="give-receipt">
+          <span>Enviar comprobante a:</span>
+          <a class="wa-btn-lg" href="https://wa.me/593959009768?text=Hola%20Pastor%20V%C3%ADctor%2C%20te%20env%C3%ADo%20el%20comprobante%20de%20mi%20ofrenda." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Pastor Víctor</a>
+          <a class="wa-btn-lg" href="https://wa.me/593991060099?text=Hola%20Pastora%20Daniela%2C%20te%20env%C3%ADo%20el%20comprobante%20de%20mi%20ofrenda." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Pastora Daniela</a>
+        </div>
       </div>
-      <div class="giving-methods">
-        <div class="giving-method">
-          <i class="fa-solid fa-mobile-screen-button"></i>
-          <div><h4>Transferencia bancaria</h4><span>Realiza tu ofrenda o diezmo en línea</span></div>
+      <div class="give-side">
+        <div class="give-card reveal">
+          <div class="give-icon"><i class="fa-solid fa-qrcode"></i></div>
+          <h3>Código QR en el templo</h3>
+          <p>Escanea el código disponible durante los servicios con la app de tu banco.</p>
         </div>
-        <div class="giving-method">
-          <i class="fa-solid fa-qrcode"></i>
-          <div><h4>Código QR en el templo</h4><span>Escanea el código disponible en el servicio</span></div>
+        <div class="give-card reveal">
+          <div class="give-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+          <h3>Sobre de ofrenda</h3>
+          <p>Entrega tu ofrenda en cualquier servicio. Puedes hacerlo de forma anónima.</p>
         </div>
-        <div class="giving-method">
-          <i class="fa-solid fa-envelope-open-text"></i>
-          <div><h4>Sobre de ofrenda</h4><span>Entrega tu ofrenda en cualquier servicio</span></div>
+        <div class="give-card reveal">
+          <div class="give-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <h3>Desde el exterior</h3>
+          <p>¿Vives fuera de Ecuador? <a href="contacto.html">Escríbenos</a> y te indicamos cómo enviar tu ofrenda.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== A DONDE VA TU OFRENDA ===== -->
+<section class="section-pad services give-impact">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Tu ofrenda en acción</div>
+      <h2 class="section-title">¿A dónde va <span>tu ofrenda?</span></h2>
+      <p class="section-desc">Administramos cada aporte con integridad y transparencia.</p>
+    </div>
+    <div class="service-cards">
+      <div class="service-card reveal">
+        <div class="day-icon"><i class="fa-solid fa-church"></i></div>
+        <h3>Sostenimiento</h3>
+        <p>El cuidado del templo y los servicios de cada semana.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="day-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+        <h3>Ayuda social</h3>
+        <p>Apoyo a familias necesitadas de nuestra comunidad.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="day-icon"><i class="fa-solid fa-earth-americas"></i></div>
+        <h3>Misiones</h3>
+        <p>Evangelismo en las calles y viajes misioneros.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="day-icon"><i class="fa-solid fa-seedling"></i></div>
+        <h3>Ministerios</h3>
+        <p>Jóvenes, niños, damas, caballeros, alabanza y más.</p>
       </div>
     </div>
   </div>
@@ -184,6 +259,6 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261019g"></script>
+<script src="js/script.js?v=20261019k"></script>
 </body>
 </html>
