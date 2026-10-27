@@ -1,3 +1,6 @@
+// Todo va dentro de una función para no crear variables globales: el script de PayPhone
+// define cientos de nombres globales cortos (io, a, b...) y un choque de nombres lo rompe.
+(() => {
 // Ofrenda en línea con PayPhone (ofrendas.html + ofrenda-confirmada.html).
 // Credenciales: en developer.payphone.app crea una aplicación tipo WEB con el dominio
 // iglesiacuadrangulargalilea.org y la URL de respuesta https://iglesiacuadrangulargalilea.org/ofrenda-confirmada.html
@@ -167,3 +170,4 @@ if (ppResult) {
         'Si se realizó un cobro, escríbenos por WhatsApp con el número de transacción: ' + id));
   }
 }
+})();

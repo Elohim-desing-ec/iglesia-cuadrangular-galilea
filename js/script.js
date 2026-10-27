@@ -1,3 +1,6 @@
+// Todo va dentro de una función para no crear variables globales: el script de PayPhone
+// define cientos de nombres globales cortos (io, a, b...) y un choque de nombres lo rompe.
+(() => {
 // Header scroll effect
 const header = document.getElementById('siteHeader');
 const toTop = document.getElementById('toTop');
@@ -461,3 +464,4 @@ document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
     } catch (e) { /* clipboard blocked: the number stays visible to copy by hand */ }
   });
 });
+})();
