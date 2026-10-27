@@ -3,8 +3,8 @@
 // iglesiacuadrangulargalilea.org y la URL de respuesta https://iglesiacuadrangulargalilea.org/ofrenda-confirmada.html
 // PayPhone solo acepta la cajita desde ese dominio (y http://localhost para pruebas).
 const PAYPHONE = {
-  token: '',    // TOKEN de la aplicación WEB
-  storeId: ''   // STOREID de la tienda
+  token: 'diOebl89CSkdrF_LDCp40a-q_aIkl-7i7FvFM7S6iXcratDHE8v9B7HBJx4kCV5rEAGBRyMP53SHlnESakJlpqFRkDCXtF7VWzCkqCFvgJ37KEEGPwNlNIm3xF12TX6iUjY6rZy_cLMhiuEuC3aUzKeb6YBpLmRKqrpRTNYe251KFdwFdr0azN7fBtePtHjuFAHwuyWgX0t_o6sbwT4smNTr3tbfODpxyhsI2siMa7jfC6h0VJdvaoEVt3qT2a9dW15ZHj9K2zI5yZgIk8BXeWcWYyUYiC9vvtx2W43sOvtth2kl-uMt-zdqhaMHmSdxVyoMkw',    // TOKEN de la aplicación WEB
+  storeId: '2bae50675ca0492f8e6a74a247b4f907'   // STOREID de la tienda
 };
 const PP_READY = Boolean(PAYPHONE.token && PAYPHONE.storeId);
 const PP_CDN = 'https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box';
