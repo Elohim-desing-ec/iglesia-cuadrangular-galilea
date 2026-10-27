@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261019s">
+<link rel="stylesheet" href="css/style.css?v=20261027g">
 </head>
 <body>
 
@@ -75,15 +75,58 @@
 </section>
 
 <!-- ===== FORMAS DE DAR =====
-     Datos bancarios en .bank-account; cada botón "Copiar" copia el texto de su data-copy. -->
+     Fondo con foto + luces de color para que las tarjetas de vidrio tengan qué desenfocar.
+     PayPhone: configura token y storeId en js/payphone.js. Datos bancarios: cada botón "Copiar" copia su data-copy. -->
 <section class="section-pad give-ways" id="formas">
+  <span class="give-ways-bg" aria-hidden="true"></span>
+  <span class="give-orb give-orb-1" aria-hidden="true"></span>
+  <span class="give-orb give-orb-2" aria-hidden="true"></span>
+  <span class="give-orb give-orb-3" aria-hidden="true"></span>
   <div class="container">
     <div class="section-head center reveal">
       <div class="eyebrow">Formas de dar</div>
       <h2 class="section-title">Elige cómo <span>sembrar</span></h2>
-      <p class="section-desc">Puedes dar desde tu casa con una transferencia o en persona durante cualquier servicio.</p>
+      <p class="section-desc">Ofrenda en línea con tarjeta o PayPhone, por transferencia, o en persona durante cualquier servicio.</p>
     </div>
     <div class="give-grid">
+
+      <!-- Ofrenda en línea (PayPhone) -->
+      <div class="give-card give-card-main give-online reveal" id="ppGive">
+        <div class="give-card-head">
+          <div class="give-icon give-icon-pp"><i class="fa-solid fa-credit-card"></i></div>
+          <div>
+            <h3>Ofrenda en línea</h3>
+            <p>Con tarjeta de crédito, débito o la app PayPhone.</p>
+          </div>
+          <span class="give-secure"><i class="fa-solid fa-lock"></i> Pago seguro</span>
+        </div>
+
+        <span class="pp-label">¿Qué deseas dar?</span>
+        <div class="pp-chips" role="radiogroup" aria-label="Tipo de aporte">
+          <label><input type="radio" name="ppTipo" value="Ofrenda" checked><span><i class="fa-solid fa-hand-holding-heart"></i> Ofrenda</span></label>
+          <label><input type="radio" name="ppTipo" value="Diezmo"><span><i class="fa-solid fa-seedling"></i> Diezmo</span></label>
+          <label><input type="radio" name="ppTipo" value="Misiones"><span><i class="fa-solid fa-earth-americas"></i> Misiones</span></label>
+        </div>
+
+        <span class="pp-label">Monto (USD)</span>
+        <div class="pp-amounts" role="radiogroup" aria-label="Monto">
+          <label><input type="radio" name="ppMonto" value="5"><span>$5</span></label>
+          <label><input type="radio" name="ppMonto" value="10" checked><span>$10</span></label>
+          <label><input type="radio" name="ppMonto" value="20"><span>$20</span></label>
+          <label><input type="radio" name="ppMonto" value="50"><span>$50</span></label>
+          <label><input type="radio" name="ppMonto" value="100"><span>$100</span></label>
+          <label class="pp-other"><input type="radio" name="ppMonto" value="otro"><span>Otro</span></label>
+        </div>
+        <div class="pp-custom" id="ppCustom" hidden>
+          <span>$</span>
+          <input type="number" id="ppCustomInput" min="1" max="1000" step="0.01" inputmode="decimal" placeholder="Escribe el monto" aria-label="Otro monto en dólares">
+        </div>
+
+        <button type="button" class="btn btn-accent pp-go" id="ppGo"><i class="fa-solid fa-heart"></i> <span id="ppGoText">Ofrendar $10.00</span></button>
+        <p class="pp-note" id="ppNote"><i class="fa-solid fa-shield-halved"></i> Procesado por PayPhone. La iglesia no recibe ni guarda los datos de tu tarjeta.</p>
+      </div>
+
+      <!-- Transferencia o depósito -->
       <div class="give-card give-card-main reveal">
         <div class="give-card-head">
           <div class="give-icon"><i class="fa-solid fa-building-columns"></i></div>
@@ -112,26 +155,38 @@
           <a class="wa-btn-lg" href="https://wa.me/593991060099?text=Hola%20Pastora%20Daniela%2C%20te%20env%C3%ADo%20el%20comprobante%20de%20mi%20ofrenda." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Pastora Daniela</a>
         </div>
       </div>
-      <div class="give-side">
-        <div class="give-card reveal">
-          <div class="give-icon"><i class="fa-solid fa-qrcode"></i></div>
-          <h3>Código QR en el templo</h3>
-          <p>Escanea el código disponible durante los servicios con la app de tu banco.</p>
-        </div>
-        <div class="give-card reveal">
-          <div class="give-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
-          <h3>Sobre de ofrenda</h3>
-          <p>Entrega tu ofrenda en cualquier servicio. Puedes hacerlo de forma anónima.</p>
-        </div>
-        <div class="give-card reveal">
-          <div class="give-icon"><i class="fa-solid fa-earth-americas"></i></div>
-          <h3>Desde el exterior</h3>
-          <p>¿Vives fuera de Ecuador? <a href="contacto.html">Escríbenos</a> y te indicamos cómo enviar tu ofrenda.</p>
-        </div>
+    </div>
+
+    <div class="give-side">
+      <div class="give-card reveal">
+        <div class="give-icon"><i class="fa-solid fa-qrcode"></i></div>
+        <h3>Código QR en el templo</h3>
+        <p>Escanea el código disponible durante los servicios con la app de tu banco.</p>
+      </div>
+      <div class="give-card reveal">
+        <div class="give-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+        <h3>Sobre de ofrenda</h3>
+        <p>Entrega tu ofrenda en cualquier servicio. Puedes hacerlo de forma anónima.</p>
+      </div>
+      <div class="give-card reveal">
+        <div class="give-icon"><i class="fa-solid fa-earth-americas"></i></div>
+        <h3>Desde el exterior</h3>
+        <p>Usa la ofrenda en línea con tu tarjeta, o <a href="contacto.html">escríbenos</a> para otras opciones.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Ventana de pago PayPhone: la cajita se dibuja dentro de #pp-button -->
+<div class="pp-modal" id="ppModal" hidden>
+  <div class="pp-modal-backdrop" data-pp-close></div>
+  <div class="pp-modal-panel" role="dialog" aria-modal="true" aria-labelledby="ppModalTitle">
+    <button type="button" class="pp-modal-close" data-pp-close aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+    <span class="pp-label">Estás dando</span>
+    <h3 id="ppModalTitle"><span id="ppSumTipo">Ofrenda</span> · <span id="ppSumMonto">$10.00</span></h3>
+    <div id="pp-button" class="pp-box"><div class="pp-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando pago seguro…</div></div>
+  </div>
+</div>
 
 <!-- ===== A DONDE VA TU OFRENDA ===== -->
 <section class="section-pad services give-impact">
@@ -185,6 +240,10 @@
       <div class="faq-item">
         <div class="faq-q"><h4>¿Puedo dar de forma anónima?</h4><i class="fa-solid fa-plus"></i></div>
         <div class="faq-a"><p>Sí, puedes hacerlo a través del sobre de ofrenda sin necesidad de escribir tus datos.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h4>¿Es seguro ofrendar en línea?</h4><i class="fa-solid fa-plus"></i></div>
+        <div class="faq-a"><p>Sí. El pago lo procesa PayPhone, una plataforma ecuatoriana de pagos. Los datos de tu tarjeta van directo a PayPhone; la iglesia nunca los ve ni los guarda.</p></div>
       </div>
     </div>
   </div>
@@ -259,7 +318,8 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261019s"></script>
-<script src="js/asistente.js?v=20261019s"></script>
+<script src="js/script.js?v=20261027g"></script>
+<script src="js/asistente.js?v=20261027g"></script>
+<script src="js/payphone.js?v=20261027g"></script>
 </body>
 </html>
