@@ -1373,7 +1373,7 @@
   .nav-links .dropdown a:hover{background:rgba(255,255,255,0.08);}
   @media(max-width:960px){
     .nav-links{
-      background:rgba(10,26,51,0.6);-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);
+      background:rgba(10,26,51,0.94);-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);
       border-left:1px solid var(--glass-border);
     }
     .dropdown{background:rgba(255,255,255,0.06);-webkit-backdrop-filter:none;backdrop-filter:none;}
@@ -1623,4 +1623,16 @@
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
     .give-ways .give-card,.give-ways .give-card-main,.pp-result{background:var(--navy-800);}
     .pp-modal-panel{background:var(--white);}
+  }
+
+  /* enlace "Ofrendar" dentro del menú: solo en celular, donde el botón de arriba se oculta */
+  .nav-links .nav-give{display:none;}
+  @media(max-width:960px){
+    .nav-links .nav-give{display:block;}
+    .nav-links .nav-give a{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:100px;color:var(--white);
+      background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.28);box-shadow:var(--glass-highlight);
+    }
+    .nav-links .nav-give a::after{display:none;}
+    .nav-links .nav-give a.active{background:linear-gradient(135deg,var(--accent-500),var(--accent-600));border-color:transparent;color:var(--white);}
   }
