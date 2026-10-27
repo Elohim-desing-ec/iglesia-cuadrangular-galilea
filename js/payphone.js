@@ -7,9 +7,9 @@
 // PayPhone solo acepta la cajita desde ese dominio (y http://localhost para pruebas).
 const PAYPHONE = {
   token: 'diOebl89CSkdrF_LDCp40a-q_aIkl-7i7FvFM7S6iXcratDHE8v9B7HBJx4kCV5rEAGBRyMP53SHlnESakJlpqFRkDCXtF7VWzCkqCFvgJ37KEEGPwNlNIm3xF12TX6iUjY6rZy_cLMhiuEuC3aUzKeb6YBpLmRKqrpRTNYe251KFdwFdr0azN7fBtePtHjuFAHwuyWgX0t_o6sbwT4smNTr3tbfODpxyhsI2siMa7jfC6h0VJdvaoEVt3qT2a9dW15ZHj9K2zI5yZgIk8BXeWcWYyUYiC9vvtx2W43sOvtth2kl-uMt-zdqhaMHmSdxVyoMkw',    // TOKEN de la aplicación WEB
-  storeId: 'vf9Bkps6hEiEC8D2HX0wPw'   // STOREID de la tienda
+  storeId: ''   // opcional: vacío = tienda principal (Elohim). Solo para cobrar en otra sucursal
 };
-const PP_READY = Boolean(PAYPHONE.token && PAYPHONE.storeId);
+const PP_READY = Boolean(PAYPHONE.token);
 const PP_CDN = 'https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box';
 const PP_CONFIRM = 'https://paymentbox.payphonetodoesposible.com/api/confirm';
 const money = cents => '$' + (cents / 100).toFixed(2);
@@ -85,7 +85,7 @@ if (ppGive) {
     // ofrendas y diezmos no llevan IVA: todo el monto va en amountWithoutTax
     new PPaymentButtonBox({
       token: PAYPHONE.token,
-      storeId: PAYPHONE.storeId,
+      ...(PAYPHONE.storeId && {storeId: PAYPHONE.storeId}),
       clientTransactionId: 'OFR-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
       amount: cents,
       amountWithoutTax: cents,
