@@ -478,19 +478,22 @@ if (adGrid) {
     adGrid.closest('section').remove();
   } else {
     first.classList.add('is-featured');
-    const box = document.getElementById('adLightbox');
-    const boxImg = box.querySelector('img');
-    const close = () => { box.hidden = true; document.body.style.overflow = ''; };
-    adGrid.querySelectorAll('[data-ad-open]').forEach(btn => btn.addEventListener('click', () => {
-      const img = btn.querySelector('img');
-      boxImg.src = img.src;
-      boxImg.alt = img.alt;
-      box.hidden = false;
-      document.body.style.overflow = 'hidden';
-    }));
-    box.addEventListener('click', close);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) close(); });
   }
+}
+// any [data-ad-open] button (posters, past-event photos) opens its image full screen
+const adBox = document.getElementById('adLightbox');
+if (adBox) {
+  const boxImg = adBox.querySelector('img');
+  const close = () => { adBox.hidden = true; document.body.style.overflow = ''; };
+  document.querySelectorAll('[data-ad-open]').forEach(btn => btn.addEventListener('click', () => {
+    const img = btn.querySelector('img');
+    boxImg.src = img.src;
+    boxImg.alt = img.alt;
+    adBox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }));
+  adBox.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !adBox.hidden) close(); });
 }
 
 })();

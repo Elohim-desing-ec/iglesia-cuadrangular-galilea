@@ -1724,3 +1724,7 @@
   .next-event-top + .ads{padding-top:70px;background:var(--navy-950);}
   @media(max-width:768px){.next-event-top{padding-top:44px;}.next-event-top + .ads{padding-top:50px;}}
   .ads .give-orb-1{top:18%;}
+  /* foto/afiche dentro de una tarjeta de evento (se abre en grande al tocarla) */
+  .event-photo{display:block;width:100%;height:100%;padding:0;cursor:zoom-in;overflow:hidden;background:var(--navy-900);}
+  .event-photo img{width:100%;height:100%;object-fit:cover;object-position:78% center;transition:transform .6s ease;}
+  .event-card:hover .event-photo img{transform:scale(1.05);}
