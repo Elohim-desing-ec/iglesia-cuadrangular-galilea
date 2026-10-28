@@ -464,4 +464,33 @@ document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
     } catch (e) { /* clipboard blocked: the number stays visible to copy by hand */ }
   });
 });
+
+// Announcement posters (eventos.html) - remove posters whose data-fin has passed, feature the next one,
+// and open a poster full screen when tapped.
+const adGrid = document.getElementById('adGrid');
+if (adGrid) {
+  const now = new Date();
+  adGrid.querySelectorAll('.ad-card[data-fin]').forEach(card => {
+    if (new Date(card.dataset.fin) < now) card.remove();
+  });
+  const first = adGrid.querySelector('.ad-card');
+  if (!first) {
+    adGrid.closest('section').remove();
+  } else {
+    first.classList.add('is-featured');
+    const box = document.getElementById('adLightbox');
+    const boxImg = box.querySelector('img');
+    const close = () => { box.hidden = true; document.body.style.overflow = ''; };
+    adGrid.querySelectorAll('[data-ad-open]').forEach(btn => btn.addEventListener('click', () => {
+      const img = btn.querySelector('img');
+      boxImg.src = img.src;
+      boxImg.alt = img.alt;
+      box.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }));
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) close(); });
+  }
+}
+
 })();

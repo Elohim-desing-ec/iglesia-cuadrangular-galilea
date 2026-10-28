@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261027k">
+<link rel="stylesheet" href="css/style.css?v=20261027l">
 </head>
 <body>
 
@@ -62,6 +62,91 @@
     </div>
   </div>
 </section>
+
+<!-- ===== ANUNCIOS =====
+     Afiches de los próximos eventos (imágenes en fotos/anuncios/). Cada .ad-card desaparece sola cuando pasa su data-fin;
+     el primero que siga vigente se muestra en grande. Tocar la imagen la abre a pantalla completa. -->
+<section class="section-pad ads" id="anuncios">
+  <span class="give-orb give-orb-1" aria-hidden="true"></span>
+  <span class="give-orb give-orb-2" aria-hidden="true"></span>
+  <span class="give-orb give-orb-3" aria-hidden="true"></span>
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow">Anuncios</div>
+      <h2 class="section-title">No te pierdas <span>lo que viene</span></h2>
+      <p class="section-desc">Comparte estos anuncios con tu familia y amigos. ¡Todos están invitados!</p>
+    </div>
+    <div class="ad-grid" id="adGrid">
+
+      <article class="ad-card reveal" data-fin="2026-10-31T15:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Culto de Concentración y Bautismo">
+          <img src="fotos/anuncios/concentracion-bautismo.jpg" alt="Afiche: Culto de Concentración y Bautismo Zona 5, sábado 31 de octubre de 2026 a las 10:00 a.m. en la Iglesia Cuadrangular Betel, Recinto Maravilla 2" loading="lazy">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>31</strong>Oct</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-water"></i> Zona 5</span>
+            <h3>Culto de Concentración y Bautismo</h3>
+            <p><i class="fa-regular fa-clock"></i> Sábado 31 de octubre · 10:00 AM</p>
+            <p><i class="fa-solid fa-location-dot"></i> Iglesia Cuadrangular Betel, Recinto Maravilla 2</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Iglesia+Cuadrangular+Betel+Recinto+Maravilla+2+Milagro" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=%C2%A1Te%20invito%20al%20Culto%20de%20Concentraci%C3%B3n%20y%20Bautismo%20Zona%205!%20S%C3%A1bado%2031%20de%20octubre%2C%2010%3A00%20AM%2C%20Iglesia%20Cuadrangular%20Betel%20(Recinto%20Maravilla%202).%20https%3A%2F%2Figlesiacuadrangulargalilea.org%2Feventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="ad-card reveal" data-fin="2026-11-28T14:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Escuela Bíblica Soldados de Jesús">
+          <img src="fotos/anuncios/escuela-biblica.jpg" alt="Afiche: Escuela Bíblica Soldados de Jesús, reclutamiento de 0 a 99 años, sábado 28 de noviembre a las 10:00 a.m. en Iglesia Galilea, Rosa Borja de Icaza entre Pablo Echavarría y Alfredo Adum" loading="lazy">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>28</strong>Nov</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-star"></i> De 0 a 99 años</span>
+            <h3>Escuela Bíblica: Soldados de Jesús</h3>
+            <p><i class="fa-regular fa-clock"></i> Sábado 28 de noviembre · 10:00 AM</p>
+            <p><i class="fa-solid fa-location-dot"></i> Iglesia Galilea · Rosa Borja de Icaza, entre Pablo Echavarría y Alfredo Adum</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=%C2%A1Te%20invito%20a%20la%20Escuela%20B%C3%ADblica%20%22Soldados%20de%20Jes%C3%BAs%22!%20Para%20todas%20las%20edades.%20S%C3%A1bado%2028%20de%20noviembre%2C%2010%3A00%20AM%2C%20Iglesia%20Galilea.%20https%3A%2F%2Figlesiacuadrangulargalilea.org%2Feventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="ad-card reveal" data-fin="2026-12-31T23:59:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Viaje Misionero diciembre 2026">
+          <img src="fotos/anuncios/viaje-misionero.jpg" alt="Afiche: Viaje Misionero diciembre 2026 a las comunidades Sionas, Secoyas y Cofanes; con tu ayuda 700 niños recibirán un regalo especial" loading="lazy">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>Dic</strong>2026</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-gift"></i> 700 niños</span>
+            <h3>Viaje Misionero</h3>
+            <p><i class="fa-solid fa-earth-americas"></i> Comunidades Sionas, Secoyas y Cofanes</p>
+            <p><i class="fa-solid fa-heart"></i> Con tu ayuda, 700 niños recibirán un regalo especial</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn ad-btn-give" href="ofrendas.html#formas"><i class="fa-solid fa-hand-holding-heart"></i> Apoyar las misiones</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=%C2%A1Apoya%20el%20Viaje%20Misionero%20de%20Iglesia%20Galilea!%20En%20diciembre%20llevaremos%20esperanza%20y%20un%20regalo%20a%20700%20ni%C3%B1os%20de%20las%20comunidades%20Sionas%2C%20Secoyas%20y%20Cofanes.%20https%3A%2F%2Figlesiacuadrangulargalilea.org%2Feventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- Afiche a pantalla completa -->
+<div class="ad-lightbox" id="adLightbox" hidden>
+  <button type="button" class="ad-lightbox-close" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+  <img src="" alt="">
+</div>
 
 <!-- ===== EVENTOS =====
      Cada evento es un .event-card. data-inicio / data-fin (fecha y hora con -05:00, hora de Ecuador):
@@ -428,7 +513,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261027k"></script>
-<script src="js/asistente.js?v=20261027k"></script>
+<script src="js/script.js?v=20261027l"></script>
+<script src="js/asistente.js?v=20261027l"></script>
 </body>
 </html>
