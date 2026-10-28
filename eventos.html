@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261027l">
+<link rel="stylesheet" href="css/style.css?v=20261027m">
 </head>
 <body>
 
@@ -59,6 +59,28 @@
       <a href="index.html">Inicio</a>
       <i class="fa-solid fa-chevron-right"></i>
       <span>Eventos</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRÓXIMO EVENTO (cuenta regresiva) =====
+     Va primero en la página. js/script.js lo llena con el primer .event-card con data-inicio de #eventsUpcoming;
+     si no hay ninguno, la sección se oculta sola. -->
+<section class="events next-event-top">
+  <div class="container">
+    <div class="next-event reveal" id="nextEvent" hidden>
+      <div class="next-event-info">
+        <span class="next-badge"><span class="live-dot"></span> Próximo evento</span>
+        <h3 data-ne="title"></h3>
+        <div class="event-meta" data-ne="meta"></div>
+        <a class="btn btn-accent" data-ne="link" href="#"></a>
+      </div>
+      <div class="countdown" data-ne="countdown">
+        <div><strong data-cd="d">0</strong><span>Días</span></div>
+        <div><strong data-cd="h">00</strong><span>Horas</span></div>
+        <div><strong data-cd="m">00</strong><span>Min</span></div>
+        <div><strong data-cd="s">00</strong><span>Seg</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -159,21 +181,6 @@
       <div class="eyebrow">Agenda</div>
       <h2 class="section-title">Actividades para <span>toda la familia</span></h2>
       <p class="section-desc">Actividades para todas las edades durante todo el año. Ven y sé parte de lo que Dios está haciendo.</p>
-    </div>
-
-    <div class="next-event reveal" id="nextEvent" hidden>
-      <div class="next-event-info">
-        <span class="next-badge"><span class="live-dot"></span> Próximo evento</span>
-        <h3 data-ne="title"></h3>
-        <div class="event-meta" data-ne="meta"></div>
-        <a class="btn btn-accent" data-ne="link" href="#"></a>
-      </div>
-      <div class="countdown" data-ne="countdown">
-        <div><strong data-cd="d">0</strong><span>Días</span></div>
-        <div><strong data-cd="h">00</strong><span>Horas</span></div>
-        <div><strong data-cd="m">00</strong><span>Min</span></div>
-        <div><strong data-cd="s">00</strong><span>Seg</span></div>
-      </div>
     </div>
 
     <!-- ===== SERIE DEL MES: prédicas de jóvenes (Zona 5) =====
@@ -513,7 +520,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261027l"></script>
-<script src="js/asistente.js?v=20261027l"></script>
+<script src="js/script.js?v=20261027m"></script>
+<script src="js/asistente.js?v=20261027m"></script>
 </body>
 </html>

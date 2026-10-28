@@ -1716,3 +1716,11 @@
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
     .ad-card{background:var(--navy-800);}
   }
+
+  /* contador del próximo evento al principio de eventos.html, antes de los anuncios */
+  .next-event-top{padding:70px 0 0;background:var(--navy-950);background-image:none;}
+  .next-event-top .next-event{margin-bottom:0;}
+  .next-event-top:has(.next-event[hidden]){display:none;}
+  .next-event-top + .ads{padding-top:70px;background:var(--navy-950);}
+  @media(max-width:768px){.next-event-top{padding-top:44px;}.next-event-top + .ads{padding-top:50px;}}
+  .ads .give-orb-1{top:18%;}
