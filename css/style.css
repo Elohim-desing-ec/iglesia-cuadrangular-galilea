@@ -1730,7 +1730,7 @@
   .event-card:hover .event-photo img{transform:scale(1.05);}
 
   /* ===== ANIMACIONES DE TEXTO (js/script.js las activa al entrar en pantalla) =====
-     Títulos: cada palabra entra de borrosa a nítida y girando desde abajo; luego una línea de luz los recorre.
+     Títulos: cada palabra entra de borrosa a nítida y girando desde abajo.
      Palabras resaltadas: brillo que pasa cada pocos segundos. Eyebrows: se "decodifican". */
   .tw-host{position:relative;}
   .tw{display:inline-block;perspective:700px;}
@@ -1742,15 +1742,6 @@
     55%{opacity:1;filter:blur(1px);}
     100%{opacity:1;transform:none;filter:blur(0);}
   }
-  /* línea de luz que recorre el título una vez */
-  .tw-host::after{
-    content:'';position:absolute;top:-6%;bottom:-6%;left:0;width:22%;pointer-events:none;opacity:0;
-    background:linear-gradient(100deg,transparent,rgba(160,200,255,0.55),transparent);
-    mix-blend-mode:screen;filter:blur(6px);
-  }
-  .tw-go::after{animation:tw-scan 1.4s cubic-bezier(.5,0,.3,1) .55s both;}
-  @keyframes tw-scan{0%{left:-25%;opacity:0;}15%{opacity:1;}85%{opacity:1;}100%{left:105%;opacity:0;}}
-  .page-banner h1.tw-host{position:relative;}
 
   /* brillo en las palabras resaltadas (cada contexto define sus dos colores) */
   .section-title span,.cta-strip h2 span{--tw-a:var(--accent-500);--tw-b:#a9c6ff;}
@@ -1778,7 +1769,255 @@
   .page-banner .tw-eyebrow.tw-go,.hero .tw-eyebrow.tw-go{animation-name:tw-glow;}
 
   @media(prefers-reduced-motion:reduce){
-    .tw-i,.tw-host::after,.tw-eyebrow{animation:none !important;opacity:1 !important;filter:none !important;}
+    .tw-i,.tw-eyebrow{animation:none !important;opacity:1 !important;filter:none !important;}
   }
   /* "Desliza" se encimaba sobre el recuadro de cifras en pantallas bajas (laptops): solo se muestra si hay espacio */
   @media(max-height:960px){.hero .scroll-cue{display:none;}}
+
+  /* ===== APARECER AL BAJAR: todo el contenido entra suave mientras se hace scroll (js/script.js) ===== */
+  .sr{opacity:0;transform:translateY(26px) scale(.985);filter:blur(6px);
+    transition:opacity .85s ease,transform .85s cubic-bezier(.2,.75,.25,1),filter .85s ease;transition-delay:var(--sr-d,0ms);}
+  .sr.sr-in{opacity:1;transform:none;filter:blur(0);}
+  /* las .reveal que ya existían usan el mismo estilo de entrada (borroso a nítido, escalonado) */
+  .reveal{filter:blur(6px);transition:opacity .85s ease,transform .85s cubic-bezier(.2,.75,.25,1),filter .85s ease;transition-delay:var(--sr-d,0ms);}
+  .reveal.visible{filter:none;}
+  @media(prefers-reduced-motion:reduce){.reveal,.sr{filter:none !important;transition:none !important;opacity:1 !important;transform:none !important;}}
+
+  /* ===== GLOBO 3D (ubicacion.html): la Tierra en un fondo de estrellas, con pin de la iglesia ===== */
+  .globe-card{
+    position:relative;height:480px;border-radius:var(--radius-lg);overflow:hidden;isolation:isolate;
+    background:
+      radial-gradient(1px 1px at 12% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 78% 12%,#fff 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 32% 72%,#cfe0ff 50%,transparent 51%),radial-gradient(1px 1px at 88% 64%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 55% 30%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 8% 86%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 66% 88%,#cfe0ff 50%,transparent 51%),radial-gradient(1px 1px at 22% 44%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 94% 36%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 44% 8%,#fff 50%,transparent 51%),
+      radial-gradient(circle at 50% 50%,rgba(47,95,224,0.35),transparent 60%),
+      linear-gradient(160deg,#050b1a,#0a1a33 60%,#050b1a);
+    border:1px solid rgba(111,163,250,0.25);
+    box-shadow:0 30px 70px rgba(5,11,26,0.35),inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  .globe{position:absolute;inset:0;cursor:grab;}
+  .globe:active{cursor:grabbing;}
+  .globe .maplibregl-canvas{outline:none;}
+  .globe-card:not(.globe-ready) .globe::after{
+    content:'';position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;
+    border:3px solid rgba(255,255,255,0.15);border-top-color:var(--accent-400);animation:globe-spin 1s linear infinite;
+  }
+  @keyframes globe-spin{to{transform:rotate(360deg);}}
+  .globe-btn{
+    position:absolute;left:50%;bottom:46px;transform:translateX(-50%);z-index:2;
+    display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:100px;white-space:nowrap;
+    font-weight:600;font-size:14.5px;color:var(--white);
+    background:rgba(47,95,224,0.55);border:1px solid rgba(255,255,255,0.3);
+    -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+    box-shadow:0 12px 30px rgba(47,95,224,0.45),var(--glass-highlight);transition:background .25s,transform .25s;
+  }
+  .globe-btn:hover{background:rgba(47,95,224,0.8);transform:translateX(-50%) translateY(-2px);}
+  .globe-hint{
+    position:absolute;left:18px;top:18px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;
+    font-size:12.5px;font-weight:600;color:var(--text-light);background:rgba(5,11,26,0.45);border:1px solid rgba(255,255,255,0.15);
+    -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);pointer-events:none;transition:opacity .5s;
+  }
+  .globe-hint i{animation:globe-hand 1.8s ease-in-out infinite;}
+  @keyframes globe-hand{0%,100%{transform:translateX(-3px);}50%{transform:translateX(4px);}}
+  .globe-touched .globe-hint{opacity:0;}
+  .globe-card .maplibregl-ctrl-group{background:rgba(5,11,26,0.55);border:1px solid rgba(255,255,255,0.15);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);}
+  .globe-card .maplibregl-ctrl-group button + button{border-top-color:rgba(255,255,255,0.12);}
+  .globe-card .maplibregl-ctrl-icon{filter:invert(1);}
+  .globe-card .maplibregl-ctrl-attrib{background:rgba(5,11,26,0.55);color:var(--text-muted);font-size:10px;}
+  .globe-card .maplibregl-ctrl-attrib a{color:var(--text-light);}
+  .globe-card .maplibregl-ctrl-attrib-button{filter:invert(1);}
+  /* pin de la iglesia */
+  .globe-pin{display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;}
+  .globe-pin-dot{
+    position:relative;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:13px;color:var(--navy-900);
+    background:#f5b301;border:3px solid #fff;box-shadow:0 6px 16px rgba(0,0,0,0.5);order:2;
+  }
+  .globe-pin-dot::before,.globe-pin-dot::after{
+    content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid #f5b301;animation:globe-pulse 2.2s ease-out infinite;
+  }
+  .globe-pin-dot::after{animation-delay:1.1s;}
+  @keyframes globe-pulse{0%{transform:scale(1);opacity:.9;}100%{transform:scale(2.6);opacity:0;}}
+  .globe-pin-label{
+    order:1;padding:6px 12px;border-radius:12px;text-align:center;white-space:nowrap;line-height:1.25;
+    font:700 12.5px 'Poppins',sans-serif;color:var(--white);background:rgba(5,11,26,0.7);border:1px solid rgba(255,255,255,0.2);
+    -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+  }
+  .globe-pin-label small{display:block;font:500 10.5px 'Inter',sans-serif;color:var(--text-muted);}
+  .globe-fallback iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  @media(max-width:560px){
+    .globe-card{height:400px;}
+    .globe-btn{bottom:40px;font-size:13.5px;padding:12px 18px;}
+    .globe-hint{left:12px;top:12px;}
+  }
+  @media(prefers-reduced-motion:reduce){.globe-pin-dot::before,.globe-pin-dot::after,.globe-hint i{animation:none;}}
+
+  /* ===== MENÚ DEL CELULAR: pantalla completa de vidrio que se abre en círculo desde el botón ☰ ===== */
+  .nav-social{display:none;}
+  html.menu-open,html.menu-open body{overflow:hidden;}
+  /* con el menú abierto la barra de arriba no usa vidrio: un vidrio dentro de otro dejaba ver la página detrás */
+  html.menu-open header{-webkit-backdrop-filter:none;backdrop-filter:none;background:transparent;box-shadow:none;border-bottom-color:transparent;}
+  @media(max-width:960px){
+    .logo,.burger{position:relative;z-index:1101;}
+    .burger span{transition:transform .45s cubic-bezier(.7,0,.2,1),opacity .3s ease;}
+    .nav-links{
+      position:fixed;top:0;left:0;right:0;width:100%;height:100vh;height:100dvh;z-index:1050;
+      flex-direction:column;justify-content:flex-start;align-items:stretch;gap:4px;
+      padding:96px 22px calc(26px + env(safe-area-inset-bottom));overflow-y:auto;
+      background:
+        radial-gradient(circle at 90% 0%,rgba(47,95,224,0.38),transparent 50%),
+        radial-gradient(circle at 0% 100%,rgba(52,211,153,0.18),transparent 45%),
+        rgba(5,11,26,0.97);
+      -webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);
+      border-left:none;box-shadow:none;
+      clip-path:circle(0px at var(--mx,calc(100% - 40px)) var(--my,40px));visibility:hidden;
+      transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s linear .75s;
+    }
+    .nav-links.open{
+      clip-path:circle(160vmax at var(--mx,calc(100% - 40px)) var(--my,40px));visibility:visible;
+      transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s;
+    }
+    /* cada opción entra desde la derecha, una tras otra */
+    .nav-links > li{opacity:0;transform:translateX(40px);transition:opacity .4s ease,transform .55s cubic-bezier(.2,.75,.25,1);}
+    .nav-links.open > li{opacity:1;transform:none;transition-delay:calc(.22s + var(--n,0) * .06s);}
+    .has-dropdown{text-align:left;}
+    .nav-links > li > a{
+      display:flex;align-items:center;gap:14px;padding:11px 14px;border-radius:18px;border:1px solid transparent;
+      font:600 21px 'Poppins',sans-serif;color:var(--text-light);transition:background .25s,transform .2s,border-color .25s;
+    }
+    .nav-links > li > a::before{
+      font-family:'Font Awesome 6 Free';font-weight:900;font-size:16px;width:42px;height:42px;flex-shrink:0;
+      display:grid;place-items:center;border-radius:13px;color:var(--accent-400);
+      background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);box-shadow:var(--glass-highlight);
+    }
+    .nav-links > li > a[href="index.html"]::before{content:'\f015';}
+    .nav-links > li > a[href="nosotros.html"]::before{content:'\f0c0';}
+    .nav-links > li > a[href="horarios.html"]::before{content:'\f017';}
+    .nav-links > li > a[href="ubicacion.html"]::before{content:'\f3c5';}
+    .nav-links > li > a[href="eventos.html"]::before{content:'\f073';}
+    .nav-links > li > a[href="predicas.html"]::before{content:'\f04b';}
+    .nav-links > li > a[href="contacto.html"]::before{content:'\f0e0';}
+    .nav-links > li > a::after,.nav-links > li > a:hover::after,.nav-links > li > a.active::after{
+      content:'\f054';font-family:'Font Awesome 6 Free';font-weight:900;font-size:12px;
+      position:static;width:auto;height:auto;background:none;margin-left:auto;opacity:.35;transition:transform .25s,opacity .25s;
+    }
+    .nav-links > li > a:hover::after{transform:translateX(3px);opacity:.8;}
+    .nav-links > li > a:active{transform:scale(.97);background:rgba(255,255,255,0.08);}
+    .nav-links > li > a.active{color:var(--white);background:linear-gradient(135deg,rgba(47,95,224,0.38),rgba(47,95,224,0.08));border-color:rgba(111,163,250,0.35);}
+    .nav-links > li > a.active::before{color:var(--white);background:linear-gradient(135deg,var(--accent-500),var(--accent-600));border-color:transparent;}
+    /* Eventos: su flecha propia en lugar de la de la derecha, y el submenú se despliega con animación */
+    .nav-links > li > a.dropdown-toggle::after{display:none;}
+    .nav-links > li > a.dropdown-toggle i{margin-left:auto;font-size:12px;opacity:.6;transition:transform .3s;}
+    .nav-links .dropdown{margin:6px 0 8px 56px;padding:6px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
+    .has-dropdown.open .dropdown{animation:nav-drop .35s cubic-bezier(.2,.75,.25,1);}
+    @keyframes nav-drop{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
+    .nav-links .dropdown a{font-size:15px;}
+    /* Ofrendar: botón destacado */
+    .nav-links > li.nav-give{margin-top:12px;}
+    .nav-links > li.nav-give > a{
+      display:flex;justify-content:center;padding:15px 22px;font-size:17px;color:var(--white);
+      background:linear-gradient(135deg,var(--accent-500),var(--accent-600));border-color:transparent;box-shadow:var(--shadow-accent);
+    }
+    .nav-links > li.nav-give > a::before,.nav-links > li.nav-give > a::after{display:none;}
+    /* redes sociales al final */
+    .nav-social{display:block;margin-top:auto;padding-top:22px;}
+    .nav-social .contact-social{justify-content:center;gap:14px;margin:0;}
+    .nav-social .contact-social a{
+      width:48px;height:48px;font-size:18px;background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15);box-shadow:var(--glass-highlight);
+    }
+  }
+  @media(max-width:960px) and (prefers-reduced-motion:reduce){
+    .nav-links,.nav-links > li{transition:none !important;}
+  }
+
+  /* ===== PRIVACIDAD: aviso de cookies, contenido externo en espera y casilla de consentimiento ===== */
+  .cookie-banner{
+    position:fixed;left:50%;bottom:20px;z-index:1200;width:min(760px,calc(100% - 32px));
+    display:flex;align-items:center;gap:18px;padding:18px 20px;border-radius:22px;color:var(--text-light);
+    background:rgba(10,26,51,0.82);border:1px solid rgba(255,255,255,0.16);
+    -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
+    box-shadow:0 24px 60px rgba(0,0,0,0.45),var(--glass-highlight);
+    transform:translate(-50%,140%);opacity:0;transition:transform .55s cubic-bezier(.2,.75,.25,1),opacity .4s ease;
+  }
+  .cookie-banner.show{transform:translate(-50%,0);opacity:1;}
+  .cookie-ico{width:46px;height:46px;flex-shrink:0;border-radius:14px;display:grid;place-items:center;font-size:20px;color:var(--white);
+    background:linear-gradient(135deg,var(--accent-500),var(--accent-600));box-shadow:var(--shadow-accent);}
+  .cookie-text{flex:1;min-width:0;}
+  .cookie-text strong{display:block;font-family:'Poppins',sans-serif;font-size:15px;color:var(--white);margin-bottom:2px;}
+  .cookie-text p{font-size:13px;line-height:1.5;color:var(--text-muted);}
+  .cookie-text a{color:var(--accent-400);font-weight:600;text-decoration:underline;}
+  .cookie-actions{display:flex;gap:10px;flex-shrink:0;}
+  .cookie-btn{padding:11px 18px;border-radius:100px;font-size:13.5px;font-weight:600;white-space:nowrap;transition:.25s;}
+  .cookie-necessary{color:var(--white);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.22);}
+  .cookie-necessary:hover{background:rgba(255,255,255,0.16);}
+  .cookie-all{color:var(--white);background:linear-gradient(135deg,var(--accent-500),var(--accent-600));box-shadow:var(--shadow-accent);}
+  .cookie-all:hover{transform:translateY(-2px);}
+  @media(max-width:720px){
+    .cookie-banner{flex-wrap:wrap;bottom:12px;gap:12px 14px;padding:16px;}
+    .cookie-ico{width:40px;height:40px;font-size:17px;}
+    .cookie-actions{width:100%;}
+    .cookie-btn{flex:1;}
+  }
+  .cookie-settings-link{color:inherit;font-size:inherit;text-decoration:none;padding:0;}
+  .cookie-settings-link:hover{color:var(--accent-400);}
+  /* video o mapa esperando permiso */
+  .ext-ph{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;
+    min-height:300px;padding:28px 20px;color:var(--text-light);line-height:1.5;
+    background:radial-gradient(circle at 50% 30%,rgba(47,95,224,0.25),transparent 60%),var(--navy-900);
+  }
+  .ext-ph-fill{position:absolute;inset:0;min-height:0;}
+  .ext-ph > i{font-size:38px;color:var(--accent-400);}
+  .ext-ph > i.fa-youtube{color:#ff3d3d;}
+  .ext-ph p{max-width:360px;font-size:14px;color:var(--text-muted);}
+  .ext-ph-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  .ext-ph-actions button{padding:10px 18px;border-radius:100px;font-size:13.5px;font-weight:600;color:var(--white);transition:.25s;}
+  .ext-ph-one{background:linear-gradient(135deg,var(--accent-500),var(--accent-600));box-shadow:var(--shadow-accent);}
+  .ext-ph-all{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);}
+  .ext-ph-all:hover{background:rgba(255,255,255,0.16);}
+  /* formulario: trampa invisible para robots y casilla de aceptación */
+  .hp-field{position:absolute !important;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .consent-check{display:flex;gap:10px;align-items:flex-start;margin:4px 0 18px;font-size:13px;line-height:1.5;color:#5b6478;cursor:pointer;}
+  .consent-check input{width:18px;height:18px;margin-top:1px;flex-shrink:0;accent-color:var(--accent-500);}
+  .consent-check a{color:var(--accent-600);font-weight:600;text-decoration:underline;}
+
+  /* ===== PÁGINAS LEGALES (privacidad.html, terminos.html) ===== */
+  .legal-doc{max-width:820px;margin:0 auto;padding:48px 52px;border-radius:var(--radius-lg);
+    background:rgba(255,255,255,0.75);border:1px solid #e2e8f3;box-shadow:0 20px 50px rgba(15,19,28,0.06),var(--glass-highlight-light);}
+  .legal-doc h2{font-size:21px;color:var(--navy-900);margin:34px 0 12px;}
+  .legal-doc p,.legal-doc li{font-size:15.5px;line-height:1.75;color:#3f4a5e;}
+  .legal-doc p + p{margin-top:12px;}
+  .legal-doc ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:12px 0;}
+  .legal-doc li{position:relative;padding-left:22px;}
+  .legal-doc li::before{content:'';position:absolute;left:4px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--accent-500);}
+  .legal-doc a{color:var(--accent-600);font-weight:600;text-decoration:underline;}
+  .legal-updated{display:inline-block;margin-bottom:18px;padding:6px 14px;border-radius:100px;font-size:13px !important;font-weight:600;
+    color:var(--accent-600) !important;background:rgba(47,95,224,0.08);}
+  .legal-inline-btn{color:var(--accent-600);font-weight:600;text-decoration:underline;font-size:inherit;padding:0;}
+  @media(max-width:640px){.legal-doc{padding:28px 20px;}.legal-doc h2{font-size:18px;}}
+
+  /* ===== CÉLULAS EN GLOBO 3D (ubicacion.html): mismo estilo que el globo de la iglesia ===== */
+  .cells-map.cells-globe{
+    background:
+      radial-gradient(1px 1px at 12% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 78% 12%,#fff 50%,transparent 51%),
+      radial-gradient(1.5px 1.5px at 32% 72%,#cfe0ff 50%,transparent 51%),radial-gradient(1px 1px at 88% 64%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 55% 30%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 8% 86%,#fff 50%,transparent 51%),
+      radial-gradient(1px 1px at 66% 88%,#cfe0ff 50%,transparent 51%),radial-gradient(1px 1px at 94% 36%,#fff 50%,transparent 51%),
+      radial-gradient(circle at 50% 50%,rgba(47,95,224,0.35),transparent 60%),
+      linear-gradient(160deg,#050b1a,#0a1a33 60%,#050b1a);
+    border-color:rgba(111,163,250,0.25);
+  }
+  .cell-marker{cursor:pointer;}
+  .cells-map .cells-all-btn{position:absolute;bottom:46px;z-index:3;}
+  @media(max-width:560px){.cells-map .cells-all-btn{bottom:40px;}}
+  .cells-globe .maplibregl-ctrl-group{background:rgba(5,11,26,0.55);border:1px solid rgba(255,255,255,0.15);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);}
+  .cells-globe .maplibregl-ctrl-group button + button{border-top-color:rgba(255,255,255,0.12);}
+  .cells-globe .maplibregl-ctrl-icon,.cells-globe .maplibregl-ctrl-attrib-button{filter:invert(1);}
+  .cells-globe .maplibregl-ctrl-attrib{background:rgba(5,11,26,0.55);color:var(--text-muted);font-size:10px;}
+  .cells-globe .maplibregl-ctrl-attrib a{color:var(--text-light);}
+  .cells-map .maplibregl-popup-content{border-radius:12px;padding:12px 18px 12px 16px;font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;color:var(--navy-900);box-shadow:0 12px 30px rgba(5,11,26,0.35);}
+  .cells-map .maplibregl-popup-content strong{font-family:'Poppins',sans-serif;font-size:14px;}
+  .cells-map .maplibregl-popup-content a{color:var(--accent-600);font-weight:600;}
+  .cells-map .maplibregl-popup-close-button{font-size:18px;padding:0 6px;color:#6b7280;}
+  .cells-map .maplibregl-popup-content a:focus{outline:none;text-decoration:underline;}

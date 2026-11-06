@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; connect-src 'self' https://vmujhqeswldmsonoozps.supabase.co https://tiles.maps.eox.at https://tile.openstreetmap.org; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; worker-src 'self' blob:; child-src blob:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>English | Iglesia Cuadrangular Galilea</title>
 <meta name="description" content="Iglesia Cuadrangular Galilea in English: who we are, service times, sermons, location and how to contact us from abroad.">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261106c">
+<link rel="stylesheet" href="css/fonts.css?v=20261106p">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="css/style.css?v=20261106p">
 </head>
 <body>
 
@@ -185,7 +185,7 @@
       <p class="section-desc">When we go live on YouTube, the stream appears here automatically. Our messages are in Spanish: on YouTube, turn on subtitles and choose <strong>Settings → Subtitles → Auto-translate → English</strong>.</p>
     </div>
     <div class="sermon-embed-wrap reveal">
-      <iframe src="https://www.youtube.com/embed/live_stream?channel=UC4fUxSBxz1H2JGVnTPFdl_Q"
+      <iframe data-consent-src="https://www.youtube-nocookie.com/embed/live_stream?channel=UC4fUxSBxz1H2JGVnTPFdl_Q"
         title="Iglesia Cuadrangular Galilea live stream" loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen></iframe>
@@ -238,7 +238,7 @@
   </div>
 </section>
 <section class="contact-map-full">
-  <iframe title="Map of Iglesia Cuadrangular Galilea" src="https://www.google.com/maps?q=-2.1495905,-79.5821205&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <iframe title="Map of Iglesia Cuadrangular Galilea" data-consent-src="https://www.google.com/maps?q=-2.1495905,-79.5821205&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
 
 <!-- ===== CONTACT ===== -->
@@ -290,21 +290,22 @@
         <form id="contactForm"
           data-msg-sending="Sending..."
           data-msg-success="Thank you for your message! We&#39;ll get back to you soon."
-          data-msg-error="We couldn&#39;t send your message. Please try again in a moment.">
+          data-msg-error="We couldn&#39;t send your message. Please try again in a moment."
+          data-msg-wait="We already got your message. Please wait a few seconds before sending another one.">
           <div class="form-row2">
             <div class="fg">
               <label>Full name</label>
-              <input type="text" name="nombre" placeholder="Your name" required>
+              <input type="text" name="nombre" placeholder="Your name" maxlength="80" autocomplete="name" required>
             </div>
             <div class="fg">
               <label>Email</label>
-              <input type="email" name="correo" placeholder="you@example.com" required>
+              <input type="email" name="correo" placeholder="you@example.com" maxlength="120" autocomplete="email" required>
             </div>
           </div>
           <div class="form-row2">
             <div class="fg">
               <label>Phone / WhatsApp</label>
-              <input type="tel" name="telefono" placeholder="+1 555 000 0000">
+              <input type="tel" name="telefono" placeholder="+1 555 000 0000" maxlength="25" autocomplete="tel">
             </div>
             <div class="fg">
               <label>Reason</label>
@@ -319,8 +320,11 @@
           </div>
           <div class="fg">
             <label>Message</label>
-            <textarea name="mensaje" placeholder="Write your message here..." required></textarea>
+            <textarea name="mensaje" placeholder="Write your message here..." maxlength="2000" required></textarea>
           </div>
+          <!-- spam trap: invisible to people; if it arrives filled in, the message is dropped -->
+          <div class="hp-field" aria-hidden="true"><label>Leave empty<input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
+          <label class="consent-check"><input type="checkbox" name="acepto" required> <span>I have read and accept the <a href="privacidad.html" target="_blank" rel="noopener">Privacy Policy</a> (in Spanish). We will only use your details to reply to your message.</span></label>
           <button type="submit" class="btn btn-accent" id="contactSubmitBtn"><i class="fa-solid fa-paper-plane"></i> Send message</button>
           <p id="contactFormStatus" style="margin-top:14px;font-size:14px;"></p>
         </form>
@@ -340,7 +344,7 @@
         <p>Recibe noticias, devocionales y eventos directo en tu correo.</p>
       </div>
       <form class="newsletter-form" id="newsletterForm">
-        <input type="email" placeholder="Escribe tu correo electrónico" required>
+        <input type="email" placeholder="Escribe tu correo electrónico" maxlength="120" autocomplete="email" required>
         <button type="submit">Suscribirme</button>
       </form>
     </div>
@@ -393,14 +397,14 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Iglesia Cuadrangular Galilea. Todos los derechos reservados.</span>
-      <span><a href="#">Política de privacidad</a> · <a href="#">Términos de uso</a></span>
+      <span><a href="privacidad.html">Política de privacidad</a> · <a href="terminos.html">Términos de uso</a> · <button type="button" class="cookie-settings-link" data-cookie-settings>Cookies</button></span>
     </div>
   </div>
 </footer>
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261106c"></script>
-<script src="js/asistente.js?v=20261106c"></script>
+<script src="js/script.js?v=20261106p"></script>
+<script src="js/asistente.js?v=20261106p"></script>
 </body>
 </html>

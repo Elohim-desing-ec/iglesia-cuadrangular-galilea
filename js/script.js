@@ -16,15 +16,102 @@ if (toTop) {
 const burger = document.getElementById('burgerBtn');
 const navLinks = document.getElementById('navLinks');
 if (burger && navLinks) {
-  burger.addEventListener('click', () => {
-    burger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
-  navLinks.querySelectorAll('a:not(.dropdown-toggle)').forEach(a => a.addEventListener('click', () => {
-    burger.classList.remove('open');
-    navLinks.classList.remove('open');
-  }));
+  // phone menu: opens as a circle growing from the burger, locks the page behind it, closes with Esc
+  const setMenu = (open) => {
+    if (open) {
+      const r = burger.getBoundingClientRect();
+      navLinks.style.setProperty('--mx', r.left + r.width / 2 + 'px');
+      navLinks.style.setProperty('--my', r.top + r.height / 2 + 'px');
+    }
+    burger.classList.toggle('open', open);
+    navLinks.classList.toggle('open', open);
+    document.documentElement.classList.toggle('menu-open', open);
+    burger.setAttribute('aria-expanded', open);
+  };
+  burger.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+  navLinks.querySelectorAll('a:not(.dropdown-toggle)').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && navLinks.classList.contains('open')) setMenu(false); });
+  // stagger index for the entrance animation, and the footer's social links at the bottom of the phone menu
+  navLinks.querySelectorAll(':scope > li').forEach((li, i) => li.style.setProperty('--n', i));
+  const social = document.querySelector('footer .contact-social');
+  if (social) {
+    const li = document.createElement('li');
+    li.className = 'nav-social';
+    li.style.setProperty('--n', navLinks.children.length);
+    li.appendChild(social.cloneNode(true));
+    navLinks.appendChild(li);
+  }
 }
+
+// Privacy consent (Ecuador's LOPDP). The site sets no tracking cookies of its own; YouTube and Google Maps embeds can,
+// so each one waits behind a placeholder until the visitor allows external content. The choice is kept in
+// localStorage ('galilea-consent' = 'all' | 'necessary') and can be changed from the footer "Cookies" button.
+const CONSENT_KEY = 'galilea-consent';
+// ingles.html is the English page (its <html lang> stays "es" because the menu is in Spanish)
+const CONSENT_TEXT = /ingles\.html$/.test(location.pathname) ? {
+  title: 'Your privacy matters',
+  text: 'This site uses no tracking cookies of its own. YouTube videos and Google maps may use cookies, so they only load if you allow them.',
+  more: 'Privacy Policy', all: 'Accept all', necessary: 'Only necessary',
+  phText: p => `${p} may use cookies. It only loads if you allow it.`, loadOne: 'Load this one', loadAll: 'Always allow'
+} : {
+  title: 'Tu privacidad importa',
+  text: 'Esta web no usa cookies propias de seguimiento. Los videos de YouTube y los mapas de Google sí pueden usarlas, por eso solo se cargan si los permites.',
+  more: 'Política de privacidad', all: 'Aceptar todo', necessary: 'Solo necesarias',
+  phText: p => `${p} puede usar cookies. Se carga solo si lo permites.`, loadOne: 'Cargar solo este', loadAll: 'Permitir siempre'
+};
+const readConsent = () => { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } };
+const providerOf = url => url.includes('youtube') ? 'YouTube' : 'Google Maps';
+const startIframe = (iframe) => {
+  iframe.previousElementSibling?.classList.contains('ext-ph') && iframe.previousElementSibling.remove();
+  iframe.style.removeProperty('display');
+  if (!iframe.src) iframe.src = iframe.dataset.consentSrc;
+};
+const showPlaceholder = (iframe) => {
+  if (iframe.previousElementSibling?.classList.contains('ext-ph')) return;
+  const provider = providerOf(iframe.dataset.consentSrc);
+  const ph = document.createElement('div');
+  ph.className = 'ext-ph' + (getComputedStyle(iframe).position === 'absolute' ? ' ext-ph-fill' : '');
+  ph.innerHTML = `<i class="${provider === 'YouTube' ? 'fa-brands fa-youtube' : 'fa-solid fa-map-location-dot'}"></i>
+    <p>${CONSENT_TEXT.phText(provider)}</p>
+    <div class="ext-ph-actions"><button type="button" class="ext-ph-one">${CONSENT_TEXT.loadOne}</button>
+    <button type="button" class="ext-ph-all">${CONSENT_TEXT.loadAll}</button></div>`;
+  ph.querySelector('.ext-ph-one').addEventListener('click', () => startIframe(iframe));
+  ph.querySelector('.ext-ph-all').addEventListener('click', () => setConsent('all'));
+  iframe.style.display = 'none';
+  iframe.before(ph);
+};
+// load an external embed now if allowed, otherwise show its placeholder
+const loadExternal = (iframe) => {
+  if (!iframe.dataset.consentSrc || iframe.src) return;
+  if (readConsent() === 'all') startIframe(iframe); else showPlaceholder(iframe);
+};
+const setConsent = (value) => {
+  try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {}
+  const banner = document.querySelector('.cookie-banner');
+  if (banner) { banner.classList.remove('show'); setTimeout(() => banner.remove(), 400); }
+  if (value === 'all') {
+    document.querySelectorAll('iframe[data-consent-src]').forEach(f => { if (!f.closest('[hidden]')) startIframe(f); });
+  }
+};
+const showConsentBanner = () => {
+  if (document.querySelector('.cookie-banner')) return;
+  const banner = document.createElement('div');
+  banner.className = 'cookie-banner';
+  banner.setAttribute('role', 'dialog');
+  banner.setAttribute('aria-label', CONSENT_TEXT.title);
+  banner.innerHTML = `<div class="cookie-ico"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="cookie-text"><strong>${CONSENT_TEXT.title}</strong>
+    <p>${CONSENT_TEXT.text} <a href="privacidad.html">${CONSENT_TEXT.more}</a></p></div>
+    <div class="cookie-actions"><button type="button" class="cookie-btn cookie-necessary">${CONSENT_TEXT.necessary}</button>
+    <button type="button" class="cookie-btn cookie-all">${CONSENT_TEXT.all}</button></div>`;
+  banner.querySelector('.cookie-all').addEventListener('click', () => setConsent('all'));
+  banner.querySelector('.cookie-necessary').addEventListener('click', () => setConsent('necessary'));
+  document.body.appendChild(banner);
+  requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('show')));
+};
+document.querySelectorAll('iframe[data-consent-src]').forEach(f => { if (!f.closest('[hidden]')) loadExternal(f); });
+if (!readConsent()) showConsentBanner();
+document.querySelectorAll('[data-cookie-settings]').forEach(btn => btn.addEventListener('click', showConsentBanner));
 
 // Dropdown (Eventos) - on mobile the first tap opens the submenu instead of navigating
 document.querySelectorAll('.has-dropdown').forEach(item => {
@@ -148,28 +235,28 @@ if (eventsReel) {
 }
 
 // House-cell map (ubicacion.html) - one numbered pin per .cell-card with data-lat/data-lng, plus the church.
-// Clicking a card flies the map to its pin; clicking a pin highlights its card.
+// Clicking a card flies the map to its pin; clicking a pin highlights its card. With WebGL it is a 3D globe
+// (MapLibre): satellite Earth from far away that fades into OpenStreetMap streets up close, flying from the planet
+// down to Milagro when it scrolls into view. Without WebGL it falls back to the flat Leaflet map.
+const supportsWebGL = () => {
+  try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); }
+  catch (e) { return false; }
+};
+// zoom at which the whole planet fits a box (globe diameter ~ 512 * 2^z / PI px)
+const planetZoomFor = el => Math.log2(Math.min(el.clientWidth, el.clientHeight) * 0.82 * Math.PI / 512);
+const SATELLITE_SOURCE = {
+  type: 'raster', tileSize: 256, maxzoom: 15,
+  tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2021_3857/default/g/{z}/{y}/{x}.jpg'],
+  attribution: '<a href="https://s2maps.eu" target="_blank" rel="noopener">Sentinel-2 cloudless</a> by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2021)'
+};
 const cellsMapEl = document.getElementById('cellsMap');
-if (cellsMapEl && window.L) {
+if (cellsMapEl && (window.maplibregl || window.L)) {
   const CHURCH = [-2.1495905, -79.5821205];
-  const map = L.map(cellsMapEl, {scrollWheelZoom: false});
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-
-  const pinIcon = (html, extra = '') => L.divIcon({
-    className: '', html: `<div class="cell-pin ${extra}">${html}</div>`,
-    iconSize: [36, 36], iconAnchor: [18, 40], popupAnchor: [0, -38]
-  });
-  L.marker(CHURCH, {icon: pinIcon('<i class="fa-solid fa-cross"></i>', 'church'), zIndexOffset: 1000})
-    .addTo(map)
-    .bindPopup('<strong>Templo Galilea</strong><br>Sede principal<br><a href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener">Ver en Google Maps →</a>');
-
-  const cards = [...document.querySelectorAll('.cell-card')];
+  const CHURCH_POPUP = '<strong>Templo Galilea</strong><br>Sede principal<br><a href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener">Ver en Google Maps →</a>';
+  const isPhone = () => window.matchMedia('(max-width:900px)').matches;
+  const cells = [];
   const points = [CHURCH];
-  const entries = [];
-  cards.forEach(card => {
+  document.querySelectorAll('.cell-card').forEach(card => {
     if (!card.dataset.lat) return;
     const pos = [Number(card.dataset.lat), Number(card.dataset.lng)];
     // two cells sharing the exact same point: nudge the later pin ~20 m east so both numbers are visible
@@ -177,38 +264,126 @@ if (cellsMapEl && window.L) {
     const num = card.dataset.num;
     const leader = card.querySelector('.cell-leader').textContent.trim();
     const route = card.querySelector('.cell-go').href;
-    const marker = L.marker(pos, {icon: pinIcon(`<span>${num}</span>`)}).addTo(map)
-      .bindPopup(`<strong>Célula #${num}</strong><br>${leader}<br>Viernes · 7:30 PM<br><a href="${route}" target="_blank" rel="noopener">Cómo llegar →</a>`);
     points.push(pos);
-    entries.push({card, marker, pos});
+    cells.push({card, pos, num, popup: `<strong>Célula #${num}</strong><br>${leader}<br>Viernes · 7:30 PM<br><a href="${route}" target="_blank" rel="noopener">Cómo llegar →</a>`});
   });
 
-  const select = (entry) => {
-    entries.forEach(e => {
-      const on = e === entry;
-      e.card.classList.toggle('active', on);
-      e.marker.getElement()?.querySelector('.cell-pin').classList.toggle('active', on);
+  // each map flavour returns: pin(pos, html, extraClass, popupHtml, onTop) -> {el, open()}, focus(pos), showAll()
+  const leafletMap = () => {
+    const map = L.map(cellsMapEl, {scrollWheelZoom: false});
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    const icon = (html, extra) => L.divIcon({
+      className: '', html: `<div class="cell-pin ${extra}">${html}</div>`,
+      iconSize: [36, 36], iconAnchor: [18, 40], popupAnchor: [0, -38]
+    });
+    map.fitBounds(points, {padding: [40, 40]});
+    return {
+      pin: (pos, html, extra, popup, onTop) => {
+        const marker = L.marker(pos, {icon: icon(html, extra), zIndexOffset: onTop ? 1000 : 0}).addTo(map).bindPopup(popup);
+        return {el: marker.getElement(), open: () => marker.openPopup()};
+      },
+      focus: pos => map.flyTo(pos, 16, {duration: 0.8}),
+      showAll: () => map.fitBounds(points, {padding: [40, 40]})
+    };
+  };
+  const globeMap = () => {
+    cellsMapEl.classList.add('cells-globe');
+    const bounds = points.reduce((b, p) => b.extend([p[1], p[0]]), new maplibregl.LngLatBounds());
+    const map = new maplibregl.Map({
+      container: cellsMapEl,
+      style: {
+        version: 8,
+        projection: {type: 'globe'},
+        sources: {
+          sat: SATELLITE_SOURCE,
+          osm: {
+            type: 'raster', tileSize: 256, maxzoom: 19,
+            tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
+          }
+        },
+        layers: [
+          {id: 'sat', type: 'raster', source: 'sat'},
+          // streets fade in as you get close to the city
+          {id: 'osm', type: 'raster', source: 'osm', minzoom: 10,
+            paint: {'raster-opacity': ['interpolate', ['linear'], ['zoom'], 11, 0, 13.5, 1]}}
+        ],
+        sky: {'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 8, 0]}
+      },
+      center: [CHURCH[1] + 40, CHURCH[0] + 8],
+      zoom: planetZoomFor(cellsMapEl),
+      minZoom: -1,
+      maxZoom: 18,
+      scrollZoom: false,
+      attributionControl: {compact: true}
+    });
+    map.addControl(new maplibregl.NavigationControl({showCompass: true, visualizePitch: true}), 'top-right');
+    const showAll = (duration = 2500) => map.fitBounds(bounds, {padding: 70, pitch: 40, bearing: -12, maxZoom: 14.5, duration, essential: true});
+    map.on('load', () => {
+      cellsMapEl.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show');
+      setTimeout(() => showAll(5500), 400); // the trip from space down to Milagro
+    });
+    const allBtn = document.createElement('button');
+    allBtn.type = 'button';
+    allBtn.className = 'globe-btn cells-all-btn';
+    allBtn.innerHTML = '<i class="fa-solid fa-house-chimney"></i> <span>Ver todas las células</span>';
+    allBtn.addEventListener('click', () => showAll());
+    cellsMapEl.appendChild(allBtn);
+    return {
+      pin: (pos, html, extra, popupHtml, onTop) => {
+        const el = document.createElement('div');
+        el.className = 'cell-marker';
+        el.innerHTML = `<div class="cell-pin ${extra}">${html}</div>`;
+        if (onTop) el.style.zIndex = 2;
+        const popup = new maplibregl.Popup({offset: 40, maxWidth: '240px'}).setHTML(popupHtml);
+        const marker = new maplibregl.Marker({element: el, anchor: 'bottom', offset: [0, -7]})
+          .setLngLat([pos[1], pos[0]]).setPopup(popup).addTo(map);
+        return {el, open: () => { if (!popup.isOpen()) marker.togglePopup(); }};
+      },
+      focus: pos => map.flyTo({center: [pos[1], pos[0]], zoom: 16.5, pitch: 50, bearing: -15, duration: 2400, essential: true}),
+      showAll
+    };
+  };
+
+  const start = () => {
+    const view = window.maplibregl && supportsWebGL() ? globeMap() : leafletMap();
+    view.pin(CHURCH, '<i class="fa-solid fa-cross"></i>', 'church', CHURCH_POPUP, true);
+    const entries = cells.map(c => ({...c, marker: view.pin(c.pos, `<span>${c.num}</span>`, '', c.popup, false)}));
+    const select = (entry) => {
+      entries.forEach(e => {
+        const on = e === entry;
+        e.card.classList.toggle('active', on);
+        e.marker.el?.querySelector('.cell-pin').classList.toggle('active', on);
+        if (e.marker.el?.classList.contains('cell-marker')) e.marker.el.style.zIndex = on ? 3 : '';
+      });
+    };
+    entries.forEach(entry => {
+      entry.card.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return; // let "Cómo llegar" open normally
+        select(entry);
+        view.focus(entry.pos);
+        entry.marker.open();
+        if (isPhone()) cellsMapEl.scrollIntoView({behavior: 'smooth', block: 'center'});
+      });
+      entry.marker.el?.addEventListener('click', () => {
+        select(entry);
+        if (!isPhone()) {
+          const list = entry.card.parentElement;
+          list.scrollTo({top: entry.card.offsetTop - list.offsetTop - 4, behavior: 'smooth'});
+        }
+      });
     });
   };
-  entries.forEach(entry => {
-    entry.card.addEventListener('click', (e) => {
-      if (e.target.closest('a')) return; // let "Cómo llegar" open normally
-      select(entry);
-      map.flyTo(entry.pos, 16, {duration: 0.8});
-      entry.marker.openPopup();
-      if (window.matchMedia('(max-width:900px)').matches) {
-        cellsMapEl.scrollIntoView({behavior: 'smooth', block: 'center'});
-      }
-    });
-    entry.marker.on('click', () => {
-      select(entry);
-      if (!window.matchMedia('(max-width:900px)').matches) {
-        const list = entry.card.parentElement;
-        list.scrollTo({top: entry.card.offsetTop - list.offsetTop - 4, behavior: 'smooth'});
-      }
-    });
-  });
-  map.fitBounds(points, {padding: [40, 40]});
+  // the 3D version waits until the map is near the screen so the trip from space is seen
+  const cellsObserver = new IntersectionObserver((list) => {
+    if (!list[0].isIntersecting) return;
+    cellsObserver.disconnect();
+    start();
+  }, {rootMargin: '100px'});
+  cellsObserver.observe(cellsMapEl);
 }
 
 // Event lists (eventos.html, index.html) - a grid with data-past moves cards whose data-fin has passed
@@ -315,7 +490,7 @@ if (liveBox) {
   const nextStart = nextServiceStart;
   const showEmbed = () => {
     const iframe = embed.querySelector('iframe');
-    if (!iframe.src) iframe.src = iframe.dataset.src;
+    loadExternal(iframe);
     embed.hidden = false;
     toggle.parentElement.hidden = true;
   };
@@ -407,11 +582,26 @@ if (contactForm) {
   const msg = {
     sending: contactForm.dataset.msgSending || 'Enviando...',
     success: contactForm.dataset.msgSuccess || '¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.',
-    error: contactForm.dataset.msgError || 'No pudimos enviar tu mensaje. Intenta de nuevo en un momento.'
+    error: contactForm.dataset.msgError || 'No pudimos enviar tu mensaje. Intenta de nuevo en un momento.',
+    wait: contactForm.dataset.msgWait || 'Ya recibimos tu mensaje. Espera unos segundos antes de enviar otro.'
   };
+  // spam guards: a hidden field only robots fill in, a minimum time on the page, and a pause between messages
+  const loadedAt = Date.now();
   contactForm.addEventListener('submit', async function(e){
     e.preventDefault();
     const data = new FormData(contactForm);
+    const showStatus = (text, color) => { if (statusEl) { statusEl.textContent = text; statusEl.style.color = color; } };
+    if (data.get('sitio_web') || Date.now() - loadedAt < 3000) {
+      showStatus(msg.success, 'var(--accent-600)');
+      contactForm.reset();
+      return;
+    }
+    let lastSent = 0;
+    try { lastSent = Number(sessionStorage.getItem('contacto-enviado')) || 0; } catch (err) {}
+    if (Date.now() - lastSent < 30000) {
+      showStatus(msg.wait, 'var(--text-muted)');
+      return;
+    }
     const payload = {
       nombre: data.get('nombre') || '',
       correo: data.get('correo') || '',
@@ -433,6 +623,7 @@ if (contactForm) {
       });
       if (!res.ok) throw new Error('request failed');
       if (statusEl) { statusEl.textContent = msg.success; statusEl.style.color = 'var(--accent-600)'; }
+      try { sessionStorage.setItem('contacto-enviado', Date.now()); } catch (err) {}
       contactForm.reset();
     } catch (err) {
       if (statusEl) { statusEl.textContent = msg.error; statusEl.style.color = '#c0392b'; }
@@ -497,7 +688,7 @@ if (adBox) {
 }
 
 
-// Text animations: headings enter word by word (blur + rise) followed by a light scan, eyebrows "decode"
+// Text animations: headings enter word by word (blur + rise), eyebrows "decode"
 // from random characters, and the home-page stats count up. Everything starts when the element scrolls
 // into view and is skipped entirely when the visitor prefers reduced motion.
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
@@ -580,6 +771,135 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'Intersect
     textObserver.observe(el);
   });
   document.querySelectorAll('.hero-stats h3').forEach(el => textObserver.observe(el));
+}
+
+
+// Scroll reveal: every content block below the hero that isn't already a .reveal fades/rises in as it scrolls
+// into view (siblings staggered). Carousels, maps and sliders are left alone because they move on their own.
+// The classes are removed once the entrance ends so the elements' own hover transforms keep working.
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const BLOCKS = 'p, h2, h3, h4, img, figure, iframe, form, ul, ol, table, blockquote, .btn, .faq-item, ' +
+    '[class*="card"], [class*="-item"], .countdown, .sermon-links, .cells-legend, .give-steps, .give-receipt';
+  const SKIP = '.reveal, .hero, .page-banner, .testi-track, .photo-marquee, .reel-row, .video-row, .hero-slides, ' +
+    '.cells-map, .leaflet-container, .ag, .pp-modal, .ad-lightbox, .tw-host, .eyebrow';
+  const candidates = [...document.querySelectorAll('section, footer')]
+    .flatMap(area => [...area.querySelectorAll(BLOCKS)])
+    .filter(el => !el.closest(SKIP));
+  // keep only the outermost block, so a card animates as one piece instead of each line inside it
+  const blocks = candidates.filter(el => !candidates.some(other => other !== el && other.contains(el)));
+  const srObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      srObserver.unobserve(el);
+      el.classList.add('sr-in');
+      const delay = parseInt(el.style.getPropertyValue('--sr-d')) || 0;
+      setTimeout(() => { el.classList.remove('sr', 'sr-in'); el.style.removeProperty('--sr-d'); }, delay + 950);
+    });
+  }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
+  const seen = new Map();
+  // existing .reveal blocks get the same sibling stagger; the delay is dropped after the entrance so hovers stay instant
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const n = seen.get(el.parentElement) || 0;
+    seen.set(el.parentElement, n + 1);
+    if (!n) return;
+    el.style.setProperty('--sr-d', Math.min(n, 6) * 90 + 'ms');
+    el.addEventListener('transitionend', () => el.style.removeProperty('--sr-d'), {once: true});
+  });
+  blocks.forEach(el => {
+    const n = seen.get(el.parentElement) || 0;
+    seen.set(el.parentElement, n + 1);
+    el.style.setProperty('--sr-d', Math.min(n, 6) * 90 + 'ms');
+    el.classList.add('sr');
+    srObserver.observe(el);
+  });
+}
+
+
+// 3D globe (ubicacion.html): satellite Earth that spins slowly until touched, a pulsing pin on the church,
+// and a button that flies from space down to Milagro and back. Built only when it scrolls into view;
+// without WebGL/MapLibre it falls back to the Google Maps embed in data-fallback.
+const globeEl = document.getElementById('churchGlobe');
+if (globeEl) {
+  const church = [Number(globeEl.dataset.lng), Number(globeEl.dataset.lat)];
+  const card = globeEl.closest('.globe-card');
+  const focusBtn = document.getElementById('globeFocus');
+  const hasWebGL = supportsWebGL();
+  const fallback = () => {
+    card.classList.add('globe-fallback');
+    card.innerHTML = `<iframe title="Mapa Iglesia Cuadrangular Galilea - Sede Principal" src="${globeEl.dataset.fallback}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+  };
+  const planetZoom = () => planetZoomFor(globeEl);
+
+  const build = () => {
+    if (!window.maplibregl || !hasWebGL) { fallback(); return; }
+    const map = new maplibregl.Map({
+      container: globeEl,
+      style: {
+        version: 8,
+        projection: {type: 'globe'},
+        sources: {
+          sat: SATELLITE_SOURCE
+        },
+        layers: [{id: 'sat', type: 'raster', source: 'sat'}],
+        sky: {'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 8, 0]}
+      },
+      center: [church[0] + 40, church[1] + 8],
+      zoom: planetZoom(),
+      minZoom: -1,
+      maxZoom: 16,
+      scrollZoom: false,
+      attributionControl: {compact: true}
+    });
+    map.addControl(new maplibregl.NavigationControl({showCompass: true, visualizePitch: true}), 'top-right');
+
+    const pin = document.createElement('div');
+    pin.className = 'globe-pin';
+    pin.innerHTML = '<span class="globe-pin-dot"><i class="fa-solid fa-cross"></i></span><span class="globe-pin-label">Iglesia Galilea<small>Milagro, Ecuador</small></span>';
+    new maplibregl.Marker({element: pin, anchor: 'bottom'}).setLngLat(church).addTo(map);
+
+    // slow spin while nobody is touching the globe
+    let spinning = true;
+    let focused = false;
+    const spin = () => {
+      if (!spinning || map.isMoving() || map.getZoom() > 3) return;
+      const c = map.getCenter();
+      map.easeTo({center: [c.lng - 6, c.lat], duration: 1000, easing: t => t});
+    };
+    map.on('moveend', spin);
+    map.on('load', () => {
+      card.classList.add('globe-ready');
+      // credits start folded behind the (i) button so they don't sit under the fly button
+      globeEl.querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show');
+      spin();
+    });
+    const stopSpin = () => { spinning = false; card.classList.add('globe-touched'); };
+    ['mousedown', 'touchstart', 'wheel'].forEach(ev => globeEl.addEventListener(ev, stopSpin, {passive: true}));
+
+    const label = focusBtn.querySelector('span');
+    const icon = focusBtn.querySelector('i');
+    focusBtn.addEventListener('click', () => {
+      stopSpin();
+      focused = !focused;
+      if (focused) {
+        map.flyTo({center: church, zoom: 13.5, pitch: 50, bearing: -25, duration: 5200, curve: 1.6, essential: true});
+        label.textContent = 'Ver el planeta';
+        icon.className = 'fa-solid fa-earth-americas';
+      } else {
+        map.flyTo({center: [church[0] + 40, church[1] + 8], zoom: planetZoom(), pitch: 0, bearing: 0, duration: 4200, essential: true});
+        label.textContent = 'Acercar a la iglesia';
+        icon.className = 'fa-solid fa-location-crosshairs';
+        spinning = true;
+      }
+    });
+  };
+
+  const globeObserver = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    globeObserver.disconnect();
+    build();
+  }, {rootMargin: '200px'});
+  globeObserver.observe(globeEl);
 }
 
 })();

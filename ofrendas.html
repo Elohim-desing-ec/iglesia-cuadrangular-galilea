@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Ofrendas | Iglesia Cuadrangular Galilea</title>
 <meta name="description" content="Conoce las formas de dar tu ofrenda o diezmo en Iglesia Cuadrangular Galilea.">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/style.css?v=20261106c">
+<link rel="stylesheet" href="css/fonts.css?v=20261106p">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="css/style.css?v=20261106p">
 </head>
 <body>
 
@@ -259,7 +258,7 @@
         <p>Recibe noticias, devocionales y eventos directo en tu correo.</p>
       </div>
       <form class="newsletter-form" id="newsletterForm">
-        <input type="email" placeholder="Escribe tu correo electrónico" required>
+        <input type="email" placeholder="Escribe tu correo electrónico" maxlength="120" autocomplete="email" required>
         <button type="submit">Suscribirme</button>
       </form>
     </div>
@@ -312,15 +311,15 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Iglesia Cuadrangular Galilea. Todos los derechos reservados.</span>
-      <span><a href="#">Política de privacidad</a> · <a href="#">Términos de uso</a></span>
+      <span><a href="privacidad.html">Política de privacidad</a> · <a href="terminos.html">Términos de uso</a> · <button type="button" class="cookie-settings-link" data-cookie-settings>Cookies</button></span>
     </div>
   </div>
 </footer>
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261106c"></script>
-<script src="js/asistente.js?v=20261106c"></script>
-<script src="js/payphone.js?v=20261106c"></script>
+<script src="js/script.js?v=20261106p"></script>
+<script src="js/asistente.js?v=20261106p"></script>
+<script src="js/payphone.js?v=20261106p"></script>
 </body>
 </html>
