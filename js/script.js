@@ -4,10 +4,21 @@
 // Header scroll effect
 const header = document.getElementById('siteHeader');
 const toTop = document.getElementById('toTop');
+// on phones the floating buttons (chat, back to top) slide away while scrolling down so they don't cover
+// the content, and come back when scrolling up or after a short pause
+let lastScrollY = window.scrollY;
+let fabTimer = 0;
 window.addEventListener('scroll', () => {
   if (header) header.classList.toggle('scrolled', window.scrollY > 40);
   if (toTop) toTop.classList.toggle('show', window.scrollY > 500);
-});
+  const down = window.scrollY > lastScrollY + 4;
+  const up = window.scrollY < lastScrollY - 4;
+  if (down && window.scrollY > 120) document.documentElement.classList.add('fab-away');
+  if (up) document.documentElement.classList.remove('fab-away');
+  if (down || up) lastScrollY = window.scrollY;
+  clearTimeout(fabTimer);
+  fabTimer = setTimeout(() => document.documentElement.classList.remove('fab-away'), 1200);
+}, {passive: true});
 if (toTop) {
   toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 }
@@ -249,6 +260,12 @@ const SATELLITE_SOURCE = {
   tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2021_3857/default/g/{z}/{y}/{x}.jpg'],
   attribution: '<a href="https://s2maps.eu" target="_blank" rel="noopener">Sentinel-2 cloudless</a> by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2021)'
 };
+// cell number badges: "Nº" label over a two-digit number (01, 02...)
+document.querySelectorAll('.cell-num').forEach(badge => {
+  const n = badge.textContent.trim();
+  badge.setAttribute('aria-label', `Célula ${n}`);
+  badge.innerHTML = `<small>Nº</small><b>${n.padStart(2, '0')}</b>`;
+});
 const cellsMapEl = document.getElementById('cellsMap');
 if (cellsMapEl && (window.maplibregl || window.L)) {
   const CHURCH = [-2.1495905, -79.5821205];
@@ -277,7 +294,7 @@ if (cellsMapEl && (window.maplibregl || window.L)) {
     }).addTo(map);
     const icon = (html, extra) => L.divIcon({
       className: '', html: `<div class="cell-pin ${extra}">${html}</div>`,
-      iconSize: [36, 36], iconAnchor: [18, 40], popupAnchor: [0, -38]
+      iconSize: [40, 40], iconAnchor: [20, 49], popupAnchor: [0, -46]
     });
     map.fitBounds(points, {padding: [40, 40]});
     return {
@@ -338,8 +355,8 @@ if (cellsMapEl && (window.maplibregl || window.L)) {
         el.className = 'cell-marker';
         el.innerHTML = `<div class="cell-pin ${extra}">${html}</div>`;
         if (onTop) el.style.zIndex = 2;
-        const popup = new maplibregl.Popup({offset: 40, maxWidth: '240px'}).setHTML(popupHtml);
-        const marker = new maplibregl.Marker({element: el, anchor: 'bottom', offset: [0, -7]})
+        const popup = new maplibregl.Popup({offset: 52, maxWidth: '240px'}).setHTML(popupHtml);
+        const marker = new maplibregl.Marker({element: el, anchor: 'bottom', offset: [0, -9]})
           .setLngLat([pos[1], pos[0]]).setPopup(popup).addTo(map);
         return {el, open: () => { if (!popup.isOpen()) marker.togglePopup(); }};
       },
@@ -351,7 +368,7 @@ if (cellsMapEl && (window.maplibregl || window.L)) {
   const start = () => {
     const view = window.maplibregl && supportsWebGL() ? globeMap() : leafletMap();
     view.pin(CHURCH, '<i class="fa-solid fa-cross"></i>', 'church', CHURCH_POPUP, true);
-    const entries = cells.map(c => ({...c, marker: view.pin(c.pos, `<span>${c.num}</span>`, '', c.popup, false)}));
+    const entries = cells.map(c => ({...c, marker: view.pin(c.pos, `<span>${c.num.padStart(2, '0')}</span>`, '', c.popup, false)}));
     const select = (entry) => {
       entries.forEach(e => {
         const on = e === entry;
@@ -900,6 +917,70 @@ if (globeEl) {
     build();
   }, {rootMargin: '200px'});
   globeObserver.observe(globeEl);
+}
+
+
+// Living icons: every icon pops in when it scrolls into view and, when its card/button is hovered or tapped,
+// plays a motion that matches what it shows (heart beats, clock spins, pin drops, plane flies...).
+// Icons that already move on their own (FAQ plus, dropdown chevron, scroll cue, loaders) are left alone.
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const ICON_MOTION = {
+    heart: 'beat', 'heart-crack': 'beat', 'heart-circle-check': 'beat', 'hand-holding-heart': 'lift', 'hands-praying': 'lift',
+    'hands-holding-child': 'lift', clock: 'spin', 'earth-americas': 'spin', compass: 'spin', sun: 'spin', star: 'spin',
+    'location-dot': 'drop', 'map-location-dot': 'drop', 'location-crosshairs': 'pop', 'diamond-turn-right': 'nudge',
+    'arrow-right': 'nudge', 'chevron-right': 'nudge', 'arrow-up-right-from-square': 'fly', 'paper-plane': 'fly', dove: 'fly',
+    play: 'pulse', 'tower-broadcast': 'pulse', 'microphone-lines': 'pulse', youtube: 'pulse', fire: 'flicker',
+    whatsapp: 'ring', phone: 'ring', bell: 'ring', envelope: 'ring', 'envelope-open-text': 'ring', comment: 'ring', tiktok: 'ring',
+    music: 'ring', cross: 'glow', church: 'glow', crown: 'glow', 'book-bible': 'glow', bullseye: 'glow', seedling: 'grow',
+    'calendar-day': 'flip', 'calendar-days': 'flip', 'calendar-week': 'flip', 'calendar-check': 'flip', 'credit-card': 'flip',
+    'building-columns': 'flip', language: 'flip', 'masks-theater': 'flip', water: 'wave', gift: 'ring', utensils: 'ring'
+  };
+  const SKIP_ICON = '.faq-q i, .dropdown-toggle i, .scroll-cue i, .fa-spin, .fa-circle-notch, .globe-hint i, .hl-cta i, ' +
+    '.service-card-link i, .hero-slides i, .leaflet-container i, .maplibregl-map i, .verse-track i, .tw-host i';
+  const icons = [...document.querySelectorAll('section i[class*="fa-"], footer i[class*="fa-"]')]
+    .filter(icon => !icon.matches(SKIP_ICON));
+  const play = (icon) => {
+    icon.classList.remove('ico-play');
+    void icon.offsetWidth; // restart the animation if it is already playing
+    icon.classList.add('ico-play');
+  };
+  const iconObserver = new IntersectionObserver((list) => {
+    list.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      iconObserver.unobserve(entry.target);
+      entry.target.classList.add('ico-in');
+    });
+  }, {threshold: 0.6});
+  icons.forEach(icon => {
+    const name = [...icon.classList].find(c => c.startsWith('fa-') && ICON_MOTION[c.slice(3)]);
+    icon.classList.add('ico');
+    icon.dataset.motion = name ? ICON_MOTION[name.slice(3)] : 'hop';
+    icon.addEventListener('animationend', () => icon.classList.remove('ico-play', 'ico-in'));
+    const trigger = icon.closest('a, button, [class*="card"], [class*="-item"], .give-method, .value-item, li') || icon.parentElement;
+    trigger.addEventListener('pointerenter', () => play(icon));
+    trigger.addEventListener('touchstart', () => play(icon), {passive: true});
+    iconObserver.observe(icon);
+  });
+}
+
+
+// Legal pages: highlight the table-of-contents entry of the section being read
+const legalToc = document.querySelector('.legal-toc');
+if (legalToc && 'IntersectionObserver' in window) {
+  const links = new Map([...legalToc.querySelectorAll('a')].map(a => [a.getAttribute('href').slice(1), a]));
+  const tocObserver = new IntersectionObserver((list) => {
+    list.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(a => a.classList.remove('active'));
+      const a = links.get(entry.target.id);
+      if (!a) return;
+      a.classList.add('active');
+      // on phones the index is a horizontal row: slide it (not the page) so the active entry stays visible
+      const row = a.closest('ol');
+      if (row.scrollWidth > row.clientWidth) row.scrollTo({left: a.offsetLeft - row.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth'});
+    });
+  }, {rootMargin: '-35% 0px -60% 0px'});
+  document.querySelectorAll('.legal-sec').forEach(sec => tocObserver.observe(sec));
 }
 
 })();

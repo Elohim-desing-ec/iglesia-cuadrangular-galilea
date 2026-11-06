@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261106p">
+<link rel="stylesheet" href="css/fonts.css?v=20261106v">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261106p">
+<link rel="stylesheet" href="css/style.css?v=20261106v">
 </head>
 <body>
 
@@ -64,36 +64,79 @@
 </section>
 
 <section class="section-pad legal">
+  <span class="give-orb give-orb-1" aria-hidden="true"></span>
+  <span class="give-orb give-orb-2" aria-hidden="true"></span>
   <div class="container">
-    <article class="legal-doc">
-      <p class="legal-updated">Última actualización: 6 de noviembre de 2026</p>
-      <p>Al usar esta web aceptas estos términos. Si tienes dudas, escríbenos a <a href="mailto:iglesiacgalilea@gmail.com">iglesiacgalilea@gmail.com</a>.</p>
-
-      <h2>1. Sobre esta web</h2>
-      <p>Esta es la web oficial de <strong>Iglesia Cuadrangular Galilea</strong> (Iglesia del Evangelio Cuadrangular del Ecuador), en Milagro, Guayas, Ecuador. Su propósito es informar sobre nuestros servicios, eventos, ministerios y formas de ofrendar.</p>
-
-      <h2>2. Uso correcto</h2>
-      <p>Puedes navegar, compartir nuestros enlaces y descargar información para uso personal. No está permitido usar la web para enviar spam, intentar acceder a sistemas sin autorización, suplantar a otras personas ni publicar contenido ofensivo a través de los formularios.</p>
-
-      <h2>3. Contenido, fotos y marcas</h2>
-      <p>Los textos, fotografías, afiches y videos de la iglesia publicados aquí pertenecen a Iglesia Cuadrangular Galilea o se usan con permiso. Si quieres reutilizarlos, pídenos autorización. Si apareces en alguna foto y prefieres que la retiremos, escríbenos y lo haremos.</p>
-      <p>Los textos bíblicos del asistente provienen de La Biblia en Español Sencillo (dominio público) y los enlaces a la Nueva Traducción Viviente llevan a BibleGateway.</p>
-
-      <h2>4. Ofrendas y diezmos</h2>
-      <p>Las ofrendas y diezmos son <strong>voluntarios</strong> y nunca son un requisito para participar en la iglesia. Las ofrendas con tarjeta las procesa <strong>PayPhone</strong> bajo sus propios términos. Si tuviste un problema con una ofrenda en línea (por ejemplo, un cobro duplicado o un monto equivocado), escríbenos con el número de transacción y lo revisaremos junto con PayPhone.</p>
-
-      <h2>5. Enlaces y servicios externos</h2>
-      <p>La web incluye enlaces y contenido de servicios externos (YouTube, Google Maps, WhatsApp, redes sociales, PayPhone, BibleGateway). No somos responsables del contenido ni de las prácticas de esos sitios, que tienen sus propios términos y políticas.</p>
-
-      <h2>6. Disponibilidad</h2>
-      <p>Hacemos lo posible para que la información (horarios, eventos, ubicaciones) esté siempre actualizada, pero puede haber cambios de última hora. Ante cualquier duda, confirma por nuestros canales de contacto.</p>
-
-      <h2>7. Privacidad</h2>
-      <p>El uso de tus datos personales se explica en nuestra <a href="privacidad.html">Política de privacidad</a>.</p>
-
-      <h2>8. Ley aplicable</h2>
-      <p>Estos términos se rigen por las leyes de la República del Ecuador.</p>
-    </article>
+    <!-- Resumen, índice y secciones numeradas (el contenido legal va en cada .legal-sec) -->
+    <div class="legal-intro reveal">
+      <p class="legal-updated"><i class="fa-regular fa-calendar"></i> Última actualización: 6 de noviembre de 2026</p>
+      <p class="legal-lead">Al usar esta web aceptas estos términos. Si tienes dudas, escríbenos a <a href="mailto:iglesiacgalilea@gmail.com">iglesiacgalilea@gmail.com</a>.</p>
+    </div>
+    <div class="legal-summary">
+      <span class="legal-summary-title">En resumen</span>
+        <div class="legal-sum-card"><i class="fa-solid fa-hand-holding-heart"></i><strong>Ofrendas voluntarias</strong><p>Nunca son un requisito para ser parte de la iglesia.</p></div>
+        <div class="legal-sum-card"><i class="fa-solid fa-camera"></i><strong>Contenido de la iglesia</strong><p>Fotos y videos son nuestros; pídenos permiso para reutilizarlos.</p></div>
+        <div class="legal-sum-card"><i class="fa-solid fa-link"></i><strong>Servicios externos</strong><p>YouTube, PayPhone y redes sociales tienen sus propios términos.</p></div>
+        <div class="legal-sum-card"><i class="fa-solid fa-scale-balanced"></i><strong>Ley del Ecuador</strong><p>Estos términos se rigen por las leyes ecuatorianas.</p></div>
+    </div>
+    <div class="legal-wrap">
+      <nav class="legal-toc" aria-label="Contenido">
+        <span class="legal-toc-title">Contenido</span>
+        <ol>
+          <li><a href="#s1"><span>01</span>Sobre esta web</a></li>
+          <li><a href="#s2"><span>02</span>Uso correcto</a></li>
+          <li><a href="#s3"><span>03</span>Contenido, fotos y marcas</a></li>
+          <li><a href="#s4"><span>04</span>Ofrendas y diezmos</a></li>
+          <li><a href="#s5"><span>05</span>Enlaces y servicios externos</a></li>
+          <li><a href="#s6"><span>06</span>Disponibilidad</a></li>
+          <li><a href="#s7"><span>07</span>Privacidad</a></li>
+          <li><a href="#s8"><span>08</span>Ley aplicable</a></li>
+        </ol>
+      </nav>
+      <div class="legal-body">
+      <section class="legal-sec reveal" id="s1">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-church"></i></span><span class="legal-sec-num">01</span><h2>Sobre esta web</h2></div>
+        <p>Esta es la web oficial de <strong>Iglesia Cuadrangular Galilea</strong> (Iglesia del Evangelio Cuadrangular del Ecuador), en Milagro, Guayas, Ecuador. Su propósito es informar sobre nuestros servicios, eventos, ministerios y formas de ofrendar.</p>
+      </section>
+      <section class="legal-sec reveal" id="s2">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-handshake"></i></span><span class="legal-sec-num">02</span><h2>Uso correcto</h2></div>
+        <p>Puedes navegar, compartir nuestros enlaces y descargar información para uso personal. No está permitido usar la web para enviar spam, intentar acceder a sistemas sin autorización, suplantar a otras personas ni publicar contenido ofensivo a través de los formularios.</p>
+      </section>
+      <section class="legal-sec reveal" id="s3">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-camera"></i></span><span class="legal-sec-num">03</span><h2>Contenido, fotos y marcas</h2></div>
+        <p>Los textos, fotografías, afiches y videos de la iglesia publicados aquí pertenecen a Iglesia Cuadrangular Galilea o se usan con permiso. Si quieres reutilizarlos, pídenos autorización. Si apareces en alguna foto y prefieres que la retiremos, escríbenos y lo haremos.</p>
+        <p>Los textos bíblicos del asistente provienen de La Biblia en Español Sencillo (dominio público) y los enlaces a la Nueva Traducción Viviente llevan a BibleGateway.</p>
+      </section>
+      <section class="legal-sec reveal" id="s4">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-hand-holding-heart"></i></span><span class="legal-sec-num">04</span><h2>Ofrendas y diezmos</h2></div>
+        <p>Las ofrendas y diezmos son <strong>voluntarios</strong> y nunca son un requisito para participar en la iglesia. Las ofrendas con tarjeta las procesa <strong>PayPhone</strong> bajo sus propios términos. Si tuviste un problema con una ofrenda en línea (por ejemplo, un cobro duplicado o un monto equivocado), escríbenos con el número de transacción y lo revisaremos junto con PayPhone.</p>
+      </section>
+      <section class="legal-sec reveal" id="s5">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-link"></i></span><span class="legal-sec-num">05</span><h2>Enlaces y servicios externos</h2></div>
+        <p>La web incluye enlaces y contenido de servicios externos (YouTube, Google Maps, WhatsApp, redes sociales, PayPhone, BibleGateway). No somos responsables del contenido ni de las prácticas de esos sitios, que tienen sus propios términos y políticas.</p>
+      </section>
+      <section class="legal-sec reveal" id="s6">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-clock"></i></span><span class="legal-sec-num">06</span><h2>Disponibilidad</h2></div>
+        <p>Hacemos lo posible para que la información (horarios, eventos, ubicaciones) esté siempre actualizada, pero puede haber cambios de última hora. Ante cualquier duda, confirma por nuestros canales de contacto.</p>
+      </section>
+      <section class="legal-sec reveal" id="s7">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-user-shield"></i></span><span class="legal-sec-num">07</span><h2>Privacidad</h2></div>
+        <p>El uso de tus datos personales se explica en nuestra <a href="privacidad.html">Política de privacidad</a>.</p>
+      </section>
+      <section class="legal-sec reveal" id="s8">
+        <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-scale-balanced"></i></span><span class="legal-sec-num">08</span><h2>Ley aplicable</h2></div>
+        <p>Estos términos se rigen por las leyes de la República del Ecuador.</p>
+      </section>
+      <div class="legal-cta reveal">
+        <span class="legal-cta-ico"><i class="fa-solid fa-comments"></i></span>
+        <div><strong>¿Tienes alguna pregunta?</strong><p>Con gusto te ayudamos con lo que necesites.</p></div>
+        <div class="legal-cta-actions">
+          <a class="btn btn-accent" href="mailto:iglesiacgalilea@gmail.com"><i class="fa-solid fa-envelope"></i> Escríbenos</a>
+          <a class="btn btn-outline" href="privacidad.html"><i class="fa-solid fa-shield-halved"></i> Política de privacidad</a>
+        </div>
+      </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -150,7 +193,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261106p"></script>
-<script src="js/asistente.js?v=20261106p"></script>
+<script src="js/script.js?v=20261106v"></script>
+<script src="js/asistente.js?v=20261106v"></script>
 </body>
 </html>
