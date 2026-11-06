@@ -496,4 +496,90 @@ if (adBox) {
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !adBox.hidden) close(); });
 }
 
+
+// Text animations: headings enter word by word (blur + rise) followed by a light scan, eyebrows "decode"
+// from random characters, and the home-page stats count up. Everything starts when the element scrolls
+// into view and is skipped entirely when the visitor prefers reduced motion.
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  // wrap every word of el (including words inside <em>/<span>) in .tw > .tw-i, keeping spaces as text
+  let wordIndex = 0;
+  const splitWords = (node) => {
+    [...node.childNodes].forEach(child => {
+      if (child.nodeType === Node.ELEMENT_NODE) { splitWords(child); return; }
+      if (child.nodeType !== Node.TEXT_NODE || !child.textContent.trim()) return;
+      const frag = document.createDocumentFragment();
+      child.textContent.split(/(\s+)/).forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        // custom tags so existing rules like `.section-title span` do not style every word
+        const outer = document.createElement('tw-w');
+        outer.className = 'tw';
+        const inner = document.createElement('tw-l');
+        inner.className = 'tw-i';
+        inner.style.setProperty('--i', wordIndex++);
+        inner.textContent = part;
+        outer.appendChild(inner);
+        frag.appendChild(outer);
+      });
+      child.replaceWith(frag);
+    });
+  };
+
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+<>/';
+  const scramble = (el) => {
+    const textNode = [...el.childNodes].reverse().find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+    if (!textNode) return;
+    const final = textNode.textContent;
+    const start = performance.now();
+    const duration = 900;
+    const frame = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const settled = Math.floor(progress * final.length);
+      textNode.textContent = [...final].map((ch, i) =>
+        i < settled || ch === ' ' ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join('');
+      if (progress < 1) requestAnimationFrame(frame); else textNode.textContent = final;
+    };
+    requestAnimationFrame(frame);
+  };
+
+  const countUp = (el) => {
+    const match = el.textContent.trim().match(/^(\D*)([\d,]+)(\D*)$/);
+    if (!match) return;
+    const target = Number(match[2].replace(/,/g, ''));
+    const start = performance.now();
+    const duration = 1600;
+    const frame = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      el.textContent = match[1] + Math.round(target * eased).toLocaleString('en-US') + match[3];
+      if (t < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
+
+  const textObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      textObserver.unobserve(el);
+      if (el.classList.contains('tw-host')) el.classList.add('tw-go');
+      else if (el.classList.contains('eyebrow')) { el.classList.add('tw-go'); scramble(el); }
+      else countUp(el);
+    });
+  }, {threshold: 0.3});
+
+  document.querySelectorAll('.hero h1, .page-banner h1, .section-title, .cta-strip h2').forEach(el => {
+    wordIndex = 0;
+    splitWords(el);
+    el.classList.add('tw-host');
+    textObserver.observe(el);
+  });
+  document.querySelectorAll('.eyebrow').forEach(el => {
+    el.setAttribute('aria-label', el.textContent.trim());
+    el.classList.add('tw-eyebrow');
+    textObserver.observe(el);
+  });
+  document.querySelectorAll('.hero-stats h3').forEach(el => textObserver.observe(el));
+}
+
 })();

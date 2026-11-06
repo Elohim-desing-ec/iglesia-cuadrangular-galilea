@@ -1728,3 +1728,57 @@
   .event-photo{display:block;width:100%;height:100%;padding:0;cursor:zoom-in;overflow:hidden;background:var(--navy-900);}
   .event-photo img{width:100%;height:100%;object-fit:cover;object-position:78% center;transition:transform .6s ease;}
   .event-card:hover .event-photo img{transform:scale(1.05);}
+
+  /* ===== ANIMACIONES DE TEXTO (js/script.js las activa al entrar en pantalla) =====
+     Títulos: cada palabra entra de borrosa a nítida y girando desde abajo; luego una línea de luz los recorre.
+     Palabras resaltadas: brillo que pasa cada pocos segundos. Eyebrows: se "decodifican". */
+  .tw-host{position:relative;}
+  .tw{display:inline-block;perspective:700px;}
+  .tw-i{display:inline-block;transform-origin:50% 100%;}
+  .tw-host:not(.tw-go) .tw-i{opacity:0;}
+  .tw-go .tw-i{animation:tw-rise .9s cubic-bezier(.2,.75,.25,1) both;animation-delay:calc(var(--i) * 70ms + 80ms);}
+  @keyframes tw-rise{
+    0%{opacity:0;transform:translateY(.6em) rotateX(-75deg) scale(.96);filter:blur(12px);}
+    55%{opacity:1;filter:blur(1px);}
+    100%{opacity:1;transform:none;filter:blur(0);}
+  }
+  /* línea de luz que recorre el título una vez */
+  .tw-host::after{
+    content:'';position:absolute;top:-6%;bottom:-6%;left:0;width:22%;pointer-events:none;opacity:0;
+    background:linear-gradient(100deg,transparent,rgba(160,200,255,0.55),transparent);
+    mix-blend-mode:screen;filter:blur(6px);
+  }
+  .tw-go::after{animation:tw-scan 1.4s cubic-bezier(.5,0,.3,1) .55s both;}
+  @keyframes tw-scan{0%{left:-25%;opacity:0;}15%{opacity:1;}85%{opacity:1;}100%{left:105%;opacity:0;}}
+  .page-banner h1.tw-host{position:relative;}
+
+  /* brillo en las palabras resaltadas (cada contexto define sus dos colores) */
+  .section-title span,.cta-strip h2 span{--tw-a:var(--accent-500);--tw-b:#a9c6ff;}
+  .services .section-title span,.events .section-title span,.testimonials .section-title span{--tw-a:#ffffff;--tw-b:var(--accent-400);}
+  .events-reel .section-title span,.cells .section-title span{--tw-a:var(--accent-400);--tw-b:#ffffff;}
+  .ads .section-title span,.give-ways .section-title span{--tw-a:#6fa3fa;--tw-b:#6ee7b7;}
+  .hero h1 em{--tw-a:var(--accent-400);--tw-b:#ffffff;}
+  .section-title span:not(.tw) .tw-i,.hero h1 em .tw-i,.cta-strip h2 span:not(.tw) .tw-i{
+    background:linear-gradient(100deg,var(--tw-a) 0%,var(--tw-a) 38%,var(--tw-b) 50%,var(--tw-a) 62%,var(--tw-a) 100%);
+    background-size:300% 100%;background-position:100% 0;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tw-go span:not(.tw) .tw-i,.tw-go em .tw-i{
+    animation:tw-rise .9s cubic-bezier(.2,.75,.25,1) both,tw-shine 5.5s ease-in-out infinite;
+    animation-delay:calc(var(--i) * 70ms + 80ms),calc(1.6s + var(--i) * 90ms);
+  }
+  @keyframes tw-shine{0%,55%{background-position:100% 0;}100%{background-position:0% 0;}}
+
+  /* eyebrows: la línea de la izquierda crece y el texto se decodifica */
+  .tw-eyebrow{font-variant-numeric:tabular-nums;}
+  .tw-eyebrow:not(.tw-go)::before{width:0;}
+  .tw-eyebrow::before{transition:width .7s cubic-bezier(.2,.75,.25,1);}
+  .tw-eyebrow.tw-go{animation:tw-glow 1.2s ease-out both;}
+  @keyframes tw-glow{0%{opacity:.2;letter-spacing:4px;text-shadow:0 0 12px currentColor;}60%{opacity:1;}100%{letter-spacing:2px;text-shadow:none;}}
+  .page-banner .tw-eyebrow.tw-go,.hero .tw-eyebrow.tw-go{animation-name:tw-glow;}
+
+  @media(prefers-reduced-motion:reduce){
+    .tw-i,.tw-host::after,.tw-eyebrow{animation:none !important;opacity:1 !important;filter:none !important;}
+  }
+  /* "Desliza" se encimaba sobre el recuadro de cifras en pantallas bajas (laptops): solo se muestra si hay espacio */
+  @media(max-height:960px){.hero .scroll-cue{display:none;}}
