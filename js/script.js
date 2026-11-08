@@ -994,4 +994,95 @@ if (legalToc && 'IntersectionObserver' in window) {
   document.querySelectorAll('.legal-sec').forEach(sec => tocObserver.observe(sec));
 }
 
+
+// Online giving checkout (ofrendas.html): the 3D card and the summary show the chosen type and amount live,
+// the card tilts toward the pointer and flips when tapped. Only a preview: the card data itself is typed in
+// PayPhone's own secure box (js/payphone.js).
+const coGive = document.getElementById('ppGive');
+const coCard = document.getElementById('coCard');
+if (coGive && coCard) {
+  const custom = document.getElementById('ppCustomInput');
+  const slot = coCard.closest('.co-card-slot');
+  const THEMES = {Ofrenda: 'ofrenda', Diezmo: 'diezmo', Misiones: 'misiones'};
+  const render = () => {
+    const tipo = coGive.querySelector('input[name="ppTipo"]:checked').value;
+    const pick = coGive.querySelector('input[name="ppMonto"]:checked').value;
+    const usd = pick === 'otro' ? parseFloat(custom.value) : Number(pick);
+    const valid = usd >= 1 && usd <= 1000;
+    const money = valid ? '$ ' + usd.toFixed(2) : '$ —';
+    coGive.querySelectorAll('[data-co="tipo"]').forEach(el => { el.textContent = tipo; });
+    coGive.querySelectorAll('[data-co="monto"]').forEach(el => { el.textContent = money; });
+    slot.dataset.theme = THEMES[tipo] || 'ofrenda';
+    const step2 = coGive.querySelector('.co-steps [data-step="2"]');
+    const step3 = coGive.querySelector('.co-steps [data-step="3"]');
+    step2.classList.toggle('is-done', valid);
+    step2.classList.toggle('is-current', !valid);
+    step3.classList.toggle('is-current', valid);
+    coCard.classList.remove('co-bump');
+    void coCard.offsetWidth;
+    coCard.classList.add('co-bump');
+  };
+  coGive.addEventListener('change', render);
+  custom.addEventListener('input', render);
+  render();
+  coCard.addEventListener('click', () => coCard.classList.toggle('is-flipped'));
+  if (window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    const visual = coCard.closest('.co-visual');
+    visual.addEventListener('pointermove', (e) => {
+      const r = slot.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      slot.style.setProperty('--ry', (x * 18).toFixed(2) + 'deg');
+      slot.style.setProperty('--rx', (-y * 14).toFixed(2) + 'deg');
+      slot.style.setProperty('--gx', ((x + 0.5) * 100).toFixed(1) + '%');
+      slot.style.setProperty('--gy', ((y + 0.5) * 100).toFixed(1) + '%');
+    });
+    visual.addEventListener('pointerleave', () => {
+      ['--rx', '--ry', '--gx', '--gy'].forEach(v => slot.style.removeProperty(v));
+    });
+  }
+}
+
+
+// Misiones page: the "Ora / Ve / Da" steps rotate on their own (or on tap) and the counter [ 01 / 03 ] follows.
+const misSteps = document.getElementById('misSteps');
+if (misSteps) {
+  const steps = [...misSteps.querySelectorAll('.mis-step')];
+  const label = misSteps.querySelector('[data-mis-step]');
+  let i = 0, timer = 0;
+  const show = (n) => {
+    i = n;
+    steps.forEach((st, k) => st.classList.toggle('is-active', k === n));
+    label.textContent = steps[n].dataset.step;
+  };
+  const auto = () => { clearInterval(timer); timer = setInterval(() => show((i + 1) % steps.length), 4500); };
+  steps.forEach((st, k) => st.addEventListener('click', () => { show(k); auto(); }));
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+}
+
+
+// Jóvenes page: the big statement lines reveal when they scroll into view, and the floating photo drifts
+// with the pointer.
+const yvStatement = document.getElementById('yvStatement');
+if (yvStatement) {
+  if ('IntersectionObserver' in window) {
+    const yvObserver = new IntersectionObserver((list) => {
+      if (!list[0].isIntersecting) return;
+      yvStatement.classList.add('is-in');
+      yvObserver.disconnect();
+    }, {threshold: 0.3});
+    yvObserver.observe(yvStatement);
+  } else {
+    yvStatement.classList.add('is-in');
+  }
+  const float = yvStatement.querySelector('.yv-float');
+  if (float && window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    yvStatement.addEventListener('pointermove', (e) => {
+      const r = yvStatement.getBoundingClientRect();
+      float.style.setProperty('--fx', ((e.clientX - r.left) / r.width - 0.5) * 80 + 'px');
+      float.style.setProperty('--fy', ((e.clientY - r.top) / r.height - 0.5) * 60 + 'px');
+    });
+  }
+}
+
 })();

@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261108g">
+<link rel="stylesheet" href="css/fonts.css?v=20261108u">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261108g">
+<link rel="stylesheet" href="css/style.css?v=20261108u">
 </head>
 <body>
 
@@ -24,19 +24,35 @@
         <img class="logo-img" src="img/logo-galilea.png" alt="Iglesia Cuadrangular Galilea">
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="horarios.html">Horarios</a></li>
-        <li><a href="ubicacion.html">Ubicación</a></li>
         <li class="has-dropdown">
-          <a href="eventos.html" class="dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Eventos <i class="fa-solid fa-chevron-down"></i></a>
+          <a href="index.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Inicio <i class="fa-solid fa-chevron-down"></i></a>
           <ul class="dropdown">
-            <li><a href="juventud.html"><i class="fa-solid fa-fire"></i><span><strong>Juventud</strong><small>Culto de jóvenes y actividades</small></span></a></li>
-            <li><a href="grupos.html"><i class="fa-solid fa-people-group"></i><span><strong>Grupos</strong><small>Células, damas, caballeros y parejas</small></span></a></li>
+            <li><a href="nosotros.html"><i class="fa-solid fa-church"></i><span><strong>Nosotros</strong><small>Nuestra historia, pastores y líderes</small></span></a></li>
             <li><a href="ingles.html"><i class="fa-solid fa-language"></i><span><strong>English</strong><small>Información para visitantes en inglés</small></span></a></li>
-            <li class="dropdown-all"><a href="eventos.html"><i class="fa-solid fa-calendar-days"></i><span>Ver todos los eventos</span></a></li>
+            <li class="dropdown-all"><a href="index.html"><i class="fa-solid fa-house"></i><span>Ir al inicio</span></a></li>
           </ul>
         </li>
+        <li class="has-dropdown">
+          <a href="horarios.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Horarios <i class="fa-solid fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="eventos.html"><i class="fa-solid fa-calendar-days"></i><span><strong>Eventos</strong><small>Agenda, anuncios y próximos eventos</small></span></a></li>
+            <li class="dropdown-all"><a href="horarios.html"><i class="fa-regular fa-clock"></i><span>Ver todos los horarios</span></a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown has-dropdown-wide">
+          <a href="ministerios.html" class="dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Ministerios <i class="fa-solid fa-chevron-down"></i></a>
+          <ul class="dropdown dropdown-grid">
+            <li><a href="juventud.html"><i class="fa-solid fa-fire"></i><span><strong>Jóvenes</strong></span></a></li>
+            <li><a href="damas.html"><i class="fa-solid fa-person-dress"></i><span><strong>Damas</strong></span></a></li>
+            <li><a href="caballeros.html"><i class="fa-solid fa-person"></i><span><strong>Caballeros</strong></span></a></li>
+            <li><a href="escuela-biblica.html"><i class="fa-solid fa-book-bible"></i><span><strong>Escuela Bíblica</strong></span></a></li>
+            <li><a href="celulas.html"><i class="fa-solid fa-people-roof"></i><span><strong>Células Hogares</strong></span></a></li>
+            <li><a href="alabanza.html"><i class="fa-solid fa-music"></i><span><strong>Alabanza</strong></span></a></li>
+            <li><a href="misiones.html"><i class="fa-solid fa-earth-americas"></i><span><strong>Misiones</strong></span></a></li>
+            <li class="dropdown-all"><a href="ministerios.html"><i class="fa-solid fa-hands-holding-circle"></i><span>Ver todos los ministerios</span></a></li>
+          </ul>
+        </li>
+        <li><a href="ubicacion.html">Ubicación</a></li>
         <li><a href="predicas.html">Prédicas</a></li>
         <li><a href="contacto.html">Contacto</a></li>
         <li class="nav-give"><a href="ofrendas.html"><i class="fa-solid fa-hand-holding-heart"></i> Ofrendar</a></li>
@@ -50,17 +66,63 @@
   </div>
 </header>
 
-<!-- ===== PAGE BANNER ===== -->
-<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('fotos/juventud/juventud-banner.jpg') center 15%/cover no-repeat;">
+<!-- ===== JÓVENES: portada estilo editorial negro (nombre gigante, frase con foto flotante y muro 3D de fotos) ===== -->
+<section class="yv-hero">
+  <div class="container yv-hero-top">
+    <p class="yv-meta">Ministerio de Jóvenes<br>Iglesia Galilea<br><span>Milagro, Ecuador</span></p>
+    <div class="yv-pills"><span class="is-on">Sábados</span><span>7:30 PM</span></div>
+    <p class="yv-meta yv-meta-r">Adolescentes<br>y jóvenes</p>
+  </div>
+  <div class="yv-word-wrap">
+    <h1 class="yv-word" aria-label="Jóvenes">
+      <span>J</span><span>Ó</span><span>V</span><span class="yv-gap"><img src="fotos/juventud/juventud-banner.jpg" alt=""></span><span>E</span><span>N</span><span>E</span><span>S</span>
+    </h1>
+  </div>
+  <div class="container yv-hero-bottom">
+    <div class="breadcrumb"><a href="index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i><a href="ministerios.html">Ministerios</a><i class="fa-solid fa-chevron-right"></i><span>Jóvenes</span></div>
+    <div class="yv-hero-cta">
+      <p>Una generación con propósito.</p>
+      <a class="yv-pill-btn" href="https://wa.me/593959009768?text=Hola%2C%20es%20mi%20primera%20vez%20y%20quiero%20ir%20al%20culto%20de%20j%C3%B3venes%20de%20Galilea." target="_blank" rel="noopener">Quiero unirme <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="yv-statement" id="yvStatement">
   <div class="container">
-    <div class="eyebrow">Juventud</div>
-    <h1>Una generación con propósito</h1>
-    <div class="breadcrumb">
-      <a href="index.html">Inicio</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <a href="eventos.html">Eventos</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <span>Juventud</span>
+    <p class="yv-small">Cada sábado <span class="yv-dot"></span> Templo Galilea</p>
+    <h2 class="yv-lines">
+      <span class="yv-line">Adoramos,</span>
+      <span class="yv-line"><em>aprendemos</em></span>
+      <span class="yv-line">y crecemos juntos</span>
+    </h2>
+    <div class="yv-float" aria-hidden="true"><img src="fotos/juventud/adoracion.jpg" alt=""></div>
+    <div class="yv-statement-foot">
+      <p>Un espacio para adolescentes y jóvenes donde adoramos, aprendemos de la Palabra y construimos amistades que nos acercan a Dios.</p>
+      <p class="yv-small">Líder: Génesis Mendoza</p>
+    </div>
+  </div>
+</section>
+
+<section class="yv-wall">
+  <div class="yv-wall-3d" aria-hidden="true">
+      <div class="yv-row"><div class="yv-track"><span style="background-image:url('fotos/juventud/adoracion.jpg')"></span><span style="background-image:url('fotos/juventud/momento-1.jpg')"></span><span style="background-image:url('img/fotojovenesgaliela.jpg')"></span><span style="background-image:url('fotos/juventud/palabra.jpg')"></span><span style="background-image:url('fotos/juventud/amistad.jpg')"></span><span style="background-image:url('img/nosotros-jovenes.jpg')"></span><span style="background-image:url('fotos/juventud/momento-2.jpg')"></span><span style="background-image:url('fotos/juventud/servicio.jpg')"></span><span style="background-image:url('img/grupalpicture.jpg')"></span><span style="background-image:url('fotos/juventud/adoracion.jpg')"></span><span style="background-image:url('fotos/juventud/momento-1.jpg')"></span><span style="background-image:url('img/fotojovenesgaliela.jpg')"></span><span style="background-image:url('fotos/juventud/palabra.jpg')"></span><span style="background-image:url('fotos/juventud/amistad.jpg')"></span><span style="background-image:url('img/nosotros-jovenes.jpg')"></span><span style="background-image:url('fotos/juventud/momento-2.jpg')"></span><span style="background-image:url('fotos/juventud/servicio.jpg')"></span><span style="background-image:url('img/grupalpicture.jpg')"></span></div></div>
+      <div class="yv-row yv-row-rev"><div class="yv-track"><span style="background-image:url('fotos/juventud/palabra.jpg')"></span><span style="background-image:url('fotos/juventud/amistad.jpg')"></span><span style="background-image:url('img/nosotros-jovenes.jpg')"></span><span style="background-image:url('fotos/juventud/momento-2.jpg')"></span><span style="background-image:url('fotos/juventud/servicio.jpg')"></span><span style="background-image:url('img/grupalpicture.jpg')"></span><span style="background-image:url('fotos/juventud/momento-3.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-34.jpg')"></span><span style="background-image:url('fotos/juventud/juventud-banner.jpg')"></span><span style="background-image:url('fotos/juventud/palabra.jpg')"></span><span style="background-image:url('fotos/juventud/amistad.jpg')"></span><span style="background-image:url('img/nosotros-jovenes.jpg')"></span><span style="background-image:url('fotos/juventud/momento-2.jpg')"></span><span style="background-image:url('fotos/juventud/servicio.jpg')"></span><span style="background-image:url('img/grupalpicture.jpg')"></span><span style="background-image:url('fotos/juventud/momento-3.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-34.jpg')"></span><span style="background-image:url('fotos/juventud/juventud-banner.jpg')"></span></div></div>
+      <div class="yv-row"><div class="yv-track"><span style="background-image:url('fotos/juventud/momento-2.jpg')"></span><span style="background-image:url('fotos/juventud/servicio.jpg')"></span><span style="background-image:url('img/grupalpicture.jpg')"></span><span style="background-image:url('fotos/juventud/momento-3.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-34.jpg')"></span><span style="background-image:url('fotos/juventud/juventud-banner.jpg')"></span><span style="background-image:url('fotos/juventud/adoracion.jpg')"></span><span style="background-image:url('fotos/juventud/momento-1.jpg')"></span><span style="background-image:url('img/fotojovenesgaliela.jpg')"></span><span style="background-image:url('fotos/juventud/momento-2.jpg')"></span><span style="background-image:url('fotos/juventud/servicio.jpg')"></span><span style="background-image:url('img/grupalpicture.jpg')"></span><span style="background-image:url('fotos/juventud/momento-3.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-34.jpg')"></span><span style="background-image:url('fotos/juventud/juventud-banner.jpg')"></span><span style="background-image:url('fotos/juventud/adoracion.jpg')"></span><span style="background-image:url('fotos/juventud/momento-1.jpg')"></span><span style="background-image:url('img/fotojovenesgaliela.jpg')"></span></div></div>
+      <div class="yv-row yv-row-rev"><div class="yv-track"><span style="background-image:url('fotos/juventud/momento-3.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-34.jpg')"></span><span style="background-image:url('fotos/juventud/juventud-banner.jpg')"></span><span style="background-image:url('fotos/juventud/adoracion.jpg')"></span><span style="background-image:url('fotos/juventud/momento-1.jpg')"></span><span style="background-image:url('img/fotojovenesgaliela.jpg')"></span><span style="background-image:url('fotos/juventud/palabra.jpg')"></span><span style="background-image:url('fotos/juventud/amistad.jpg')"></span><span style="background-image:url('img/nosotros-jovenes.jpg')"></span><span style="background-image:url('fotos/juventud/momento-3.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-34.jpg')"></span><span style="background-image:url('fotos/juventud/juventud-banner.jpg')"></span><span style="background-image:url('fotos/juventud/adoracion.jpg')"></span><span style="background-image:url('fotos/juventud/momento-1.jpg')"></span><span style="background-image:url('img/fotojovenesgaliela.jpg')"></span><span style="background-image:url('fotos/juventud/palabra.jpg')"></span><span style="background-image:url('fotos/juventud/amistad.jpg')"></span><span style="background-image:url('img/nosotros-jovenes.jpg')"></span></div></div>
+  </div>
+  <div class="yv-wall-center">
+    <p class="yv-small">Aquí perteneces</p>
+    <h2>Tu próximo gran paso<br>empieza aquí</h2>
+    <p class="yv-wall-sub">Ven este sábado a las 7:30 PM. No importa de dónde vengas, hay un lugar para ti.</p>
+    <a class="yv-bar" href="https://wa.me/593959009768?text=Hola%2C%20es%20mi%20primera%20vez%20y%20quiero%20ir%20al%20culto%20de%20j%C3%B3venes%20de%20Galilea." target="_blank" rel="noopener">
+      <span><i class="fa-brands fa-whatsapp"></i> ¿Primera vez en jóvenes? Escríbenos y te esperamos</span>
+      <b>Enviar <i class="fa-solid fa-arrow-right"></i></b>
+    </a>
+    <div class="yv-chips">
+      <a href="#que-vivimos"><i class="fa-solid fa-music"></i> Adoración</a>
+      <a href="#que-vivimos"><i class="fa-solid fa-book-bible"></i> Palabra</a>
+      <a href="#que-vivimos"><i class="fa-solid fa-people-group"></i> Amistad</a>
+      <a href="#que-vivimos"><i class="fa-solid fa-hand-holding-heart"></i> Servicio</a>
     </div>
   </div>
 </section>
@@ -101,7 +163,7 @@
 </section>
 
 <!-- ===== QUE VIVIMOS ===== -->
-<section class="section-pad services">
+<section class="section-pad services" id="que-vivimos">
   <div class="container">
     <div class="section-head center reveal">
       <div class="eyebrow">Cada sábado</div>
@@ -236,6 +298,7 @@
         <ul class="footer-links">
           <li><a href="nosotros.html">Nosotros</a></li>
           <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="ministerios.html">Ministerios</a></li>
           <li><a href="ubicacion.html">Ubicación</a></li>
           <li><a href="eventos.html">Eventos</a></li>
           <li><a href="predicas.html">Prédicas</a></li>
@@ -268,7 +331,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261108g"></script>
-<script src="js/asistente.js?v=20261108g"></script>
+<script src="js/script.js?v=20261108u"></script>
+<script src="js/asistente.js?v=20261108u"></script>
 </body>
 </html>
