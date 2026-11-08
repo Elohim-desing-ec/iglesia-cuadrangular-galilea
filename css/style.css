@@ -1709,7 +1709,7 @@
     .ad-date{width:54px;}
     .ad-date strong{font-size:19px;}
     .ad-info h3{font-size:17px;}
-    .ad-btn{flex:1;justify-content:center;padding:10px 12px;}
+    .ad-btn{flex:1;justify-content:center;padding:10px 10px;font-size:13px;white-space:nowrap;}
     .ad-zoom{opacity:1;transform:none;width:36px;height:36px;}
     .ad-lightbox{padding:12px;}
   }
@@ -1868,15 +1868,18 @@
       background:
         radial-gradient(circle at 90% 0%,rgba(47,95,224,0.38),transparent 50%),
         radial-gradient(circle at 0% 100%,rgba(52,211,153,0.18),transparent 45%),
-        rgba(5,11,26,0.97);
-      -webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);
-      border-left:none;box-shadow:none;
-      clip-path:circle(0px at var(--mx,calc(100% - 40px)) var(--my,40px));visibility:hidden;
-      transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s linear .75s;
+        #050b1a;
+      /* fondo sólido: así el navegador no tiene que seguir dibujando la página de atrás mientras el menú está abierto.
+         Sin desenfoque ni recorte animado: en muchos Android (Samsung) un clip-path de pantalla completa animado
+         sobre un backdrop-filter hacía parpadear o caerse el menú. opacity + transform van por la GPU sin repintar. */
+      -webkit-backdrop-filter:none;backdrop-filter:none;clip-path:none;
+      border-left:none;box-shadow:none;overscroll-behavior:contain;
+      opacity:0;transform:translateY(-14px) scale(.985);transform-origin:top right;visibility:hidden;
+      transition:opacity .35s ease,transform .45s cubic-bezier(.2,.75,.25,1),visibility 0s linear .45s;
     }
     .nav-links.open{
-      clip-path:circle(160vmax at var(--mx,calc(100% - 40px)) var(--my,40px));visibility:visible;
-      transition:clip-path .75s cubic-bezier(.7,0,.2,1),visibility 0s;
+      opacity:1;transform:none;visibility:visible;
+      transition:opacity .35s ease,transform .45s cubic-bezier(.2,.75,.25,1),visibility 0s;
     }
     /* cada opción entra desde la derecha, una tras otra */
     .nav-links > li{opacity:0;transform:translateX(40px);transition:opacity .4s ease,transform .55s cubic-bezier(.2,.75,.25,1);}
@@ -2245,3 +2248,72 @@
      contenedores de scroll (eso rompía todo position:sticky, como el índice legal y el anuncio destacado) */
   html,body{overflow-x:clip;}
   @media(max-width:900px){html,body{overflow-x:clip;}}
+
+  /* ===== ANUNCIOS v2: próximo evento en grande + carrusel de agenda + "Próximamente" (eventos.html, index.html) ===== */
+  .ad-feature:empty{display:none;}
+  .ad-feature{margin-bottom:48px;}
+  .ad-feature .ad-card.is-featured{
+    position:relative;top:auto;grid-row:auto;grid-column:auto;max-width:none;margin:0;
+    display:grid;grid-template-columns:1.45fr 1fr;align-items:center;
+    border-color:rgba(111,163,250,0.4);box-shadow:0 30px 80px rgba(0,0,0,0.45),0 0 0 1px rgba(111,163,250,0.12),var(--glass-highlight);
+  }
+  /* el afiche siempre completo en 16:9 (sin recortar su texto) */
+  .ad-feature .ad-media{aspect-ratio:16/9;height:auto;align-self:stretch;display:flex;align-items:center;background:#050b1a;}
+  .ad-feature .ad-media img{width:100%;height:auto;}
+  .ad-feature .ad-body::before{
+    content:'Próximo evento';grid-column:1 / -1;justify-self:start;margin-bottom:6px;padding:7px 14px 7px 26px;border-radius:100px;
+    font:700 11.5px 'Inter',sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);
+    background:rgba(224,36,36,0.14) radial-gradient(circle at 13px 50%,#ff4d4d 4px,transparent 5px);border:1px solid rgba(255,120,120,0.35);
+  }
+  .ad-feature .ad-body{align-content:center;padding:34px 32px;}
+  .ad-feature .ad-info h3{font-size:clamp(24px,2.8vw,34px);margin-bottom:12px;}
+  .ad-feature .ad-info p{font-size:15px;}
+  .ad-feature .ad-date{width:70px;}
+  .ad-feature .ad-date strong{font-size:26px;}
+  /* carrusel */
+  .ad-reel-head{display:flex;align-items:center;gap:16px;margin-bottom:14px;}
+  .ad-reel-head h3{display:flex;align-items:center;gap:10px;font-size:20px;color:var(--white);}
+  .ad-reel-head h3 i{color:#6ee7b7;font-size:17px;}
+  .ad-reel-all{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#9cc0ff;}
+  .ad-reel-all:hover{color:var(--white);}
+  .ad-reel-arrows{display:flex;gap:10px;}
+  .ad-reel-all + .ad-reel-arrows{margin-left:6px;}
+  .ad-reel-head h3 + .ad-reel-arrows{margin-left:auto;}
+  .ad-reel-wrap.no-arrows .ad-reel-arrows{display:none;}
+  .ad-reel{
+    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 6px 28px;margin:0 -6px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  }
+  .ad-reel::-webkit-scrollbar{display:none;}
+  .ad-reel .ad-card{flex:0 0 min(380px,84vw);scroll-snap-align:start;}
+  /* tarjetas de igual alto con los botones alineados abajo */
+  .ad-reel .ad-body{flex:1;align-content:start;grid-template-rows:auto 1fr;}
+  .ad-reel .ad-actions{align-self:end;}
+  .ad-reel .ad-info h3{font-size:18px;}
+  /* próximamente */
+  .ad-soon{margin-top:40px;}
+  .ad-soon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .ad-soon-card .ad-media img{filter:saturate(1.05);}
+  .ad-ribbon{
+    display:inline-flex;margin-bottom:10px;align-items:center;gap:7px;padding:7px 14px;border-radius:100px;
+    font:700 11.5px 'Inter',sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:#1a1200;
+    background:linear-gradient(135deg,#ffd166,#f5a301);box-shadow:0 8px 20px rgba(245,163,1,0.4);
+  }
+  .ad-soon-body{padding:18px 20px 22px;}
+  .ad-soon-body h3{font-size:18px;color:var(--white);margin-bottom:6px;}
+  .ad-soon-body p{font-size:14px;color:var(--text-muted);}
+  /* en Inicio la franja va más compacta */
+  .ads-home{padding-top:90px;padding-bottom:70px;}
+  @media(max-width:900px){
+    .ad-feature .ad-card.is-featured{grid-template-columns:1fr;}
+    .ad-feature .ad-media{height:auto;}
+    .ad-feature .ad-body{padding:22px 20px 24px;}
+    .ad-soon-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:560px){
+    .ad-reel-arrows{display:none;}
+    .ad-reel-head h3{font-size:17px;}
+    .ad-reel-all{font-size:13px;}
+    .ad-feature .ad-body::before{font-size:10.5px;}
+    .ads-home{padding-top:60px;padding-bottom:50px;}
+  }

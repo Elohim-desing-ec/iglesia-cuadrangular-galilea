@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261106v">
+<link rel="stylesheet" href="css/fonts.css?v=20261108g">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261106v">
+<link rel="stylesheet" href="css/style.css?v=20261108g">
 </head>
 <body>
 
@@ -86,8 +86,9 @@
 </section>
 
 <!-- ===== ANUNCIOS =====
-     Afiches de los próximos eventos (imágenes en fotos/anuncios/). Cada .ad-card desaparece sola cuando pasa su data-fin;
-     el primero que siga vigente se muestra en grande. Tocar la imagen la abre a pantalla completa. -->
+     Afiches en fotos/anuncios/. Cada .ad-card con data-fin desaparece sola cuando pasa su fecha; las que quedan van
+     en orden de fecha y la primera se muestra en grande arriba (#adFeature). Las de "Próximamente" no tienen fecha.
+     Tocar un afiche lo abre a pantalla completa. -->
 <section class="section-pad ads" id="anuncios">
   <span class="give-orb give-orb-1" aria-hidden="true"></span>
   <span class="give-orb give-orb-2" aria-hidden="true"></span>
@@ -98,31 +99,131 @@
       <h2 class="section-title">No te pierdas <span>lo que viene</span></h2>
       <p class="section-desc">Comparte estos anuncios con tu familia y amigos. ¡Todos están invitados!</p>
     </div>
-    <div class="ad-grid" id="adGrid">
-
-      <article class="ad-card reveal" data-fin="2026-10-31T15:00:00-05:00">
-        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Culto de Concentración y Bautismo">
-          <img src="fotos/anuncios/concentracion-bautismo.jpg" alt="Afiche: Culto de Concentración y Bautismo Zona 5, sábado 31 de octubre de 2026 a las 10:00 a.m. en la Iglesia Cuadrangular Betel, Recinto Maravilla 2" loading="lazy">
+    <div class="ad-feature" id="adFeature"></div>
+    <div class="ad-reel-wrap">
+      <div class="ad-reel-head">
+        <h3><i class="fa-solid fa-calendar-days"></i> Agenda de noviembre y diciembre</h3>
+        <div class="ad-reel-arrows">
+          <button type="button" class="reel-btn" data-dir="-1" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+          <button type="button" class="reel-btn" data-dir="1" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="ad-reel" id="adGrid" data-ad-reel data-feature="adFeature">
+      <article class="ad-card reveal" data-fin="2026-11-09T22:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Culto de Oración y Petición">
+          <img src="fotos/anuncios/culto-oracion.jpg" alt="Afiche: Culto de Oración y Petición, lunes 9 a las 19:30" loading="lazy" width="1280" height="720">
           <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
         </button>
         <div class="ad-body">
-          <span class="ad-date"><strong>31</strong>Oct</span>
+          <span class="ad-date"><strong>09</strong>Nov</span>
           <div class="ad-info">
-            <span class="ad-tag"><i class="fa-solid fa-water"></i> Zona 5</span>
-            <h3>Culto de Concentración y Bautismo</h3>
-            <p><i class="fa-regular fa-clock"></i> Sábado 31 de octubre · 10:00 AM</p>
-            <p><i class="fa-solid fa-location-dot"></i> Iglesia Cuadrangular Betel, Recinto Maravilla 2</p>
+            <span class="ad-tag"><i class="fa-solid fa-hands-praying"></i> Lunes de oración</span>
+            <h3>Culto de Oración y Petición</h3>
+            <p><i class="fa-regular fa-clock"></i> Lunes 9 de noviembre · 7:30 PM</p>
+            <p><i class="fa-solid fa-envelope-open-text"></i> ¿Tienes una petición? Envíanosla y oramos por ti</p>
           </div>
           <div class="ad-actions">
-            <a class="ad-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Iglesia+Cuadrangular+Betel+Recinto+Maravilla+2+Milagro" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
-            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=%C2%A1Te%20invito%20al%20Culto%20de%20Concentraci%C3%B3n%20y%20Bautismo%20Zona%205!%20S%C3%A1bado%2031%20de%20octubre%2C%2010%3A00%20AM%2C%20Iglesia%20Cuadrangular%20Betel%20(Recinto%20Maravilla%202).%20https%3A%2F%2Figlesiacuadrangulargalilea.org%2Feventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+            <a class="ad-btn ad-btn-give" href="contacto.html"><i class="fa-solid fa-paper-plane"></i> Enviar petición</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20al%20Culto%20de%20Oraci%C3%B3n%20y%20Petici%C3%B3n%2C%20lunes%209%20de%20noviembre%20a%20las%207%3A30%20PM%20en%20Iglesia%20Cuadrangular%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
           </div>
         </div>
       </article>
-
+      <article class="ad-card reveal" data-fin="2026-11-10T22:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Culto de Caballeros">
+          <img src="fotos/anuncios/culto-caballeros.jpg" alt="Afiche: Culto de Caballeros, martes 10 de noviembre" loading="lazy" width="1280" height="720">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>10</strong>Nov</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-user-group"></i> Caballeros</span>
+            <h3>Culto de Caballeros</h3>
+            <p><i class="fa-regular fa-clock"></i> Martes 10 de noviembre</p>
+            <p><i class="fa-solid fa-heart"></i> ¡Te esperamos, no faltes!</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="horarios.html"><i class="fa-regular fa-clock"></i> Ver horarios</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20al%20Culto%20de%20Caballeros%2C%20martes%2010%20de%20noviembre%20en%20Iglesia%20Cuadrangular%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+      <article class="ad-card reveal" data-fin="2026-11-11T22:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Estudio Bíblico">
+          <img src="fotos/anuncios/estudio-biblico.jpg" alt="Afiche: Estudio Bíblico, miércoles 11 de noviembre a las 19:30" loading="lazy" width="1280" height="720">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>11</strong>Nov</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-book-bible"></i> Palabra</span>
+            <h3>Estudio Bíblico</h3>
+            <p><i class="fa-regular fa-clock"></i> Miércoles 11 de noviembre · 7:30 PM</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="horarios.html"><i class="fa-regular fa-clock"></i> Ver horarios</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20al%20Estudio%20B%C3%ADblico%2C%20mi%C3%A9rcoles%2011%20de%20noviembre%20a%20las%207%3A30%20PM%20en%20Iglesia%20Cuadrangular%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+      <article class="ad-card reveal" data-fin="2026-11-13T22:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Células Hogares">
+          <img src="fotos/anuncios/celulas-hogares.jpg" alt="Afiche: Células Hogares, viernes 13 a las 7:30 PM" loading="lazy" width="1280" height="720">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>13</strong>Nov</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-house-user"></i> Células</span>
+            <h3>Células Hogares</h3>
+            <p><i class="fa-regular fa-clock"></i> Viernes 13 de noviembre · 7:30 PM</p>
+            <p><i class="fa-solid fa-location-dot"></i> En casas de hermanos en toda Milagro</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn ad-btn-give" href="ubicacion.html#celulas"><i class="fa-solid fa-map-location-dot"></i> Busca tu célula</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20a%20una%20C%C3%A9lula%20Hogar%20este%20viernes%2013%20de%20noviembre%20a%20las%207%3A30%20PM.%20Iglesia%20Cuadrangular%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+      <article class="ad-card reveal" data-fin="2026-11-21T22:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: El Síndrome del Camaleón">
+          <img src="fotos/anuncios/sindrome-camaleon.jpg" alt="Afiche: El Síndrome del Camaleón, tres síntomas de un corazón desconectado, serie de jóvenes a las 7:30 PM" loading="lazy" width="1280" height="720">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>SÁB</strong>Nov</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-masks-theater"></i> Serie de jóvenes</span>
+            <h3>El Síndrome del Camaleón</h3>
+            <p><i class="fa-regular fa-clock"></i> Sábados 14 y 21 de noviembre · 7:30 PM</p>
+            <p><i class="fa-solid fa-fire"></i> Tres síntomas de un corazón desconectado</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="#serie-camaleon"><i class="fa-solid fa-arrow-down"></i> Ver la serie</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20a%20la%20serie%20de%20j%C3%B3venes%20El%20S%C3%ADndrome%20del%20Camale%C3%B3n%2C%20s%C3%A1bados%20de%20noviembre%20a%20las%207%3A30%20PM%20en%20Iglesia%20Cuadrangular%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+      <article class="ad-card reveal" data-fin="2026-11-17T22:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Culto de Damas">
+          <img src="fotos/anuncios/culto-damas.jpg" alt="Afiche: Culto de Damas, martes 17 a las 7:30 PM" loading="lazy" width="1280" height="720">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>17</strong>Nov</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-person-dress"></i> Damas</span>
+            <h3>Culto de Damas</h3>
+            <p><i class="fa-regular fa-clock"></i> Martes 17 de noviembre · 7:30 PM</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="horarios.html"><i class="fa-regular fa-clock"></i> Ver horarios</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20al%20Culto%20de%20Damas%2C%20martes%2017%20de%20noviembre%20a%20las%207%3A30%20PM%20en%20Iglesia%20Cuadrangular%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
       <article class="ad-card reveal" data-fin="2026-11-28T14:00:00-05:00">
-        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Escuela Bíblica Soldados de Jesús">
-          <img src="fotos/anuncios/escuela-biblica.jpg" alt="Afiche: Escuela Bíblica Soldados de Jesús, reclutamiento de 0 a 99 años, sábado 28 de noviembre a las 10:00 a.m. en Iglesia Galilea, Rosa Borja de Icaza entre Pablo Echavarría y Alfredo Adum" loading="lazy">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Escuela Bíblica: Soldados de Jesús">
+          <img src="fotos/anuncios/escuela-biblica.jpg" alt="Afiche: Escuela Bíblica Soldados de Jesús, reclutamiento de 0 a 99 años, sábado 28 de noviembre a las 10:00 a.m. en Iglesia Galilea" loading="lazy" width="1280" height="720">
           <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
         </button>
         <div class="ad-body">
@@ -135,14 +236,31 @@
           </div>
           <div class="ad-actions">
             <a class="ad-btn" href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
-            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=%C2%A1Te%20invito%20a%20la%20Escuela%20B%C3%ADblica%20%22Soldados%20de%20Jes%C3%BAs%22!%20Para%20todas%20las%20edades.%20S%C3%A1bado%2028%20de%20noviembre%2C%2010%3A00%20AM%2C%20Iglesia%20Galilea.%20https%3A%2F%2Figlesiacuadrangulargalilea.org%2Feventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20a%20la%20Escuela%20B%C3%ADblica%20Soldados%20de%20Jes%C3%BAs%2C%20para%20todas%20las%20edades.%20S%C3%A1bado%2028%20de%20noviembre%2C%2010%3A00%20AM%2C%20Iglesia%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
           </div>
         </div>
       </article>
-
+      <article class="ad-card reveal" data-fin="2026-12-06T13:00:00-05:00">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Santa Cena">
+          <img src="fotos/anuncios/santa-cena.jpg" alt="Afiche: Santa Cena, culto dominical, domingo 6 de diciembre" loading="lazy" width="1280" height="720">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>06</strong>Dic</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-wine-glass"></i> Culto dominical</span>
+            <h3>Santa Cena</h3>
+            <p><i class="fa-regular fa-clock"></i> Domingo 6 de diciembre · Culto dominical 10:00 AM</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20al%20Culto%20Dominical%20de%20Santa%20Cena%2C%20domingo%206%20de%20diciembre%20a%20las%2010%3A00%20AM%20en%20Iglesia%20Cuadrangular%20Galilea.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
       <article class="ad-card reveal" data-fin="2026-12-31T23:59:00-05:00">
-        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Viaje Misionero diciembre 2026">
-          <img src="fotos/anuncios/viaje-misionero.jpg" alt="Afiche: Viaje Misionero diciembre 2026 a las comunidades Sionas, Secoyas y Cofanes; con tu ayuda 700 niños recibirán un regalo especial" loading="lazy">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Viaje Misionero">
+          <img src="fotos/anuncios/viaje-misionero.jpg" alt="Afiche: Viaje Misionero diciembre 2026 a las comunidades Sionas, Secoyas y Cofanes; con tu ayuda 700 niños recibirán un regalo especial" loading="lazy" width="1280" height="720">
           <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
         </button>
         <div class="ad-body">
@@ -155,11 +273,66 @@
           </div>
           <div class="ad-actions">
             <a class="ad-btn ad-btn-give" href="ofrendas.html#formas"><i class="fa-solid fa-hand-holding-heart"></i> Apoyar las misiones</a>
-            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=%C2%A1Apoya%20el%20Viaje%20Misionero%20de%20Iglesia%20Galilea!%20En%20diciembre%20llevaremos%20esperanza%20y%20un%20regalo%20a%20700%20ni%C3%B1os%20de%20las%20comunidades%20Sionas%2C%20Secoyas%20y%20Cofanes.%20https%3A%2F%2Figlesiacuadrangulargalilea.org%2Feventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=%C2%A1Apoya%20el%20Viaje%20Misionero%20de%20Iglesia%20Galilea%21%20En%20diciembre%20llevaremos%20esperanza%20y%20un%20regalo%20a%20700%20ni%C3%B1os%20de%20las%20comunidades%20Sionas%2C%20Secoyas%20y%20Cofanes.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
           </div>
         </div>
       </article>
-
+      <article class="ad-card reveal">
+        <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Servicio Dominical">
+          <img src="fotos/anuncios/servicio-dominical.jpg" alt="Afiche: Servicio Dominical, domingos 10:00" loading="lazy" width="1280" height="720">
+          <span class="ad-zoom"><i class="fa-solid fa-expand"></i></span>
+        </button>
+        <div class="ad-body">
+          <span class="ad-date"><strong>DOM</strong>10:00</span>
+          <div class="ad-info">
+            <span class="ad-tag"><i class="fa-solid fa-repeat"></i> Cada semana</span>
+            <h3>Servicio Dominical</h3>
+            <p><i class="fa-regular fa-clock"></i> Todos los domingos · 10:00 AM</p>
+            <p><i class="fa-solid fa-tower-broadcast"></i> También en vivo por YouTube</p>
+          </div>
+          <div class="ad-actions">
+            <a class="ad-btn" href="https://maps.app.goo.gl/BS41eaCGVGgSNyBaA" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+            <a class="ad-btn" href="predicas.html#envivo"><i class="fa-solid fa-play"></i> Ver en vivo</a>
+            <a class="ad-btn ad-btn-wa" href="https://wa.me/?text=Te%20invito%20al%20Servicio%20Dominical%20de%20Iglesia%20Cuadrangular%20Galilea%2C%20todos%20los%20domingos%20a%20las%2010%3A00%20AM.%20https://iglesiacuadrangulargalilea.org/eventos.html%23anuncios" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Compartir</a>
+          </div>
+        </div>
+      </article>
+      </div>
+    </div>
+    <div class="ad-soon">
+      <div class="ad-reel-head"><h3><i class="fa-solid fa-hourglass-half"></i> Próximamente</h3></div>
+      <div class="ad-soon-grid">
+        <article class="ad-card ad-soon-card reveal">
+          <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Culto Misionero">
+            <img src="fotos/anuncios/culto-misionero.jpg" alt="Afiche: Culto Misionero, próximamente" loading="lazy" width="1280" height="720">
+            </button>
+          <div class="ad-soon-body">
+            <span class="ad-ribbon"><i class="fa-solid fa-hourglass-half"></i> Próximamente</span>
+            <h3>Culto Misionero</h3>
+            <p>Un culto para orar y sembrar por las misiones.</p>
+          </div>
+        </article>
+        <article class="ad-card ad-soon-card reveal">
+          <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Descendiendo a las Aguas">
+            <img src="fotos/anuncios/descendiendo-aguas.jpg" alt="Afiche: Descendiendo a las aguas, próximamente" loading="lazy" width="1280" height="720">
+            </button>
+          <div class="ad-soon-body">
+            <span class="ad-ribbon"><i class="fa-solid fa-hourglass-half"></i> Próximamente</span>
+            <h3>Descendiendo a las Aguas</h3>
+            <p>Algo especial se viene. ¡Mantente atento!</p>
+          </div>
+        </article>
+        <article class="ad-card ad-soon-card reveal">
+          <button type="button" class="ad-media" data-ad-open aria-label="Ver anuncio completo: Salida Evangelística">
+            <img src="fotos/anuncios/salida-evangelistica.jpg" alt="Afiche: Salida Evangelística, próximamente" loading="lazy" width="1280" height="720">
+            </button>
+          <div class="ad-soon-body">
+            <span class="ad-ribbon"><i class="fa-solid fa-hourglass-half"></i> Próximamente</span>
+            <h3>Salida Evangelística</h3>
+            <p>Saldremos juntos a compartir el amor de Jesús.</p>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -247,7 +420,7 @@
       </div>
       <div class="event-card reveal" data-inicio="2026-10-31T10:00:00-05:00" data-fin="2026-10-31T15:00:00-05:00">
         <div class="event-img">
-          <div class="ph-block grad-5"><i class="fa-solid fa-water"></i></div>
+          <button type="button" class="event-photo" data-ad-open aria-label="Ver afiche: Concentración y Bautismo"><img src="fotos/anuncios/concentracion-bautismo.jpg" alt="Afiche: Culto de Concentración y Bautismo Zona 5, sábado 31 de octubre de 2026 a las 10:00 a.m. en la Iglesia Cuadrangular Betel" loading="lazy"></button>
           <div class="event-date"><strong>31</strong><span>Oct</span></div>
         </div>
         <div class="event-body">
@@ -520,7 +693,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261106v"></script>
-<script src="js/asistente.js?v=20261106v"></script>
+<script src="js/script.js?v=20261108g"></script>
+<script src="js/asistente.js?v=20261108g"></script>
 </body>
 </html>

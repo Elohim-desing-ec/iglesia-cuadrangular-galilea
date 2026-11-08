@@ -27,13 +27,8 @@ if (toTop) {
 const burger = document.getElementById('burgerBtn');
 const navLinks = document.getElementById('navLinks');
 if (burger && navLinks) {
-  // phone menu: opens as a circle growing from the burger, locks the page behind it, closes with Esc
+  // phone menu: full-screen panel that fades in, locks the page behind it, closes with Esc
   const setMenu = (open) => {
-    if (open) {
-      const r = burger.getBoundingClientRect();
-      navLinks.style.setProperty('--mx', r.left + r.width / 2 + 'px');
-      navLinks.style.setProperty('--my', r.top + r.height / 2 + 'px');
-    }
     burger.classList.toggle('open', open);
     navLinks.classList.toggle('open', open);
     document.documentElement.classList.toggle('menu-open', open);
@@ -673,21 +668,37 @@ document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
   });
 });
 
-// Announcement posters (eventos.html) - remove posters whose data-fin has passed, feature the next one,
-// and open a poster full screen when tapped.
-const adGrid = document.getElementById('adGrid');
-if (adGrid) {
+// Announcement posters (eventos.html, index.html). Each [data-ad-reel] drops the posters whose data-fin has passed;
+// on Eventos the next one moves up into the big featured slot (data-feature), on the home page only the next
+// data-limit stay. A section with no posters left disappears. The arrows scroll the reel.
+document.querySelectorAll('[data-ad-reel]').forEach(reel => {
   const now = new Date();
-  adGrid.querySelectorAll('.ad-card[data-fin]').forEach(card => {
+  reel.querySelectorAll('.ad-card[data-fin]').forEach(card => {
     if (new Date(card.dataset.fin) < now) card.remove();
   });
-  const first = adGrid.querySelector('.ad-card');
-  if (!first) {
-    adGrid.closest('section').remove();
-  } else {
+  const feature = reel.dataset.feature && document.getElementById(reel.dataset.feature);
+  const first = reel.querySelector('.ad-card[data-fin]');
+  if (feature && first) {
     first.classList.add('is-featured');
+    feature.appendChild(first);
   }
-}
+  if (reel.dataset.limit) {
+    [...reel.querySelectorAll('.ad-card')].slice(Number(reel.dataset.limit)).forEach(card => card.remove());
+  }
+  const wrap = reel.closest('.ad-reel-wrap');
+  if (!reel.querySelector('.ad-card')) { wrap.remove(); return; }
+  const buttons = wrap.querySelectorAll('.reel-btn');
+  const update = () => {
+    const max = reel.scrollWidth - reel.clientWidth - 2;
+    buttons.forEach(b => { b.disabled = b.dataset.dir === '-1' ? reel.scrollLeft <= 2 : reel.scrollLeft >= max; });
+    wrap.classList.toggle('no-arrows', max <= 0);
+  };
+  buttons.forEach(b => b.addEventListener('click', () => reel.scrollBy({left: Number(b.dataset.dir) * reel.clientWidth * 0.85, behavior: 'smooth'})));
+  reel.addEventListener('scroll', update, {passive: true});
+  window.addEventListener('resize', update);
+  update();
+});
+document.querySelectorAll('section.ads').forEach(section => { if (!section.querySelector('.ad-card')) section.remove(); });
 // any [data-ad-open] button (posters, past-event photos) opens its image full screen
 const adBox = document.getElementById('adLightbox');
 if (adBox) {
