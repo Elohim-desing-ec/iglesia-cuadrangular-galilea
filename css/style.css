@@ -2728,3 +2728,134 @@
   }
   .yv-hero > .container{width:100%;}
   @media(max-width:768px){.yv-hero{min-height:78vh;min-height:78svh;}}
+
+  /* ===== DAMAS: estilo pastel suave (damas.html) ===== */
+  .dm-hero{position:relative;overflow:hidden;isolation:isolate;min-height:100vh;min-height:100svh;padding:110px 0 60px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 15% 20%,#f5d0fe 0%,transparent 40%),radial-gradient(circle at 85% 25%,#fecdd3 0%,transparent 40%),
+      radial-gradient(circle at 50% 100%,#fed7aa 0%,transparent 45%),linear-gradient(180deg,#faf5ff,#fdf2f8);}
+  .dm-blob{position:absolute;z-index:-1;border-radius:50%;filter:blur(60px);opacity:.7;animation:give-drift 14s ease-in-out infinite alternate;}
+  .dm-blob-1{width:420px;height:420px;left:-120px;top:20%;background:#e9d5ff;}
+  .dm-blob-2{width:380px;height:380px;right:-100px;bottom:5%;background:#fbcfe8;animation-delay:-6s;}
+  .dm-word{position:absolute;top:13%;left:0;right:0;text-align:center;z-index:0;pointer-events:none;
+    font:800 clamp(90px,22vw,340px)/1 'Poppins',sans-serif;letter-spacing:-.05em;
+    background:linear-gradient(180deg,rgba(167,139,250,0.55),rgba(244,114,182,0.15));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .dm-stage{position:relative;z-index:1;width:min(560px,90vw);height:min(400px,62vw);display:grid;place-items:center;margin-top:40px;}
+  .dm-phone{width:min(250px,46vw);aspect-ratio:9/16;border-radius:34px;overflow:hidden;border:8px solid #1f1631;
+    box-shadow:0 40px 80px rgba(126,34,206,0.35),0 0 0 1px rgba(255,255,255,0.4);transform:rotate(-6deg);animation:dm-tilt 7s ease-in-out infinite alternate;}
+  .dm-phone img{width:100%;height:100%;object-fit:cover;object-position:35% center;}
+  @keyframes dm-tilt{from{transform:rotate(-6deg) translateY(0);}to{transform:rotate(-2deg) translateY(-10px);}}
+  .dm-bubble{position:absolute;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:22px;color:#fff;
+    box-shadow:0 18px 34px rgba(126,34,206,0.25),inset 0 -6px 12px rgba(0,0,0,0.12),inset 0 6px 12px rgba(255,255,255,0.6);animation:dm-bob 5s ease-in-out infinite;}
+  .dm-b1{left:4%;top:10%;background:radial-gradient(circle at 30% 30%,#fbcfe8,#ec4899);}
+  .dm-b2{right:6%;top:4%;background:radial-gradient(circle at 30% 30%,#ddd6fe,#8b5cf6);animation-delay:-1s;width:70px;height:70px;}
+  .dm-b3{left:-2%;bottom:18%;background:radial-gradient(circle at 30% 30%,#fed7aa,#f97316);animation-delay:-2s;}
+  .dm-b4{right:-2%;bottom:24%;background:radial-gradient(circle at 30% 30%,#bbf7d0,#10b981);animation-delay:-3s;width:54px;height:54px;font-size:19px;}
+  .dm-b5{left:22%;bottom:-4%;background:radial-gradient(circle at 30% 30%,#bfdbfe,#3b82f6);animation-delay:-1.6s;width:50px;height:50px;font-size:18px;}
+  .dm-b6{right:22%;bottom:-6%;background:radial-gradient(circle at 30% 30%,#fde68a,#f59e0b);animation-delay:-4s;width:56px;height:56px;font-size:19px;}
+  @keyframes dm-bob{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-14px) rotate(8deg);}}
+  .dm-note{position:absolute;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:16px;font-size:12.5px;font-weight:600;color:#4c1d95;white-space:nowrap;
+    background:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    box-shadow:0 14px 30px rgba(126,34,206,0.15);animation:dm-bob 6s ease-in-out infinite;}
+  .dm-note i{color:#c026d3;}
+  .dm-n1{left:-8%;top:34%;animation-delay:-2.5s;}
+  .dm-n2{right:-10%;top:42%;animation-delay:-1s;}
+  .dm-n3{left:50%;top:-6%;margin-left:-110px;animation-delay:-3.5s;}
+  .dm-hero-text{position:relative;z-index:2;text-align:center;margin-top:46px;}
+  .dm-hero .eyebrow{justify-content:center;color:#9333ea;}
+  .dm-hero .eyebrow::before{background:#c084fc;}
+  .dm-hero h1{font-size:clamp(32px,4.6vw,58px);color:#2e1065;letter-spacing:-1px;margin-bottom:22px;}
+  .dm-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
+  .dm-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:100px;font-weight:700;font-size:14.5px;color:#fff;
+    background:linear-gradient(135deg,#a855f7,#ec4899);box-shadow:0 14px 30px rgba(168,85,247,0.4);transition:transform .25s;}
+  .dm-btn:hover{transform:translateY(-2px);}
+  .dm-btn-ghost{color:#6b21a8;background:rgba(255,255,255,0.7);border:1px solid rgba(168,85,247,0.3);box-shadow:none;}
+  .dm-hero .breadcrumb{justify-content:center;color:#7c6b99;}
+  .dm-hero .breadcrumb a{color:#9333ea;}
+  .dm-hero .breadcrumb span{color:#4c1d95;}
+  /* anillo de fotos */
+  .dm-ring-section{background:linear-gradient(180deg,#fdf2f8,#faf5ff);padding:70px 0 90px;overflow:hidden;}
+  .dm-ring{position:relative;height:min(640px,120vw);max-width:1000px;margin:0 auto;}
+  .dm-tile{position:absolute;transform:translate(-50%,-50%) rotate(var(--r));width:clamp(84px,13vw,150px);aspect-ratio:1;border-radius:22px;
+    animation:dm-float 6s ease-in-out infinite;animation-delay:var(--d);box-shadow:0 18px 40px rgba(126,34,206,0.2);}
+  @keyframes dm-float{0%,100%{translate:0 0;}50%{translate:0 -12px;}}
+  .dm-photo{padding:0;overflow:hidden;cursor:zoom-in;border:4px solid #fff;background:#fff;}
+  .dm-photo img{width:100%;height:100%;object-fit:cover;border-radius:16px;transition:transform .5s;}
+  .dm-photo:hover img{transform:scale(1.08);}
+  .dm-ico{display:grid;place-items:center;font-size:clamp(26px,3.4vw,40px);color:var(--c);width:clamp(66px,9vw,104px);
+    background:rgba(255,255,255,0.85);border:1px solid #fff;}
+  /* centrado sin transform (el efecto .reveal usa transform y lo pisaría) */
+  .dm-ring-center{position:absolute;inset:0;margin:auto;height:fit-content;width:min(420px,52%);text-align:center;}
+  .dm-kicker{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a855f7;margin-bottom:10px;}
+  .dm-ring-center h2{font:500 clamp(28px,4vw,48px)/1.1 'Poppins',sans-serif;color:#2e1065;letter-spacing:-1px;margin-bottom:12px;}
+  .dm-ring-center h2 em{font-style:italic;background:linear-gradient(90deg,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .dm-ring-center p{font-size:15px;color:#6b5a85;}
+  /* resto de la página en claro */
+  .dm-light.ministries{background:linear-gradient(180deg,#faf5ff,#fff1f2);color:#2e1065;}
+  .dm-light .give-orb-1{background:#e9d5ff;}
+  .dm-light .give-orb-2{background:#fbcfe8;}
+  .dm-light .eyebrow{color:#9333ea;}
+  .dm-light .section-title{color:#2e1065;}
+  .dm-light .section-title span{--tw-a:#a855f7;--tw-b:#ec4899;}
+  .dm-light .section-desc{color:#6b5a85;}
+  .dm-light .mp-info-item{background:rgba(255,255,255,0.7);border-color:#f3e8ff;box-shadow:0 10px 24px rgba(126,34,206,0.08);}
+  .dm-light .mp-info-item > i{color:#fff;background:linear-gradient(135deg,#a855f7,#ec4899);}
+  .dm-light .mp-info-item small{color:#9d8bb8;}
+  .dm-light .mp-info-item strong{color:#2e1065;}
+  .dm-light .mp-badge{background:linear-gradient(135deg,#a855f7,#ec4899);border-color:#fff;}
+  .dm-light .mp-main-photo{border-color:#fff;box-shadow:0 30px 60px rgba(126,34,206,0.2);}
+  .dm-light .mp-gallery-head h3{color:#2e1065;}
+  .dm-light .mp-gallery-head h3 i{color:#ec4899;}
+  .dm-light .ad-reel-all{color:#9333ea;}
+  .dm-light .mp-photo{border-color:#fff;box-shadow:0 14px 30px rgba(126,34,206,0.15);}
+  @media(max-width:768px){
+    .dm-word{top:16%;}
+    .dm-note{font-size:11px;padding:7px 10px;}
+    .dm-n1{left:-4%;top:28%;}
+    .dm-n2{right:-4%;top:58%;}
+    .dm-n3{display:none;}
+    .dm-bubble{width:46px;height:46px;font-size:17px;}
+    .dm-ring{height:120vw;}
+    .dm-ring-center{width:62%;}
+    .dm-ring-center p{display:none;}
+  }
+  @media(prefers-reduced-motion:reduce){.dm-phone,.dm-bubble,.dm-note,.dm-tile,.dm-blob{animation:none;}}
+  /* sobre la portada clara de Damas el menú (letras blancas) va en una barra de vidrio violeta */
+  body:has(.dm-hero) header{background:rgba(76,29,149,0.62);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);box-shadow:0 8px 30px rgba(76,29,149,0.25);}
+  .dm-ring-center h2 em{padding-right:.12em;margin-right:-.12em;}
+
+  /* ===== OFRENDAS: versículo con la misma estética oscura de "Formas de dar" ===== */
+  .give-intro-dark{position:relative;overflow:hidden;overflow:clip;isolation:isolate;padding:100px 0 70px;
+    background:radial-gradient(circle at 50% 0%,rgba(47,95,224,0.28),transparent 55%),linear-gradient(180deg,var(--navy-950),#07112a);}
+  .give-intro-dark .give-orb-1{top:-80px;left:-140px;}
+  .give-intro-dark .give-orb-2{bottom:-160px;right:-120px;top:auto;}
+  .gv-card{position:relative;max-width:900px;margin:0 auto;padding:56px 60px 40px;border-radius:30px;text-align:center;
+    background:linear-gradient(160deg,rgba(255,255,255,0.11),rgba(255,255,255,0.03));border:1px solid rgba(255,255,255,0.16);
+    -webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);
+    box-shadow:0 40px 90px rgba(0,0,0,0.45),var(--glass-highlight);}
+  .gv-card::before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;
+    background:linear-gradient(135deg,rgba(111,163,250,0.7),transparent 40%,transparent 60%,rgba(110,231,183,0.6));
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;}
+  .gv-quote{position:absolute;top:-38px;left:50%;transform:translateX(-50%);width:76px;height:76px;border-radius:24px;display:grid;place-items:center;
+    font:800 64px/1 'Poppins',sans-serif;color:#fff;padding-top:26px;
+    background:linear-gradient(135deg,var(--accent-500),#34d399);box-shadow:0 16px 36px rgba(47,95,224,0.5);animation:ico-float 4.5s ease-in-out infinite;}
+  .gv-ref{display:inline-flex;align-items:center;gap:8px;margin:10px 0 22px;padding:7px 15px;border-radius:100px;font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    color:#9cc0ff;background:rgba(111,163,250,0.12);border:1px solid rgba(111,163,250,0.28);}
+  .gv-ref i{color:#6ee7b7;}
+  .gv-card blockquote{margin:0;font:500 clamp(22px,2.8vw,34px)/1.45 'Poppins',sans-serif;color:var(--white);letter-spacing:-.3px;}
+  .gv-card blockquote em{font-style:normal;background:linear-gradient(90deg,#6fa3fa,#6ee7b7);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .gv-values{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:30px;}
+  .gv-values span{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:100px;font-size:13.5px;font-weight:600;color:var(--text-light);
+    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);box-shadow:var(--glass-highlight);}
+  .gv-values i{color:#6ee7b7;}
+  .gv-lead{max-width:680px;margin:34px auto 0;text-align:center;font-size:16.5px;line-height:1.7;color:var(--text-muted);}
+  /* el versículo y "Formas de dar" se unen sin corte */
+  .give-intro-dark + .give-ways{padding-top:70px;}
+  @media(max-width:640px){
+    .give-intro-dark{padding:80px 0 50px;}
+    .gv-card{padding:48px 22px 28px;border-radius:24px;}
+    .gv-quote{width:62px;height:62px;font-size:52px;top:-31px;border-radius:20px;padding-top:22px;}
+    .gv-lead{font-size:15px;}
+  }
+  .give-intro-dark + .give-ways .give-ways-bg{-webkit-mask:linear-gradient(180deg,transparent,#000 180px);mask:linear-gradient(180deg,transparent,#000 180px);}
+  .give-intro-dark + .give-ways{background:#07112a;}
+  .give-intro-dark .give-orb-2{display:none;}
