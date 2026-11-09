@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261108zb">
+<link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261108zb">
+<link rel="stylesheet" href="css/style.css?v=20261109j">
 </head>
 <body>
 
@@ -67,24 +67,35 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('fotos/carrusel/comunidad-34.jpg') center 40%/cover no-repeat;">
-  <div class="container">
-    <div class="eyebrow">Células Hogares</div>
-    <h1>Hay un hogar cerca de ti</h1>
-    <div class="breadcrumb">
-      <a href="index.html">Inicio</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <a href="ministerios.html">Ministerios</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <span>Células Hogares</span>
+<!-- ===== CÉLULAS: estilo "hogar de noche" (cielo, casa con ventanas iluminadas con fotos, líderes en movimiento) ===== -->
+<section class="ce-hero">
+  <span class="ce-stars" aria-hidden="true"></span>
+  <span class="ce-moon" aria-hidden="true"></span>
+  <div class="container ce-grid">
+    <div class="ce-text">
+      <div class="eyebrow">Células Hogares</div>
+      <h1>Hay un hogar <em>cerca de ti</em></h1>
+      <p class="ce-sub">Cada viernes nos reunimos en casas de hermanos en distintos sectores de Milagro para orar, compartir la Palabra y crecer como familia.</p>
+      <div class="ce-stats"><div><strong>8</strong><span>células hogares</span></div><div><strong>Vie</strong><span>7:30 PM</span></div><div><strong>1</strong><span>familia</span></div></div>
+      <div class="ce-actions">
+        <a class="ce-btn" href="ubicacion.html#celulas"><i class="fa-solid fa-map-location-dot"></i> Busca tu célula en el mapa</a>
+        <a class="ce-btn ce-btn-ghost" href="https://wa.me/593959009768?text=Hola,%20quiero%20unirme%20a%20una%20Célula%20Hogar%20de%20Galilea." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Escríbenos</a>
+      </div>
+      <div class="breadcrumb"><a href="index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i><a href="ministerios.html">Ministerios</a><i class="fa-solid fa-chevron-right"></i><span>Células Hogares</span></div>
+    </div>
+    <div class="ce-house" aria-hidden="true">
+      <span class="ce-roof"></span>
+      <div class="ce-wall"><span class="ce-win" style="background-image:url('img/fotojovenesgaliela.jpg')"></span><span class="ce-win ce-lit"></span><span class="ce-win" style="background-image:url('img/nosotros-jovenes.jpg')"></span><span class="ce-win ce-lit"></span><span class="ce-win" style="background-image:url('img/grupalpicture.jpg')"></span><span class="ce-win ce-lit"></span><span class="ce-door"></span></div>
+      <span class="ce-glow"></span>
     </div>
   </div>
+  <div class="ce-ticker" aria-label="Líderes de células"><div class="ce-ticker-track"><span><b>Célula #1</b> Hno. Leonardo Macías</span><span><b>Célula #2</b> Hna. Carmen Lucio</span><span><b>Célula #3</b> Hna. Patricia Llerena</span><span><b>Célula #4</b> Hna. Isabel Pincay</span><span><b>Célula #5</b> Hna. Marianela Bejarano</span><span><b>Célula #6</b> Hno. Efrem Duarte</span><span><b>Célula #7</b> Hna. María Barahona</span><span><b>Célula #8</b> Hno. Marcos Gutierres</span><span><b>Célula #1</b> Hno. Leonardo Macías</span><span><b>Célula #2</b> Hna. Carmen Lucio</span><span><b>Célula #3</b> Hna. Patricia Llerena</span><span><b>Célula #4</b> Hna. Isabel Pincay</span><span><b>Célula #5</b> Hna. Marianela Bejarano</span><span><b>Célula #6</b> Hno. Efrem Duarte</span><span><b>Célula #7</b> Hna. María Barahona</span><span><b>Célula #8</b> Hno. Marcos Gutierres</span></div></div>
 </section>
 
 <!-- ===== CÉLULAS HOGARES =====
      Página del ministerio. Para agregar fotos: copiarlas a fotos/ y añadir un .mp-photo en la galería
      (reemplazando un "Pronto más fotos"). -->
-<section class="section-pad ministries mp">
+<section class="section-pad ministries mp ce-theme">
   <span class="give-orb give-orb-1" aria-hidden="true"></span>
   <span class="give-orb give-orb-2" aria-hidden="true"></span>
   <div class="container">
@@ -182,7 +193,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261108zb"></script>
-<script src="js/asistente.js?v=20261108zb"></script>
+<script src="js/script.js?v=20261109j"></script>
+<script src="js/asistente.js?v=20261109j"></script>
 </body>
 </html>

@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261108zb">
+<link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261108zb">
+<link rel="stylesheet" href="css/style.css?v=20261109j">
 </head>
 <body>
 
@@ -67,16 +67,46 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('fotos/carrusel/comunidad-08.jpg') center 30%/cover no-repeat;">
-  <div class="container">
-    <div class="eyebrow">Prédicas</div>
-    <h1>Palabra que transforma</h1>
-    <div class="breadcrumb">
-      <a href="index.html">Inicio</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <span>Prédicas</span>
+<section class="pr-hero">
+  <span class="pr-beam" aria-hidden="true"></span>
+  <span class="pr-glow" aria-hidden="true"></span>
+  <span class="pr-word" aria-hidden="true">Palabra</span>
+  <div class="container pr-grid">
+    <div class="pr-copy">
+      <div class="eyebrow"><span class="live-dot"></span>Prédicas</div>
+      <h1>Palabra que <em>transforma</em></h1>
+      <p class="pr-sub">Mensajes de la Palabra para tu vida, cada semana.</p>
+      <div class="pr-facts"><span><i class="fa-solid fa-tower-broadcast"></i> En vivo · Domingo 10:00 AM</span><span><i class="fa-brands fa-youtube"></i> YouTube</span></div>
+      <div class="pr-actions">
+        <a href="#envivo" class="btn btn-accent"><i class="fa-solid fa-tower-broadcast"></i> Ver en vivo</a>
+        <a href="#predicas" class="btn btn-outline"><i class="fa-solid fa-play"></i> Prédicas anteriores</a>
+      </div>
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Prédicas</span>
+      </div>
     </div>
+    <a class="pr-player" href="#predicas" aria-label="Ver prédicas anteriores">
+      <span class="pr-ghost pr-ghost-1" aria-hidden="true"></span>
+      <span class="pr-ghost pr-ghost-2" aria-hidden="true"></span>
+      <span class="pr-screen">
+        <img src="img/pastor-victor.jpg" alt="">
+        <span class="pr-live"><span class="live-dot"></span> En vivo · Domingo 10:00 AM</span>
+        <span class="pr-hd">HD</span>
+        <span class="pr-play"><i class="fa-solid fa-play"></i></span>
+        <span class="pr-lower"><small>Prédica dominical</small><b>Iglesia Cuadrangular Galilea</b></span>
+      </span>
+      <span class="pr-bar">
+        <i class="fa-solid fa-play"></i>
+        <span class="pr-track"><span></span></span>
+        <span class="pr-time">LIVE</span>
+        <i class="fa-solid fa-volume-high"></i>
+        <i class="fa-solid fa-expand"></i>
+      </span>
+    </a>
   </div>
+  <p class="pr-verse"><i class="fa-solid fa-quote-left"></i> Porque la palabra de Dios es viva y eficaz <b>Hebreos 4:12</b></p>
 </section>
 
 <!-- ===== EN VIVO ===== -->
@@ -281,7 +311,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261108zb"></script>
-<script src="js/asistente.js?v=20261108zb"></script>
+<script src="js/script.js?v=20261109j"></script>
+<script src="js/asistente.js?v=20261109j"></script>
 </body>
 </html>

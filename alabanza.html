@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261108zb">
+<link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261108zb">
+<link rel="stylesheet" href="css/style.css?v=20261109j">
 </head>
 <body>
 
@@ -67,24 +67,32 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('img/banner-horarios-cantantes.jpg') center 30%/cover no-repeat;">
-  <div class="container">
-    <div class="eyebrow">Ministerio de Alabanza</div>
-    <h1>Adoramos con todo el corazón</h1>
-    <div class="breadcrumb">
-      <a href="index.html">Inicio</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <a href="ministerios.html">Ministerios</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <span>Alabanza</span>
+<!-- ===== ALABANZA: estilo "escenario" (negro + neón, disco que gira, ondas y ecualizador) ===== -->
+<section class="al-hero">
+  <span class="al-light al-light-1" aria-hidden="true"></span>
+  <span class="al-light al-light-2" aria-hidden="true"></span>
+  <div class="container al-grid">
+    <div class="al-text">
+      <div class="eyebrow">Ministerio de Alabanza</div>
+      <h1>Adoramos con todo <em>el corazón</em></h1>
+      <p class="al-sub">Guiamos a la congregación a la presencia de Dios con música y canto en cada servicio.</p>
+      <div class="al-facts"><span><i class="fa-solid fa-music"></i> En cada servicio</span><span><i class="fa-solid fa-microphone-lines"></i> Voces e instrumentos</span></div>
+      <a class="al-btn" href="https://wa.me/593959009768?text=Hola,%20quiero%20servir%20en%20el%20Ministerio%20de%20Alabanza%20de%20Galilea." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Quiero servir en alabanza</a>
+      <div class="breadcrumb"><a href="index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i><a href="ministerios.html">Ministerios</a><i class="fa-solid fa-chevron-right"></i><span>Alabanza</span></div>
+    </div>
+    <div class="al-stage" aria-hidden="true">
+      <span class="al-ring"></span><span class="al-ring"></span><span class="al-ring"></span>
+      <div class="al-disc"><img src="img/clarapincay.jpg" alt=""><span class="al-hole"></span></div>
+      <p class="al-verse">“Todo lo que respira alabe al Señor”<b>Salmo 150:6</b></p>
     </div>
   </div>
+  <div class="al-eq" aria-hidden="true"><span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span><span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span><span style="--i:16"></span><span style="--i:17"></span><span style="--i:18"></span><span style="--i:19"></span><span style="--i:20"></span><span style="--i:21"></span><span style="--i:22"></span><span style="--i:23"></span><span style="--i:24"></span><span style="--i:25"></span><span style="--i:26"></span><span style="--i:27"></span><span style="--i:28"></span><span style="--i:29"></span><span style="--i:30"></span><span style="--i:31"></span><span style="--i:32"></span><span style="--i:33"></span><span style="--i:34"></span><span style="--i:35"></span><span style="--i:36"></span><span style="--i:37"></span><span style="--i:38"></span><span style="--i:39"></span><span style="--i:40"></span><span style="--i:41"></span><span style="--i:42"></span><span style="--i:43"></span><span style="--i:44"></span><span style="--i:45"></span><span style="--i:46"></span><span style="--i:47"></span></div>
 </section>
 
 <!-- ===== MINISTERIO DE ALABANZA =====
      Página del ministerio. Para agregar fotos: copiarlas a fotos/ y añadir un .mp-photo en la galería
      (reemplazando un "Pronto más fotos"). -->
-<section class="section-pad ministries mp">
+<section class="section-pad ministries mp al-theme">
   <span class="give-orb give-orb-1" aria-hidden="true"></span>
   <span class="give-orb give-orb-2" aria-hidden="true"></span>
   <div class="container">
@@ -180,7 +188,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261108zb"></script>
-<script src="js/asistente.js?v=20261108zb"></script>
+<script src="js/script.js?v=20261109j"></script>
+<script src="js/asistente.js?v=20261109j"></script>
 </body>
 </html>

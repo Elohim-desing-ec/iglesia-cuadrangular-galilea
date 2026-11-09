@@ -10,9 +10,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261108zb">
+<link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261108zb">
+<link rel="stylesheet" href="css/style.css?v=20261109j">
 </head>
 <body>
 
@@ -67,16 +67,26 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('fotos/carrusel/comunidad-08.jpg') center 35%/cover no-repeat;">
+<!-- ===== ESCUELA BÍBLICA: estilo "libro abierto" (papel, letra con serifa, resaltador y fotos con cinta) ===== -->
+<section class="eb-hero">
   <div class="container">
-    <div class="eyebrow">Escuela Bíblica</div>
-    <h1>Firmes en la Palabra</h1>
-    <div class="breadcrumb">
-      <a href="index.html">Inicio</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <a href="ministerios.html">Ministerios</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <span>Escuela Bíblica</span>
+    <div class="eb-book">
+      <div class="eb-page eb-left">
+        <span class="eb-kicker">Escuela Bíblica · Galilea</span>
+        <h1>Firmes en la <mark>Palabra</mark></h1>
+        <p class="eb-p">Enseñanza ordenada de la Palabra para <mark>conocer mejor a Dios</mark> y los fundamentos de nuestra fe. Para <mark>todas las edades</mark>.</p>
+        <p class="eb-verse">“Lámpara es a mis pies tu palabra, y lumbrera a mi camino.”<b>Salmo 119:105</b></p>
+        <div class="eb-actions"><a class="eb-btn" href="https://wa.me/593959009768?text=Hola,%20quiero%20inscribirme%20en%20la%20Escuela%20Bíblica%20de%20Galilea." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Quiero inscribirme</a></div>
+        <div class="breadcrumb"><a href="index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i><a href="ministerios.html">Ministerios</a><i class="fa-solid fa-chevron-right"></i><span>Escuela Bíblica</span></div>
+        <span class="eb-num">01</span>
+      </div>
+      <div class="eb-page eb-right">
+        <figure class="eb-photo"><img src="img/pastora-daniela.jpg" alt="Pastora Daniela enseñando la Palabra"><span class="eb-tape"></span></figure>
+        <button type="button" class="eb-sticker" data-ad-open aria-label="Ver afiche de la Escuela Bíblica"><img src="fotos/anuncios/escuela-biblica.jpg" alt="Afiche Escuela Bíblica Soldados de Jesús, sábado 28 de noviembre"></button>
+        <span class="eb-note">¡Sábado 28 de noviembre · 10:00 AM!</span>
+        <span class="eb-num">02</span>
+      </div>
+      <div class="eb-tabs"><span><i class="fa-solid fa-user"></i> Líder: Isabel Picay</span><span><i class="fa-solid fa-star"></i> De 0 a 99 años</span><span><i class="fa-regular fa-clock"></i> Pregunta por el horario</span></div>
     </div>
   </div>
 </section>
@@ -84,7 +94,7 @@
 <!-- ===== ESCUELA BÍBLICA =====
      Página del ministerio. Para agregar fotos: copiarlas a fotos/ y añadir un .mp-photo en la galería
      (reemplazando un "Pronto más fotos"). -->
-<section class="section-pad ministries mp">
+<section class="section-pad ministries mp eb-theme">
   <span class="give-orb give-orb-1" aria-hidden="true"></span>
   <span class="give-orb give-orb-2" aria-hidden="true"></span>
   <div class="container">
@@ -181,7 +191,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261108zb"></script>
-<script src="js/asistente.js?v=20261108zb"></script>
+<script src="js/script.js?v=20261109j"></script>
+<script src="js/asistente.js?v=20261109j"></script>
 </body>
 </html>

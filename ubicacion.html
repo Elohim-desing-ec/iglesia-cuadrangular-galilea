@@ -10,11 +10,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="css/fonts.css?v=20261108zb">
+<link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.2/maplibre-gl.css" integrity="sha384-gNYNsUmuZqDYiT3gbirWTV5K7rt71RoveS/yXAaU09d4ZUmeDVTD3XoqB6uJAIFR" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261108zb">
+<link rel="stylesheet" href="css/style.css?v=20261109j">
 </head>
 <body>
 
@@ -69,16 +69,61 @@
 </header>
 
 <!-- ===== PAGE BANNER ===== -->
-<section class="page-banner page-banner-photo" style="background:linear-gradient(0deg,rgba(5,11,26,0.88) 5%,rgba(5,11,26,0.45) 60%,rgba(5,11,26,0.72) 100%),url('fotos/portada/iglesia.jpg') 72% 50%/cover no-repeat;">
-  <div class="container">
-    <div class="eyebrow">Cómo llegar</div>
-    <h1>Nuestra ubicación</h1>
-    <div class="breadcrumb">
-      <a href="index.html">Inicio</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <span>Ubicación</span>
+<section class="ub-hero">
+  <span class="ub-dots" aria-hidden="true"></span>
+  <span class="ub-glow ub-glow-1" aria-hidden="true"></span>
+  <span class="ub-glow ub-glow-2" aria-hidden="true"></span>
+  <div class="container ub-grid">
+    <div class="ub-copy">
+      <div class="eyebrow">Cómo llegar</div>
+      <h1>Nuestra <em>ubicación</em></h1>
+      <p class="ub-sub">Milagro, Guayas, Ecuador. Te esperamos con los brazos abiertos.</p>
+      <ul class="ub-addr">
+        <li><i class="fa-solid fa-location-dot"></i><div><b>Rosa Borja de Icaza</b><span>Entre Pablo Echavarría y Alfredo Adum</span></div></li>
+        <li><i class="fa-solid fa-clock"></i><div><b>Domingo · 10:00 AM</b><span>Culto dominical</span></div></li>
+      </ul>
+      <div class="ub-actions">
+        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=-2.1495905,-79.5821205" target="_blank" rel="noopener" class="btn btn-accent"><i class="fa-solid fa-diamond-turn-right"></i> Cómo llegar</a>
+        <a href="#celulas" class="btn btn-outline"><i class="fa-solid fa-house-chimney"></i> Células cerca de ti</a>
+      </div>
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Ubicación</span>
+      </div>
+    </div>
+    <div class="ub-map" aria-hidden="true">
+      <svg class="ub-streets" viewBox="0 0 520 440" preserveAspectRatio="xMidYMid slice">
+        <g transform="rotate(-12 260 230)">
+          <g class="ub-blocks"><rect x="-172" y="-92" width="94" height="94" rx="7"/><rect x="-172" y="18" width="94" height="94" rx="7"/><rect x="-168" y="132" width="86" height="86" rx="7"/><rect x="-168" y="242" width="86" height="86" rx="7"/><rect x="-172" y="348" width="94" height="94" rx="7"/><rect x="-172" y="458" width="94" height="94" rx="7"/><rect x="-62" y="-92" width="94" height="94" rx="7"/><rect x="-62" y="18" width="94" height="94" rx="7"/><rect x="-58" y="132" width="86" height="86" rx="7"/><rect x="-58" y="242" width="86" height="86" rx="7"/><rect x="-62" y="348" width="94" height="94" rx="7"/><rect x="-62" y="458" width="94" height="94" rx="7"/><rect x="52" y="-88" width="86" height="86" rx="7"/><rect x="52" y="22" width="86" height="86" rx="7"/><rect x="52" y="132" width="86" height="86" rx="7"/><rect x="52" y="242" width="86" height="86" rx="7"/><rect x="52" y="352" width="86" height="86" rx="7"/><rect x="52" y="462" width="86" height="86" rx="7"/><rect x="162" y="-88" width="196" height="86" rx="7"/><rect x="162" y="22" width="196" height="86" rx="7"/><rect class="ub-home" x="162" y="132" width="196" height="86" rx="7"/><rect x="162" y="242" width="196" height="86" rx="7"/><rect x="162" y="352" width="196" height="86" rx="7"/><rect x="162" y="462" width="196" height="86" rx="7"/><rect x="378" y="-92" width="94" height="94" rx="7"/><rect x="378" y="18" width="94" height="94" rx="7"/><rect x="382" y="132" width="86" height="86" rx="7"/><rect x="382" y="242" width="86" height="86" rx="7"/><rect x="378" y="348" width="94" height="94" rx="7"/><rect x="378" y="458" width="94" height="94" rx="7"/><rect x="488" y="-92" width="94" height="94" rx="7"/><rect x="488" y="18" width="94" height="94" rx="7"/><rect x="492" y="132" width="86" height="86" rx="7"/><rect x="492" y="242" width="86" height="86" rx="7"/><rect x="488" y="348" width="94" height="94" rx="7"/><rect x="488" y="458" width="94" height="94" rx="7"/><rect x="598" y="-92" width="94" height="94" rx="7"/><rect x="598" y="18" width="94" height="94" rx="7"/><rect x="602" y="132" width="86" height="86" rx="7"/><rect x="602" y="242" width="86" height="86" rx="7"/><rect x="598" y="348" width="94" height="94" rx="7"/><rect x="598" y="458" width="94" height="94" rx="7"/></g><g class="ub-minor"><path d="M-180 -200V700"/><path d="M-70 -200V700"/><path d="M40 -200V700"/><path d="M480 -200V700"/><path d="M590 -200V700"/><path d="M700 -200V700"/><path d="M-300 -100H900"/><path d="M-300 10H900"/><path d="M-300 120H900"/><path d="M-300 340H900"/><path d="M-300 450H900"/><path d="M-300 560H900"/></g>
+          <path class="ub-major" d="M-300 230H900"/>
+          <path class="ub-cross" d="M150 -200V700"/>
+          <path class="ub-cross" d="M370 -200V700"/>
+          <text class="ub-label ub-label-main" x="136" y="221" text-anchor="end">ROSA BORJA DE ICAZA</text>
+          <text class="ub-label" transform="translate(142 208) rotate(-90)">PABLO ECHAVARRÍA</text>
+          <text class="ub-label" transform="translate(384 420) rotate(-90)">ALFREDO ADUM</text>
+          <path class="ub-route-base" d="M-60 450H150V230H260"/>
+          <path class="ub-route" d="M-60 450H150V230H260"/>
+          <g transform="translate(260 230)">
+            <circle class="ub-ring" r="16"/>
+            <circle class="ub-ring ub-ring-2" r="16"/>
+            <g class="ub-pin" transform="rotate(12)">
+              <ellipse cx="0" cy="2" rx="9" ry="3" fill="rgba(0,0,0,.45)"/>
+              <path d="M0 0C-6-9-17-19-17-33a17 17 0 1 1 34 0C17-19 6-9 0 0Z"/>
+              <circle cy="-33" r="6.5" fill="#fff"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <span class="ub-coord"><i class="fa-solid fa-satellite"></i> 2°08′58″ S · 79°34′56″ W</span>
+      <span class="ub-compass"><b>N</b></span>
+      <div class="ub-card">
+        <img src="fotos/portada/iglesia.jpg" alt="">
+        <div><small>Destino</small><b>Iglesia Galilea</b><span>Milagro · Guayas · Ecuador</span></div>
+      </div>
     </div>
   </div>
+  <div class="ub-ticker" aria-hidden="true"><div class="ub-ticker-track"><span>Milagro</span><i class="fa-solid fa-location-crosshairs"></i><span>Guayas</span><i class="fa-solid fa-location-crosshairs"></i><span>Ecuador</span><i class="fa-solid fa-location-crosshairs"></i><span>Lat −2.1496</span><i class="fa-solid fa-location-crosshairs"></i><span>Lon −79.5821</span><i class="fa-solid fa-location-crosshairs"></i><span>Te esperamos</span><i class="fa-solid fa-location-crosshairs"></i><span>Milagro</span><i class="fa-solid fa-location-crosshairs"></i><span>Guayas</span><i class="fa-solid fa-location-crosshairs"></i><span>Ecuador</span><i class="fa-solid fa-location-crosshairs"></i><span>Lat −2.1496</span><i class="fa-solid fa-location-crosshairs"></i><span>Lon −79.5821</span><i class="fa-solid fa-location-crosshairs"></i><span>Te esperamos</span><i class="fa-solid fa-location-crosshairs"></i><span>Milagro</span><i class="fa-solid fa-location-crosshairs"></i><span>Guayas</span><i class="fa-solid fa-location-crosshairs"></i><span>Ecuador</span><i class="fa-solid fa-location-crosshairs"></i><span>Lat −2.1496</span><i class="fa-solid fa-location-crosshairs"></i><span>Lon −79.5821</span><i class="fa-solid fa-location-crosshairs"></i><span>Te esperamos</span><i class="fa-solid fa-location-crosshairs"></i><span>Milagro</span><i class="fa-solid fa-location-crosshairs"></i><span>Guayas</span><i class="fa-solid fa-location-crosshairs"></i><span>Ecuador</span><i class="fa-solid fa-location-crosshairs"></i><span>Lat −2.1496</span><i class="fa-solid fa-location-crosshairs"></i><span>Lon −79.5821</span><i class="fa-solid fa-location-crosshairs"></i><span>Te esperamos</span><i class="fa-solid fa-location-crosshairs"></i></div></div>
 </section>
 
 <!-- ===== UBICACION ===== -->
@@ -319,7 +364,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.2/maplibre-gl.js" integrity="sha384-1qC0PnXk2fgMDybOtZF1ui4LM5Sxm7o0TbEkwfxTTVdlZvuNENNGCKUub7d644HP" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/script.js?v=20261108zb"></script>
-<script src="js/asistente.js?v=20261108zb"></script>
+<script src="js/script.js?v=20261109j"></script>
+<script src="js/asistente.js?v=20261109j"></script>
 </body>
 </html>
