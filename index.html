@@ -10,11 +10,45 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<script src="js/intro.js?v=20261115e"></script>
 <link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261109j">
+<link rel="stylesheet" href="css/style.css?v=20261115e">
 </head>
 <body>
+
+<!-- ===== INTRO: fotos de la iglesia moviéndose al fondo, el logo bajo un haz de luz, versículo y "Ingresar".
+     Entra sola a los 5 s (la línea bajo el botón se va llenando) o antes con "Ingresar"; se abre un portal desde el botón. Solo la primera vez por visita:
+     js/intro.js decide y la abre/cierra, css .intro la anima. ===== -->
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Bienvenida a Iglesia Cuadrangular Galilea">
+  <div class="intro-mosaic" aria-hidden="true">
+    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-13.jpg" alt=""><img src="fotos/carrusel/comunidad-03.jpg" alt=""><img src="fotos/carrusel/comunidad-02.jpg" alt=""><img src="fotos/carrusel/comunidad-13.jpg" alt=""><img src="fotos/carrusel/comunidad-03.jpg" alt=""><img src="fotos/carrusel/comunidad-02.jpg" alt=""></div></div>
+    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-32.jpg" alt=""><img src="fotos/carrusel/comunidad-31.jpg" alt=""><img src="fotos/carrusel/comunidad-33.jpg" alt=""><img src="fotos/carrusel/comunidad-32.jpg" alt=""><img src="fotos/carrusel/comunidad-31.jpg" alt=""><img src="fotos/carrusel/comunidad-33.jpg" alt=""></div></div>
+    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-17.jpg" alt=""><img src="fotos/carrusel/comunidad-29.jpg" alt=""><img src="fotos/carrusel/comunidad-01.jpg" alt=""><img src="fotos/carrusel/comunidad-17.jpg" alt=""><img src="fotos/carrusel/comunidad-29.jpg" alt=""><img src="fotos/carrusel/comunidad-01.jpg" alt=""></div></div>
+    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-27.jpg" alt=""><img src="fotos/carrusel/comunidad-08.jpg" alt=""><img src="fotos/carrusel/comunidad-18.jpg" alt=""><img src="fotos/carrusel/comunidad-27.jpg" alt=""><img src="fotos/carrusel/comunidad-08.jpg" alt=""><img src="fotos/carrusel/comunidad-18.jpg" alt=""></div></div>
+    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-09.jpg" alt=""><img src="fotos/carrusel/comunidad-07.jpg" alt=""><img src="fotos/carrusel/comunidad-24.jpg" alt=""><img src="fotos/carrusel/comunidad-09.jpg" alt=""><img src="fotos/carrusel/comunidad-07.jpg" alt=""><img src="fotos/carrusel/comunidad-24.jpg" alt=""></div></div>
+    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-11.jpg" alt=""><img src="fotos/carrusel/comunidad-22.jpg" alt=""><img src="fotos/carrusel/comunidad-34.jpg" alt=""><img src="fotos/carrusel/comunidad-11.jpg" alt=""><img src="fotos/carrusel/comunidad-22.jpg" alt=""><img src="fotos/carrusel/comunidad-34.jpg" alt=""></div></div>
+  </div>
+  <div class="intro-veil" aria-hidden="true"></div>
+  <div class="intro-beam" aria-hidden="true"></div>
+  <div class="intro-glow" aria-hidden="true"></div>
+  <div class="intro-sparks" aria-hidden="true"><span style="--x:72%;--s:3px;--d:18s;--t:-14s"></span><span style="--x:76%;--s:3px;--d:14s;--t:-5s"></span><span style="--x:95%;--s:3px;--d:18s;--t:-5s"></span><span style="--x:10%;--s:2.5px;--d:15s;--t:-4s"></span><span style="--x:9%;--s:3px;--d:11s;--t:-12s"></span><span style="--x:72%;--s:3px;--d:13s;--t:-0s"></span><span style="--x:77%;--s:1.5px;--d:11s;--t:-1s"></span><span style="--x:16%;--s:2px;--d:11s;--t:-14s"></span><span style="--x:24%;--s:2.5px;--d:14s;--t:-16s"></span><span style="--x:18%;--s:2px;--d:18s;--t:-0s"></span><span style="--x:86%;--s:1.5px;--d:18s;--t:-8s"></span><span style="--x:70%;--s:3px;--d:12s;--t:-8s"></span><span style="--x:24%;--s:2px;--d:15s;--t:-0s"></span><span style="--x:8%;--s:3px;--d:12s;--t:-12s"></span></div>
+  <div class="intro-stage">
+    <p class="intro-kicker">Iglesia Cuadrangular</p>
+    <div class="intro-logo-wrap">
+      <div class="intro-logo">
+        <img src="img/logo-galilea.png" alt="Galilea">
+        <span class="intro-shine" aria-hidden="true"></span>
+      </div>
+      <span class="intro-scan" aria-hidden="true"></span>
+    </div>
+    <div class="intro-rule" aria-hidden="true"><span></span><i></i><span></span></div>
+    <p class="intro-tagline">Bienvenido a casa</p>
+    <button type="button" class="intro-enter" data-intro-enter><span>Ingresar</span><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
+    <span class="intro-timer" aria-hidden="true"><i></i></span>
+  </div>
+  <p class="intro-verse">«Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.» <span>Mateo 11:28</span></p>
+</div>
 
 <!-- ===== HEADER ===== -->
 <header id="siteHeader">
@@ -90,7 +124,7 @@
   <div class="container">
     <div class="hero-content reveal visible">
       <div class="eyebrow">Bienvenido a casa</div>
-      <h1>Un lugar para <em>encontrarte</em> con Dios y tu comunidad</h1>
+      <h1>Un lugar para <em>encontrarte</em> <span class="h-pill h-pill-photos" aria-hidden="true"><img src="fotos/carrusel/comunidad-01.jpg" alt=""><img src="fotos/carrusel/comunidad-06.jpg" alt=""><img src="fotos/carrusel/comunidad-34.jpg" alt=""></span> con Dios <span class="h-pill h-pill-icon" aria-hidden="true"><i class="fa-solid fa-dove"></i></span> y tu comunidad</h1>
       <p>En Iglesia Cuadrangular Galilea creemos en el poder transformador del amor de Cristo. Ven como eres, sal transformado. Te esperamos con los brazos abiertos.</p>
       <div class="hero-actions">
         <a href="horarios.html" class="btn btn-accent"><i class="fa-solid fa-church"></i> Planea tu visita</a>
@@ -103,7 +137,34 @@
       </div>
     </div>
   </div>
-  <div class="scroll-cue"><span>Desliza</span><i class="fa-solid fa-chevron-down"></i></div>
+  <!-- tarjetas de vidrio flotantes (siguen al mouse en 3D): familia + próximo culto en vivo con cuenta regresiva (js/script.js) -->
+  <div class="hero-float">
+    <div class="hf-card hf-family" aria-hidden="true">
+      <div class="hf-avatars"><img src="fotos/carrusel/comunidad-03.jpg" alt=""><img src="fotos/carrusel/comunidad-22.jpg" alt=""><img src="fotos/carrusel/comunidad-09.jpg" alt=""><span><i class="fa-solid fa-heart"></i></span></div>
+      <div class="hf-family-txt"><strong>Una familia te espera</strong><small>Ven como eres</small></div>
+    </div>
+    <a class="hf-card hf-live" href="predicas.html" id="heroLive">
+      <span class="hf-eyebrow"><span class="hf-dot"></span><span data-hl-label>Próximo culto en vivo</span></span>
+      <strong class="hf-when">Domingo · 10:00 AM</strong>
+      <span class="hf-cd" aria-hidden="true">
+        <span><b data-u="d">0</b><small>días</small></span>
+        <span><b data-u="h">00</b><small>horas</small></span>
+        <span><b data-u="m">00</b><small>min</small></span>
+        <span><b data-u="s">00</b><small>seg</small></span>
+      </span>
+      <span class="hf-go"><span data-hl-go>Ver transmisión</span> <i class="fa-solid fa-arrow-right"></i></span>
+    </a>
+  </div>
+  <!-- contador de la foto de portada: 01 / 14 con una barra que se llena -->
+  <div class="hero-count" aria-hidden="true"><span data-hc-cur>01</span><i><b></b></i><span data-hc-total>14</span></div>
+  <!-- sello circular que gira: lleva a la siguiente sección -->
+  <a href="#destacados" class="hero-badge" aria-label="Desliza para descubrir más">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <defs><path id="heroBadgePath" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs>
+      <text><textPath href="#heroBadgePath" textLength="292" lengthAdjust="spacing">DESLIZA · DESCUBRE · GALILEA · </textPath></text>
+    </svg>
+    <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+  </a>
   <svg class="hero-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0,90 L0,38 L1440,0 L1440,90 Z" fill="#0a1a33"></path>
   </svg>
@@ -425,51 +486,75 @@
   </div>
 </section>
 
-<!-- ===== CARRUSEL DE FOTOS ===== -->
+<!-- ===== CARRUSEL DE FOTOS: fotos que vuelan a través del título + muro de fotos en movimiento (js/script.js) ===== -->
 <section class="community" id="comunidad">
-  <div class="container">
+  <div class="cm-stage" id="cmStage">
+    <div class="cm-fly" aria-hidden="true">
+      <img class="side" src="fotos/carrusel/comunidad-06.jpg" alt="" loading="lazy" data-x="-0.78" data-y="-0.55" data-o="0.0">
+      <img class="side" src="fotos/carrusel/comunidad-14.jpg" alt="" loading="lazy" data-x="0.8" data-y="-0.62" data-o="0.05">
+      <img src="fotos/carrusel/comunidad-31.jpg" alt="" loading="lazy" data-x="-0.3" data-y="-0.86" data-o="0.1">
+      <img src="fotos/carrusel/comunidad-22.jpg" alt="" loading="lazy" data-x="0.36" data-y="0.84" data-o="0.02">
+      <img class="side" src="fotos/carrusel/comunidad-02.jpg" alt="" loading="lazy" data-x="-0.84" data-y="0.42" data-o="0.08">
+      <img class="side" src="fotos/carrusel/comunidad-32.jpg" alt="" loading="lazy" data-x="0.86" data-y="0.38" data-o="0.13">
+      <img src="fotos/carrusel/comunidad-19.jpg" alt="" loading="lazy" data-x="0.18" data-y="-0.92" data-o="0.16">
+      <img src="fotos/carrusel/comunidad-09.jpg" alt="" loading="lazy" data-x="-0.46" data-y="0.9" data-o="0.18">
+    </div>
+    <div class="container">
     <div class="section-head center reveal">
       <div class="eyebrow">Nuestra comunidad</div>
       <h2 class="section-title">Vidas que <span>crecen juntas</span></h2>
       <p class="section-desc">Adoramos, servimos y salimos a las calles a compartir el amor de Jesús. Todo lo que hacemos busca guiar a las personas a una relación transformadora, primero con Dios y luego entre sí.</p>
     </div>
+    </div>
   </div>
-  <div class="photo-marquee">
-    <div class="photo-track" id="photoTrack">
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-01.jpg" alt="Equipo de alabanza ministrando en el servicio"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-14.jpg" alt="Grupo de evangelismo con gorras de Galilea reunido en la calle" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-15.jpg" alt="Hermanos repartiendo invitaciones en una esquina" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-02.jpg" alt="Pastor predicando la Palabra"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-16.jpg" alt="Conversando con una motociclista durante el evangelismo" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-18.jpg" alt="Hermanas compartiendo un folleto con una joven" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-03.jpg" alt="Hermana cantando en el servicio"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-31.jpg" alt="Pastor y cantantes ministrando en el servicio" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-19.jpg" alt="Hermanas atendiendo un puesto de evangelismo" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-04.jpg" alt="Hermanos de la congregación al frente del altar"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-21.jpg" alt="Hermanas anotando una petición de oración" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-22.jpg" alt="Hermanas sonriendo mientras invitan a jóvenes a la iglesia" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-05.jpg" alt="Evangelismo en las calles de Milagro"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-32.jpg" alt="Ministerio de danza con abanicos de colores" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-20.jpg" alt="Conversando con jóvenes en una parada de bus" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-06.jpg" alt="Ministerio de danza con banderas"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-24.jpg" alt="Hermana compartiendo con un joven" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-23.jpg" alt="Evangelismo junto a un puesto de mercado" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-07.jpg" alt="Compartiendo el evangelio con vecinos"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-33.jpg" alt="Culto de damas con el templo lleno" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-25.jpg" alt="Grupo de evangelismo hablando con un joven en la calle" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-08.jpg" alt="Predicador compartiendo un mensaje"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-27.jpg" alt="Hermanos del evangelismo entregando invitaciones" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-17.jpg" alt="Compartiendo el mensaje con un motociclista" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-09.jpg" alt="Hermanas de blanco en el servicio"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-34.jpg" alt="Jóvenes y familias celebrando juntos en la iglesia" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-26.jpg" alt="Compartiendo el evangelio junto a una parada" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-10.jpg" alt="Grupo de evangelismo en el parque"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-29.jpg" alt="Compartiendo el mensaje con personas esperando el bus" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-28.jpg" alt="Hermanas evangelizando en una avenida de Milagro" loading="lazy"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-11.jpg" alt="Entrega de reconocimiento en la iglesia"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-30.jpg" alt="Orando por un hombre en la calle" loading="lazy"></figure>
-      <figure class="photo-card tall"><img src="fotos/carrusel/comunidad-12.jpg" alt="Evangelismo junto a un puesto de la calle"></figure>
-      <figure class="photo-card"><img src="fotos/carrusel/comunidad-13.jpg" alt="Pastor predicando con pasión"></figure>
+  <div class="photo-wall" id="photoWall">
+    <div class="pw-tilt">
+      <div class="pw-row">
+        <div class="pw-track">
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Equipo de alabanza ministrando en el servicio"><img src="fotos/carrusel/comunidad-01.jpg" alt="Equipo de alabanza ministrando en el servicio" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Grupo de evangelismo con gorras de Galilea reunido en la calle"><img src="fotos/carrusel/comunidad-14.jpg" alt="Grupo de evangelismo con gorras de Galilea reunido en la calle" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanos repartiendo invitaciones en una esquina"><img src="fotos/carrusel/comunidad-15.jpg" alt="Hermanos repartiendo invitaciones en una esquina" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Pastor predicando la Palabra"><img src="fotos/carrusel/comunidad-02.jpg" alt="Pastor predicando la Palabra" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Conversando con una motociclista durante el evangelismo"><img src="fotos/carrusel/comunidad-16.jpg" alt="Conversando con una motociclista durante el evangelismo" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanas compartiendo un folleto con una joven"><img src="fotos/carrusel/comunidad-18.jpg" alt="Hermanas compartiendo un folleto con una joven" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermana cantando en el servicio"><img src="fotos/carrusel/comunidad-03.jpg" alt="Hermana cantando en el servicio" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Pastor y cantantes ministrando en el servicio"><img src="fotos/carrusel/comunidad-31.jpg" alt="Pastor y cantantes ministrando en el servicio" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanas atendiendo un puesto de evangelismo"><img src="fotos/carrusel/comunidad-19.jpg" alt="Hermanas atendiendo un puesto de evangelismo" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanos de la congregación al frente del altar"><img src="fotos/carrusel/comunidad-04.jpg" alt="Hermanos de la congregación al frente del altar" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanas anotando una petición de oración"><img src="fotos/carrusel/comunidad-21.jpg" alt="Hermanas anotando una petición de oración" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanas sonriendo mientras invitan a jóvenes a la iglesia"><img src="fotos/carrusel/comunidad-22.jpg" alt="Hermanas sonriendo mientras invitan a jóvenes a la iglesia" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="pw-row pw-rev">
+        <div class="pw-track">
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Evangelismo en las calles de Milagro"><img src="fotos/carrusel/comunidad-05.jpg" alt="Evangelismo en las calles de Milagro" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Ministerio de danza con abanicos de colores"><img src="fotos/carrusel/comunidad-32.jpg" alt="Ministerio de danza con abanicos de colores" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Conversando con jóvenes en una parada de bus"><img src="fotos/carrusel/comunidad-20.jpg" alt="Conversando con jóvenes en una parada de bus" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Ministerio de danza con banderas"><img src="fotos/carrusel/comunidad-06.jpg" alt="Ministerio de danza con banderas" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermana compartiendo con un joven"><img src="fotos/carrusel/comunidad-24.jpg" alt="Hermana compartiendo con un joven" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Evangelismo junto a un puesto de mercado"><img src="fotos/carrusel/comunidad-23.jpg" alt="Evangelismo junto a un puesto de mercado" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Compartiendo el evangelio con vecinos"><img src="fotos/carrusel/comunidad-07.jpg" alt="Compartiendo el evangelio con vecinos" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Culto de damas con el templo lleno"><img src="fotos/carrusel/comunidad-33.jpg" alt="Culto de damas con el templo lleno" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Grupo de evangelismo hablando con un joven en la calle"><img src="fotos/carrusel/comunidad-25.jpg" alt="Grupo de evangelismo hablando con un joven en la calle" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Predicador compartiendo un mensaje"><img src="fotos/carrusel/comunidad-08.jpg" alt="Predicador compartiendo un mensaje" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanos del evangelismo entregando invitaciones"><img src="fotos/carrusel/comunidad-27.jpg" alt="Hermanos del evangelismo entregando invitaciones" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="pw-row">
+        <div class="pw-track">
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Compartiendo el mensaje con un motociclista"><img src="fotos/carrusel/comunidad-17.jpg" alt="Compartiendo el mensaje con un motociclista" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanas de blanco en el servicio"><img src="fotos/carrusel/comunidad-09.jpg" alt="Hermanas de blanco en el servicio" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Jóvenes y familias celebrando juntos en la iglesia"><img src="fotos/carrusel/comunidad-34.jpg" alt="Jóvenes y familias celebrando juntos en la iglesia" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Compartiendo el evangelio junto a una parada"><img src="fotos/carrusel/comunidad-26.jpg" alt="Compartiendo el evangelio junto a una parada" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Grupo de evangelismo en el parque"><img src="fotos/carrusel/comunidad-10.jpg" alt="Grupo de evangelismo en el parque" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Compartiendo el mensaje con personas esperando el bus"><img src="fotos/carrusel/comunidad-29.jpg" alt="Compartiendo el mensaje con personas esperando el bus" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Hermanas evangelizando en una avenida de Milagro"><img src="fotos/carrusel/comunidad-28.jpg" alt="Hermanas evangelizando en una avenida de Milagro" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Entrega de reconocimiento en la iglesia"><img src="fotos/carrusel/comunidad-11.jpg" alt="Entrega de reconocimiento en la iglesia" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Orando por un hombre en la calle"><img src="fotos/carrusel/comunidad-30.jpg" alt="Orando por un hombre en la calle" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Evangelismo junto a un puesto de la calle"><img src="fotos/carrusel/comunidad-12.jpg" alt="Evangelismo junto a un puesto de la calle" loading="lazy"></button>
+          <button type="button" class="pw-photo" data-ad-open data-cursor="Ver" aria-label="Ampliar foto: Pastor predicando con pasión"><img src="fotos/carrusel/comunidad-13.jpg" alt="Pastor predicando con pasión" loading="lazy"></button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -738,7 +823,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261109j"></script>
+<script src="js/script.js?v=20261115d"></script>
 <script src="js/asistente.js?v=20261109j"></script>
 </body>
 </html>

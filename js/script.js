@@ -571,14 +571,17 @@ if (highlights) {
   if (!highlights.querySelector('.hl-card')) highlights.remove();
 }
 
-// Photo carousel (only present on index.html) - duplicate the photos so the loop is seamless
-const photoTrack = document.getElementById('photoTrack');
-if (photoTrack && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  [...photoTrack.children].forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    clone.querySelector('img').alt = '';
-    photoTrack.appendChild(clone);
+// Photo wall (only present on index.html) - each row is duplicated so its endless slide is seamless.
+// The copies are hidden from screen readers and the keyboard; clicking any photo opens it full screen
+// (the lightbox code below binds every [data-ad-open], copies included, so this must run first).
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.pw-track').forEach(track => {
+    [...track.children].forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.tabIndex = -1;
+      track.appendChild(clone);
+    });
   });
 }
 
@@ -787,18 +790,25 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'Intersect
     });
   }, {threshold: 0.3});
 
+  // while the home intro is playing, the hero text waits so it animates in as the intro opens
+  const introWait = document.documentElement.classList.contains('intro-on');
+  const watch = (el) => {
+    if (introWait && el.closest('.hero')) {
+      document.addEventListener('galilea:intro-open', () => setTimeout(() => textObserver.observe(el), 250), {once: true});
+    } else textObserver.observe(el);
+  };
   document.querySelectorAll('.hero h1, .page-banner h1, .section-title, .cta-strip h2').forEach(el => {
     wordIndex = 0;
     splitWords(el);
     el.classList.add('tw-host');
-    textObserver.observe(el);
+    watch(el);
   });
   document.querySelectorAll('.eyebrow').forEach(el => {
     el.setAttribute('aria-label', el.textContent.trim());
     el.classList.add('tw-eyebrow');
-    textObserver.observe(el);
+    watch(el);
   });
-  document.querySelectorAll('.hero-stats h3').forEach(el => textObserver.observe(el));
+  document.querySelectorAll('.hero-stats h3').forEach(el => watch(el));
 }
 
 
@@ -808,7 +818,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'Intersect
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
   const BLOCKS = 'p, h2, h3, h4, img, figure, iframe, form, ul, ol, table, blockquote, .btn, .faq-item, ' +
     '[class*="card"], [class*="-item"], .countdown, .sermon-links, .cells-legend, .give-steps, .give-receipt';
-  const SKIP = '.reveal, .hero, .page-banner, .testi-track, .photo-marquee, .reel-row, .video-row, .hero-slides, ' +
+  const SKIP = '.reveal, .hero, .page-banner, .testi-track, .photo-wall, .cm-fly, .reel-row, .video-row, .hero-slides, ' +
     '.cells-map, .leaflet-container, .ag, .pp-modal, .ad-lightbox, .tw-host, .eyebrow';
   const candidates = [...document.querySelectorAll('section, footer')]
     .flatMap(area => [...area.querySelectorAll(BLOCKS)])
@@ -822,7 +832,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'Intersect
       srObserver.unobserve(el);
       el.classList.add('sr-in');
       const delay = parseInt(el.style.getPropertyValue('--sr-d')) || 0;
-      setTimeout(() => { el.classList.remove('sr', 'sr-in'); el.style.removeProperty('--sr-d'); }, delay + 950);
+      setTimeout(() => { el.classList.remove('sr', 'sr-in', 'sr-3d'); el.style.removeProperty('--sr-d'); }, delay + 1050);
     });
   }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
   const seen = new Map();
@@ -839,6 +849,8 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'Intersect
     seen.set(el.parentElement, n + 1);
     el.style.setProperty('--sr-d', Math.min(n, 6) * 90 + 'ms');
     el.classList.add('sr');
+    // cards tip forward in 3D as they arrive, like panels sliding up into place
+    if (el.matches('[class*="card"]')) el.classList.add('sr-3d');
     srObserver.observe(el);
   });
 }
@@ -947,7 +959,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'Intersect
     'building-columns': 'flip', language: 'flip', 'masks-theater': 'flip', water: 'wave', gift: 'ring', utensils: 'ring'
   };
   const SKIP_ICON = '.faq-q i, .dropdown-toggle i, .scroll-cue i, .fa-spin, .fa-circle-notch, .globe-hint i, .hl-cta i, ' +
-    '.service-card-link i, .hero-slides i, .leaflet-container i, .maplibregl-map i, .verse-track i, .tw-host i';
+    '.service-card-link i, .hero-slides i, .leaflet-container i, .maplibregl-map i, .verse-track i, .tw-host i, .hero-badge i';
   const icons = [...document.querySelectorAll('section i[class*="fa-"], footer i[class*="fa-"]')]
     .filter(icon => !icon.matches(SKIP_ICON));
   const play = (icon) => {
@@ -1084,5 +1096,282 @@ if (yvStatement) {
     });
   }
 }
+
+// ===== EFECTOS DE MOVIMIENTO (intro, cursor, fotos que vuelan, muro de fotos, texto que se ilumina, GALILEA gigante) =====
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const docEl = document.documentElement;
+// one rAF-throttled scroll loop shared by every scroll-driven effect below
+const scrollJobs = [];
+let scrollQueued = false;
+const runScrollJobs = () => { scrollQueued = false; scrollJobs.forEach(job => job()); };
+window.addEventListener('scroll', () => {
+  if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(runScrollJobs); }
+}, {passive: true});
+window.addEventListener('resize', runScrollJobs);
+const clamp01 = (n) => Math.min(Math.max(n, 0), 1);
+
+// The home intro (logo + "Ingresar" button) lives in js/intro.js; it fires 'galilea:intro-open' when the visitor enters.
+
+// Home hero: while scrolling down, the text drifts up and fades and the photos zoom in slightly
+const heroEl = document.querySelector('.hero');
+if (heroEl && !reduceMotion) {
+  const heroJob = () => {
+    if (window.scrollY > heroEl.offsetHeight * 1.2) return;
+    heroEl.style.setProperty('--hp', clamp01(window.scrollY / heroEl.offsetHeight).toFixed(3));
+  };
+  scrollJobs.push(heroJob);
+  heroJob();
+}
+
+// Home hero extras: floating glass cards (next live service with a ticking countdown + "una familia te espera"),
+// the cover-photo counter (01 / 14 with a filling bar) and depth that follows the mouse.
+if (heroEl) {
+  const pad2 = (n) => String(n).padStart(2, '0');
+  // the cards slide in with the title: right away, or when the visitor enters through the home intro
+  const floatBox = heroEl.querySelector('.hero-float');
+  if (floatBox) {
+    const showFloat = () => setTimeout(() => floatBox.classList.add('hf-ready'), 700);
+    if (docEl.classList.contains('intro-on')) document.addEventListener('galilea:intro-open', showFloat, {once: true});
+    else showFloat();
+  }
+  const heroLive = document.getElementById('heroLive');
+  if (heroLive) {
+    const label = heroLive.querySelector('[data-hl-label]');
+    const go = heroLive.querySelector('[data-hl-go]');
+    const cells = {};
+    heroLive.querySelectorAll('[data-u]').forEach(b => { cells[b.dataset.u] = b; });
+    const setCell = (unit, value) => {
+      const el = cells[unit];
+      if (el.textContent === value) return;
+      el.textContent = value;
+      if (reduceMotion) return;
+      el.classList.remove('tick');
+      void el.offsetWidth; // restart the little drop-in animation
+      el.classList.add('tick');
+    };
+    const tickLive = () => {
+      const now = Date.now();
+      const start = nextServiceStart(now);
+      const live = now >= start;
+      heroLive.classList.toggle('is-live', live);
+      label.textContent = live ? '¡Estamos en vivo!' : 'Próximo culto en vivo';
+      go.textContent = live ? 'Ver en vivo ahora' : 'Ver transmisión';
+      if (live) return;
+      let sec = Math.floor((start - now) / 1000);
+      setCell('d', String(Math.floor(sec / 86400)));
+      sec %= 86400;
+      setCell('h', pad2(Math.floor(sec / 3600)));
+      sec %= 3600;
+      setCell('m', pad2(Math.floor(sec / 60)));
+      setCell('s', pad2(sec % 60));
+    };
+    tickLive();
+    setInterval(tickLive, 1000);
+  }
+  const heroCount = heroEl.querySelector('.hero-count');
+  if (heroCount && heroSlides) {
+    const slideList = [...heroSlides.children];
+    const cur = heroCount.querySelector('[data-hc-cur]');
+    const bar = heroCount.querySelector('b');
+    heroCount.querySelector('[data-hc-total]').textContent = pad2(slideList.length);
+    new MutationObserver(() => {
+      const n = pad2(slideList.findIndex(sl => sl.classList.contains('active')) + 1);
+      if (cur.textContent === n) return;
+      cur.textContent = n;
+      bar.style.animation = 'none';
+      void bar.offsetWidth;
+      bar.style.animation = '';
+    }).observe(heroSlides, {subtree: true, attributes: true, attributeFilter: ['class']});
+  }
+  if (!reduceMotion) {
+    heroEl.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const r = heroEl.getBoundingClientRect();
+      heroEl.style.setProperty('--mx', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+      heroEl.style.setProperty('--my', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+    });
+    heroEl.addEventListener('pointerleave', () => { heroEl.style.setProperty('--mx', 0); heroEl.style.setProperty('--my', 0); });
+  }
+}
+
+// "Vidas que crecen juntas": photos fly out of the depth, through the title and past the viewer as you scroll
+const cmStage = document.getElementById('cmStage');
+if (cmStage && !reduceMotion && 'IntersectionObserver' in window) {
+  const flyers = [...cmStage.querySelectorAll('.cm-fly img')].map(img =>
+    ({img, x: Number(img.dataset.x), y: Number(img.dataset.y), o: Number(img.dataset.o)}));
+  let stageOn = false;
+  const flyJob = () => {
+    if (!stageOn) return;
+    const r = cmStage.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const p = (vh - r.top) / (vh + r.height);      // 0 = entering at the bottom, 1 = gone at the top
+    const hw = r.width / 2;
+    const hh = Math.min(r.height, vh) / 2;
+    flyers.forEach(f => {
+      if (!f.img.offsetParent) return;                // hidden on phones (.side)
+      const z = (p + f.o * 0.6 - 0.55) * 3600;        // depth: far behind (-2000) -> beside the title (0) -> past the viewer
+      const alpha = clamp01((z + 1900) / 600) * clamp01(1 - (z - 250) / 450);
+      // while far away, push the photo outward so perspective doesn't pull it over the title:
+      // it stays on a ring around the text (80% -> 100% of its spot) and only spreads once it passes the viewer
+      const spread = z < 0 ? (0.8 + 0.2 * clamp01((z + 2000) / 2000)) * (900 - z) / 900 : 1;
+      f.img.style.transform = `translate(-50%,-50%) translate3d(${(f.x * hw * spread).toFixed(1)}px,${(f.y * hh * spread).toFixed(1)}px,${z.toFixed(1)}px)`;
+      f.img.style.opacity = alpha.toFixed(3);
+    });
+  };
+  new IntersectionObserver(([entry]) => { stageOn = entry.isIntersecting; flyJob(); }).observe(cmStage);
+  scrollJobs.push(flyJob);
+}
+
+// Photo wall: besides sliding on their own, the rows are pushed sideways (in opposite directions) by the scroll
+const photoWall = document.getElementById('photoWall');
+if (photoWall && !reduceMotion && 'IntersectionObserver' in window) {
+  const rows = [...photoWall.querySelectorAll('.pw-row')];
+  let wallOn = false;
+  const wallJob = () => {
+    if (!wallOn) return;
+    const d = (window.innerHeight - photoWall.getBoundingClientRect().top) * 0.3;
+    rows.forEach((row, i) => { row.style.translate = `${(i % 2 ? d : -d).toFixed(1)}px 0`; });
+  };
+  new IntersectionObserver(([entry]) => { wallOn = entry.isIntersecting; wallJob(); }).observe(photoWall);
+  scrollJobs.push(wallJob);
+}
+
+// Long descriptions light up word by word as they scroll through the screen (grey -> full colour)
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const litEls = [...document.querySelectorAll('.section-desc')]
+    .filter(el => !el.closest('.hero, .page-banner') && el.textContent.trim().length > 60);
+  const litOn = new Set();
+  litEls.forEach(el => {
+    const words = [];
+    const walk = (node) => [...node.childNodes].forEach(child => {
+      if (child.nodeType === Node.ELEMENT_NODE) { walk(child); return; }
+      if (child.nodeType !== Node.TEXT_NODE || !child.textContent.trim()) return;
+      const frag = document.createDocumentFragment();
+      child.textContent.split(/(\s+)/).forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        const w = document.createElement('lit-w'); // custom tag so no existing `p span` rule styles it
+        w.textContent = part;
+        words.push(w);
+        frag.appendChild(w);
+      });
+      child.replaceWith(frag);
+    });
+    walk(el);
+    words.forEach((w, i) => w.style.setProperty('--k', (i / words.length).toFixed(3)));
+    el.classList.add('lit');
+  });
+  const paintLit = (el, vh, atEnd) => {
+    const r = el.getBoundingClientRect();
+    const p = atEnd ? 1 : (vh * 0.92 - r.top) / (vh * 0.42 + r.height);
+    el.style.setProperty('--lp', clamp01(p).toFixed(3));
+  };
+  const litJob = () => {
+    if (!litOn.size) return;
+    const vh = window.innerHeight;
+    const atEnd = vh + window.scrollY >= docEl.scrollHeight - 4;
+    litOn.forEach(el => paintLit(el, vh, atEnd));
+  };
+  const litObserver = new IntersectionObserver((entries) => entries.forEach(entry => {
+    if (entry.isIntersecting) litOn.add(entry.target); else litOn.delete(entry.target);
+    paintLit(entry.target, window.innerHeight, false);
+  }));
+  litEls.forEach(el => litObserver.observe(el));
+  scrollJobs.push(litJob);
+}
+
+// Giant "GALILEA" at the foot of every page: the letters rise one by one when the footer comes into view
+const siteFooter = document.querySelector('footer');
+if (siteFooter) {
+  const mark = document.createElement('div');
+  mark.className = 'footer-mark';
+  mark.setAttribute('aria-hidden', 'true');
+  [...'GALILEA'].forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.textContent = ch;
+    s.style.setProperty('--i', i);
+    mark.appendChild(s);
+  });
+  siteFooter.appendChild(mark);
+  if (reduceMotion || !('IntersectionObserver' in window)) mark.classList.add('fm-in');
+  else {
+    const markObserver = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      mark.classList.add('fm-in');
+      markObserver.disconnect();
+    }, {threshold: 0.35});
+    markObserver.observe(mark);
+  }
+}
+
+// Custom cursor (computers with a mouse only): a dot that follows exactly and a ring that trails behind it.
+// The ring grows over links/buttons, turns into a "Ver" bubble over photos ([data-cursor]) and stretches into
+// a pill while the page scrolls. Over text fields and embedded videos/maps the normal cursor comes back.
+if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const dot = document.createElement('div');
+  dot.className = 'cur-dot';
+  const ring = document.createElement('div');
+  ring.className = 'cur-ring';
+  ring.innerHTML = '<div class="cur-ring-b"><span class="cur-label"></span></div>';
+  [dot, ring].forEach(el => { el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el); });
+  const ringBody = ring.firstElementChild;
+  const label = ringBody.firstElementChild;
+  const HOT = 'a, button, [role="button"], label, select, summary, .btn, input[type="checkbox"], input[type="radio"], input[type="submit"], input[type="button"]';
+  const PLAIN = 'input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]), textarea, [contenteditable="true"], iframe, .maplibregl-canvas, .leaflet-container';
+  let mx = -100, my = -100, rx = -100, ry = -100, stretch = 0, lastY = window.scrollY, running = false;
+  docEl.classList.add('has-cursor');
+  const setState = (cls, on) => docEl.classList.toggle(cls, on);
+  const frame = () => {
+    rx += (mx - rx) * 0.2;
+    ry += (my - ry) * 0.2;
+    const dy = window.scrollY - lastY;
+    lastY = window.scrollY;
+    stretch += (Math.min(Math.abs(dy) / 28, 1) - stretch) * 0.16;
+    dot.style.transform = `translate3d(${mx}px,${my}px,0)`;
+    ring.style.transform = `translate3d(${rx.toFixed(1)}px,${ry.toFixed(1)}px,0)`;
+    ringBody.style.setProperty('--st', stretch.toFixed(3));
+    // the page moved under a still mouse: look again at what is under it now
+    if (dy && docEl.classList.contains('cur-on')) aim(document.elementFromPoint(mx, my));
+    const settled = Math.abs(mx - rx) < 0.1 && Math.abs(my - ry) < 0.1 && stretch < 0.01;
+    if (settled) running = false; else requestAnimationFrame(frame);
+  };
+  const kick = () => { if (!running) { running = true; requestAnimationFrame(frame); } };
+  // ring style depends on what is under the pointer
+  function aim(target) {
+    const t = target instanceof Element ? target : null;
+    const view = t && t.closest('[data-cursor]');
+    setState('cur-plain', !!(t && t.closest(PLAIN)));
+    setState('cur-view', !!view);
+    setState('cur-hot', !view && !!(t && t.closest(HOT)));
+    if (view) label.textContent = view.dataset.cursor;
+  }
+  document.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    mx = e.clientX; my = e.clientY;
+    if (!docEl.classList.contains('cur-on')) { rx = mx; ry = my; setState('cur-on', true); }
+    aim(e.target);
+    kick();
+  }, {passive: true});
+  window.addEventListener('scroll', kick, {passive: true});
+  document.addEventListener('pointerdown', () => setState('cur-down', true));
+  document.addEventListener('pointerup', () => setState('cur-down', false));
+  // leaving the window (or moving into an embedded video/map frame) hides it until the mouse comes back
+  document.addEventListener('mouseout', (e) => { if (!e.relatedTarget) setState('cur-on', false); });
+  window.addEventListener('blur', () => setState('cur-on', false));
+
+  // magnetic buttons: they lean toward the pointer a few pixels and spring back when it leaves
+  document.querySelectorAll('.btn, .contact-social a, .hero-badge, .to-top').forEach(el => {
+    el.classList.add('magnetic');
+    el.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+      const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+      el.style.translate = `${(x * 8).toFixed(1)}px ${(y * 6).toFixed(1)}px`;
+    });
+    el.addEventListener('pointerleave', () => { el.style.translate = ''; });
+  });
+}
+
 
 })();
