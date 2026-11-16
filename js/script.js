@@ -432,6 +432,43 @@ document.querySelectorAll('.series-card[data-fin]').forEach(card => {
 // "Próximo evento" with countdown (eventos.html) - shows the first upcoming card that has data-inicio.
 const nextEvent = document.getElementById('nextEvent');
 const upcomingGrid = document.getElementById('eventsUpcoming');
+
+// Datos para Google (eventos.html): cada .event-card próxima con data-inicio y data-fin se publica como
+// Event de schema.org, para que Google pueda mostrar los eventos en sus resultados. Se arma solo desde las
+// tarjetas (las pasadas ya se movieron arriba); no hay que editar nada aparte al agregar un evento.
+if (upcomingGrid) {
+  const SITIO = 'https://iglesiacuadrangulargalilea.org/';
+  const zona = {addressLocality: 'Milagro', addressRegion: 'Guayas', addressCountry: 'EC'};
+  const templo = {
+    '@type': 'Place',
+    name: 'Iglesia Cuadrangular Galilea',
+    address: {'@type': 'PostalAddress', streetAddress: 'Rosa Borja de Icaza, entre Pablo Echavarría y Alfredo Adum', ...zona},
+  };
+  const eventos = [...upcomingGrid.querySelectorAll('.event-card[data-inicio][data-fin]')].map(card => {
+    const lugar = card.querySelector('.event-meta .fa-location-dot')?.parentElement.textContent.trim() || '';
+    const img = card.querySelector('.event-img img');
+    return {
+      '@type': 'Event',
+      name: card.querySelector('h3').textContent.trim(),
+      startDate: card.dataset.inicio,
+      endDate: card.dataset.fin,
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      location: !lugar || /galilea/i.test(lugar) ? templo : {'@type': 'Place', name: lugar, address: {'@type': 'PostalAddress', ...zona}},
+      image: [img ? img.src : SITIO + 'img/compartir.jpg'],
+      description: [...card.querySelectorAll('.event-meta span')].map(s => s.textContent.trim()).join(' · '),
+      organizer: {'@type': 'Organization', name: 'Iglesia Cuadrangular Galilea', url: SITIO},
+      isAccessibleForFree: true,
+      url: SITIO + 'eventos.html',
+    };
+  });
+  if (eventos.length) {
+    const ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({'@context': 'https://schema.org', '@graph': eventos});
+    document.head.appendChild(ld);
+  }
+}
 if (nextEvent && upcomingGrid) {
   const card = [...upcomingGrid.querySelectorAll('.event-card[data-inicio]')]
     .sort((a, b) => new Date(a.dataset.inicio) - new Date(b.dataset.inicio))[0];
