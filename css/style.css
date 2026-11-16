@@ -3640,3 +3640,204 @@
   html.has-cursor.cur-on,html.has-cursor.cur-on *{cursor:none !important;}
   html.has-cursor.cur-on :is(input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),textarea,[contenteditable="true"]){cursor:text !important;}
   html.has-cursor.cur-on :is(.maplibregl-canvas,.leaflet-container){cursor:grab !important;}
+
+  /* --- GALERÍAS LARGAS: se ven 8 fotos y el botón "Ver más fotos" muestra el resto (js/script.js, [data-gallery-more]) --- */
+  .gal-collapsed > :nth-child(n+9){display:none;}
+  .gal-more{
+    display:flex;align-items:center;gap:10px;margin:28px auto 0;padding:13px 30px;border-radius:999px;cursor:pointer;
+    font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:inherit;
+    background:rgba(127,140,170,.14);border:1px solid rgba(127,140,170,.4);
+    transition:background .3s ease,border-color .3s ease,color .3s ease,transform .3s ease;
+  }
+  .gal-more span{opacity:.7;font-weight:500;}
+  .gal-more:hover,.gal-more:focus-visible{background:var(--accent-500);border-color:var(--accent-500);color:#fff;transform:translateY(-2px);}
+  .eb-theme .gal-more{color:#2b1d0e;background:rgba(255,255,255,.5);border-color:#cdb88c;}
+  .eb-theme .gal-more:hover,.eb-theme .gal-more:focus-visible{background:#7c2d12;border-color:#7c2d12;color:#fff;}
+  /* Jóvenes: más momentos debajo de las tres fotos grandes */
+  .yg-more{margin-top:20px;}
+  .yg-more .mp-photo{border-color:rgba(10,26,51,.08);box-shadow:0 12px 28px rgba(5,11,26,.16);}
+  .yg-more + .gal-more{color:var(--navy-900);}
+
+  /* =====================================================================================================
+     MINISTERIOS EN NEGRO (caballeros, damas, células, escuela bíblica, misiones, alabanza): el mismo estilo
+     editorial de Jóvenes (.yv-*) + franja de palabras y la sección de información en negro
+     ===================================================================================================== */
+  /* palabras más largas que JÓVENES: cada página fija su tamaño con --yv-fs / --yv-fs-m (celular) */
+  .yv-word[style*="--yv-fs"]{font-size:var(--yv-fs);}
+  @media(max-width:768px){.yv-word[style*="--yv-fs-m"]{font-size:var(--yv-fs-m);}}
+  .yv-word > span:nth-child(9){animation-delay:.61s}.yv-word > span:nth-child(10){animation-delay:.68s}.yv-word > span:nth-child(11){animation-delay:.75s}
+  /* segunda palabra en cursiva fina (Escuela "Bíblica") */
+  .yv-word-sub{margin:-.08em 6vw 0 0;text-align:right;font-family:'Inter',sans-serif;font-style:italic;font-weight:300;
+    font-size:clamp(34px,7.5vw,128px);line-height:1;letter-spacing:-.05em;color:#fff;
+    opacity:0;transform:translateY(30%);filter:blur(10px);animation:yv-letter 1.1s cubic-bezier(.2,.75,.25,1) .7s forwards;}
+
+  /* franja de palabras grandes (contorno y rellenas alternadas) */
+  .yv-band{background:#000;border-top:1px solid #1d1d1d;border-bottom:1px solid #1d1d1d;overflow:hidden;padding:24px 0;}
+  .yv-band-track{display:flex;align-items:center;gap:34px;width:max-content;animation:scroll-left 42s linear infinite;}
+  .yv-band-track span{font:800 clamp(30px,4.6vw,66px)/1 'Poppins',sans-serif;letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap;
+    color:transparent;-webkit-text-stroke:1.2px rgba(255,255,255,.55);}
+  .yv-band-track span:nth-of-type(odd){color:#fff;-webkit-text-stroke:0;}
+  .yv-band-track b{font-size:clamp(14px,1.6vw,22px);color:#fff;opacity:.8;}
+  .yv-band-sm .yv-band-track{animation-duration:60s;}
+  .yv-band-sm .yv-band-track span{font-size:clamp(20px,2.8vw,38px);text-transform:none;font-weight:700;}
+
+  /* sección de información + galería en negro */
+  .ministries.mp-noir{background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.07),transparent 55%),#000;}
+  .mp-noir .give-orb{display:none;}
+  .mp-noir .eyebrow{color:#9a9a9a;}
+  .mp-noir .section-title{color:#fff;}
+  .mp-noir .section-title span{font-family:'Inter',sans-serif;font-style:italic;font-weight:300;letter-spacing:-.04em;color:#fff;--tw-a:#ffffff;--tw-b:#8a8a8a;}
+  .mp-noir .section-desc{color:#bdbdbd;}
+  .mp-noir .mp-info-item{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);box-shadow:none;}
+  .mp-noir .mp-info-item > i{background:#fff;color:#000;}
+  .mp-noir .mp-info-item small{color:#8a8a8a;}
+  .mp-noir .mp-info-item strong{color:#fff;}
+  .mp-noir .mp-badge{background:#fff;color:#000;border-color:#000;}
+  .mp-noir .mp-gallery-head h3{color:#fff;}
+  .mp-noir .mp-gallery-head h3 i,.mp-noir .ad-reel-all{color:#bdbdbd;}
+  .mp-noir .mp-photo{background:#111;border-color:rgba(255,255,255,.1);box-shadow:0 14px 34px rgba(0,0,0,.6);}
+  .mp-noir .mp-photo:hover{border-color:rgba(255,255,255,.55);}
+  .mp-noir .gal-more{color:#fff;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25);}
+  .mp-noir .gal-more:hover,.mp-noir .gal-more:focus-visible{background:#fff;color:#000;border-color:#fff;}
+  .mp-noir .btn-outline{border-color:rgba(255,255,255,.4);}
+
+  @media(max-width:768px){
+    .yv-word-sub{margin-right:4vw;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .yv-band-track{animation:none;}
+    .yv-word-sub{animation:none;opacity:1;transform:none;filter:none;}
+  }
+
+  /* =====================================================================================================
+     MISIONES en blanco y negro: planeta de puntos que gira (js/misiones-globo.js) + palabra gigante + tarjetas
+     ===================================================================================================== */
+  .ms-hero{position:relative;isolation:isolate;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;
+    padding:120px 0 34px;background:radial-gradient(ellipse at 50% 30%,rgba(255,255,255,.05),transparent 60%),#000;color:#fff;}
+  .ms-hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;
+    background-image:radial-gradient(1px 1px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 27% 8%,#fff,transparent),radial-gradient(1.5px 1.5px at 41% 22%,#fff,transparent),
+      radial-gradient(1px 1px at 63% 12%,#fff,transparent),radial-gradient(1px 1px at 78% 26%,#fff,transparent),radial-gradient(1.5px 1.5px at 88% 9%,#fff,transparent),
+      radial-gradient(1px 1px at 6% 40%,#fff,transparent),radial-gradient(1px 1px at 94% 44%,#fff,transparent),radial-gradient(1px 1px at 52% 4%,#fff,transparent);
+    animation:ms-twinkle 5s ease-in-out infinite alternate;}
+  @keyframes ms-twinkle{to{opacity:.25;}}
+  .ms-globe{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0;animation:ms-rise 2.2s cubic-bezier(.2,.8,.2,1) .15s forwards;}
+  @keyframes ms-rise{from{opacity:0;transform:translateY(16%);}to{opacity:1;transform:none;}}
+  .ms-hero > .container,.ms-head{position:relative;z-index:2;}
+  .ms-hero > .container{width:100%;}
+  .ms-head{text-align:center;margin-top:-18vh;}
+  .ms-tag{margin:14px 0 24px;font:300 clamp(20px,2.4vw,34px)/1.2 'Inter',sans-serif;letter-spacing:-.02em;color:#cfcfcf;
+    opacity:0;animation:yv-letter 1.1s cubic-bezier(.2,.75,.25,1) .8s forwards;transform:translateY(30%);filter:blur(8px);}
+  .ms-tag em{font-style:italic;color:#fff;}
+  .ms-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;animation:yv-letter 1s cubic-bezier(.2,.75,.25,1) 1.05s forwards;transform:translateY(30%);filter:blur(6px);}
+  .ms-ghost{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:100px;font-size:14px;font-weight:600;color:#fff;
+    border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background .25s,border-color .25s;}
+  .ms-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff;}
+  .ms-note{font-size:13px;color:#8a8a8a;}
+  /* tarjetas de vidrio que flotan sobre el planeta */
+  .ms-chip{position:absolute;z-index:2;display:flex;align-items:center;gap:12px;padding:10px 18px 10px 10px;border-radius:16px;
+    background:rgba(18,18,18,.6);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    box-shadow:0 20px 50px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12);opacity:0;
+    animation:ms-chip-in .9s cubic-bezier(.34,1.56,.64,1) forwards,hf-bob 7s ease-in-out infinite;}
+  @keyframes ms-chip-in{from{opacity:0;translate:0 24px;scale:.9;}to{opacity:1;translate:0 0;scale:1;}}
+  .ms-chip > span{width:36px;height:36px;flex-shrink:0;border-radius:11px;display:grid;place-items:center;background:#fff;color:#000;font-size:15px;}
+  .ms-chip small{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#9a9a9a;}
+  .ms-chip strong{font-size:14px;font-weight:600;color:#fff;white-space:nowrap;}
+  .ms-chip-1{left:8%;bottom:25%;animation-delay:1.5s,-1s;}
+  .ms-chip-2{right:8%;bottom:31%;animation-delay:1.75s,-3.5s;}
+  .ms-chip-3{left:56%;bottom:11%;animation-delay:2s,-5s;}
+  @media(max-width:768px){
+    .ms-hero{padding:100px 0 26px;}
+    .ms-head{margin-top:0;}
+    .ms-chip{padding:8px 12px 8px 8px;gap:9px;}
+    .ms-chip > span{width:30px;height:30px;font-size:13px;}
+    .ms-chip strong{font-size:12.5px;}
+    /* en celular no hay espacio sobre el planeta: los datos de las tarjetas están arriba y en "En números" */
+    .ms-chip{display:none;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .ms-globe,.ms-tag,.ms-actions,.ms-chip{animation:none;opacity:1;transform:none;filter:none;}
+    .ms-hero::before{animation:none;}
+  }
+
+  /* "En números" y "Cómo puedes ser parte" en blanco y negro */
+  .mis-numbers,.mis-orbit{background:#000;}
+  .mis-numbers{border-top-color:#1d1d1d;}
+  .mis-numbers-grid,.mis-numbers-grid > div{border-color:rgba(255,255,255,.14);}
+  .mis-count{color:#bdbdbd;}
+  .mis-numbers-title p,.mis-stat small{color:#9a9a9a;}
+  .mis-stat:hover{background:rgba(255,255,255,.05);}
+  .mis-stat-ico{color:#000;background:#fff;}
+  .mis-step{border-left-color:rgba(255,255,255,.18);}
+  .mis-step h3 i{color:#fff;}
+  .mis-step.is-active{border-left-color:#fff;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent);}
+  .mis-step.is-active p{color:#cfcfcf;}
+  .mis-step.is-active .mis-link{color:#fff;}
+  .mis-rings{filter:drop-shadow(0 0 8px rgba(255,255,255,.7));}
+  .mis-rings .mis-ring-2 path{stroke:#9a9a9a;}
+  .mis-pin{background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.25);}
+  .mis-pin i{color:#fff;}
+  .mis-globe-wrap.has-globe .mis-globe{background:#000;box-shadow:0 0 70px rgba(255,255,255,.14);}
+  /* con el planeta 3D, la marca de Ecuador la dibuja el propio globo (gira con él) */
+  .mis-globe-wrap.has-globe .mis-map,.mis-globe-wrap.has-globe .mis-pin{display:none;}
+  .mis-globe-canvas{position:absolute;inset:0;width:100%;height:100%;}
+
+  /* =====================================================================================================
+     UBICACIÓN en negro y azul (como Misiones): planeta de puntos azul en la portada, lista minimalista,
+     fotos del templo y células / WhatsApp / cierre en negro
+     ===================================================================================================== */
+  .ub-hero2 .yv-pills .is-on{background:var(--accent-500);color:#fff;}
+  .ub-hero2 .yv-pill-btn{background:var(--accent-500);color:#fff;box-shadow:0 12px 30px rgba(47,95,224,.45);}
+  .ub-hero2 .yv-pill-btn:hover{background:#3d6cf0;}
+  .ub-hero2 .ms-tag em{color:#9cc0ff;}
+  .ub-hero2 .ms-chip > span{background:var(--accent-500);color:#fff;}
+  .ub-chip-photo{padding-left:8px;}
+  .ub-chip-photo img{width:52px;height:40px;border-radius:10px;object-fit:cover;flex-shrink:0;}
+  .ub-hero2 .breadcrumb a{color:#9cc0ff;}
+
+  .ub-noir{background:#000;color:#fff;}
+  .ub-noir .eyebrow{color:var(--accent-400);}
+  .ub-noir .section-title{color:#fff;}
+  .ub-noir .section-title span{font-family:'Inter',sans-serif;font-style:italic;font-weight:300;letter-spacing:-.04em;color:var(--accent-400);--tw-a:var(--accent-400);--tw-b:#ffffff;}
+  .ub-noir .section-desc{color:#a3a3a3;}
+  /* datos en filas finas, sin cajas */
+  .ub-list{margin:26px 0 30px;border-top:1px solid rgba(255,255,255,.1);}
+  .ub-list li{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.1);}
+  .ub-list li > i{width:38px;height:38px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;font-size:15px;color:#9cc0ff;border:1px solid rgba(111,163,250,.35);}
+  .ub-list small{display:block;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#7a7a7a;margin-bottom:3px;}
+  .ub-list strong{font-size:15.5px;font-weight:500;color:#fff;line-height:1.45;}
+  .ub-btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .ub-noir .globe-card{border:1px solid rgba(111,163,250,.22);box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 60px rgba(47,95,224,.12);}
+
+  /* fotos del templo: una grande y cuatro chicas */
+  .ub-photos{padding-top:40px;}
+  .ub-mosaic{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:repeat(2,minmax(180px,250px));gap:14px;}
+  .ub-shot{position:relative;padding:0;border:0;border-radius:18px;overflow:hidden;cursor:zoom-in;background:#0b0b0b;
+    box-shadow:0 18px 44px rgba(0,0,0,.6);outline:1px solid rgba(255,255,255,.08);outline-offset:-1px;}
+  .ub-shot-main{grid-row:1 / span 2;}
+  .ub-shot img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .5s ease;filter:saturate(.9) brightness(.9);}
+  .ub-shot:hover img{transform:scale(1.07);filter:none;}
+  .ub-shot::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,rgba(0,0,0,.45),transparent 45%);}
+  .ub-shot:focus-visible{outline:2px solid var(--accent-400);}
+  @media(max-width:768px){
+    .ub-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:none;gap:10px;}
+    .ub-shot{aspect-ratio:1/1;}
+    .ub-shot-main{grid-column:1 / -1;grid-row:auto;aspect-ratio:16/10;}
+  }
+
+  /* células, WhatsApp y cierre en negro */
+  .cells.ub-noir{background:radial-gradient(ellipse at 50% 0%,rgba(47,95,224,.12),transparent 55%),#000;}
+  .ub-noir .cell-card{background:#0b0b0b;border-color:rgba(255,255,255,.1);}
+  .ub-noir .cell-card:hover,.ub-noir .cell-card.active{border-color:var(--accent-500);}
+  .ub-noir .cell-card.active{background:linear-gradient(135deg,#0b0b0b,rgba(47,95,224,.2));}
+  .ub-noir .cells-legend{color:#a3a3a3;}
+  .wa-help.ub-noir{background:#000;}
+  .ub-noir .wa-card{background:#0b0b0b;border-color:rgba(255,255,255,.1);box-shadow:0 30px 70px rgba(0,0,0,.6);}
+  .ub-noir .wa-intro p{color:#a3a3a3;}
+  .ub-noir .wa-contact{background:#111;border-color:rgba(255,255,255,.1);}
+  .ub-noir .wa-contact:hover{background:#151515;}
+  .ub-noir .wa-info strong{color:#fff;}
+  .ub-noir .wa-info small{color:#8a8a8a;}
+  .cta-strip.ub-noir{background:#000;border-top:1px solid #1a1a1a;}
+  /* la cursiva sobresale de su caja: un poco de aire a la derecha para que no se corte la última letra */
+  .ub-noir .section-title span .tw-i,.mp-noir .section-title span .tw-i{padding-right:.14em;margin-right:-.14em;}
+  .ub-hero2 .ms-chip-2{bottom:20%;right:6%;}

@@ -7,12 +7,12 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Misiones y Evangelismo | Iglesia Cuadrangular Galilea</title>
 <meta name="description" content="Misiones y Evangelismo de Iglesia Cuadrangular Galilea: Evangelismo en las calles de Milagro y viajes misioneros para llevar el amor de Cristo a quienes más lo necesitan.">
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png?v=2">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=2">
 <link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261115e">
+<link rel="stylesheet" href="css/style.css?v=20261116k">
 </head>
 <body>
 
@@ -66,28 +66,51 @@
   </div>
 </header>
 
-<!-- ===== MISIONES: portada con planeta de puntos (img/mapa-puntos.svg, datos de Natural Earth) ===== -->
-<section class="page-banner mis-hero">
-  <span class="mis-stars" aria-hidden="true"></span>
-  <div class="mis-planet" aria-hidden="true"><span class="mis-map"></span></div>
-  <div class="container mis-hero-inner">
-    <div class="eyebrow">Misiones y Evangelismo</div>
-    <h1>Llevamos el amor de Cristo a las naciones</h1>
-    <p class="mis-lead">Evangelismo en las calles de Milagro y viajes misioneros para llevar esperanza a quienes más lo necesitan.</p>
-    <div class="mis-actions">
-      <a class="btn btn-accent" href="ofrendas.html#formas"><i class="fa-solid fa-hand-holding-heart"></i> Apoyar las misiones</a>
-      <a class="btn btn-outline" href="https://wa.me/593959009768?text=Hola%2C%20quiero%20participar%20en%20Misiones%20y%20Evangelismo%20de%20Galilea." target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Quiero ser parte</a>
-    </div>
-    <div class="breadcrumb">
-      <a href="index.html">Inicio</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <a href="ministerios.html">Ministerios</a>
-      <i class="fa-solid fa-chevron-right"></i>
-      <span>Misiones</span>
+<!-- ===== MISIONES: portada negra con un planeta de puntos que gira (js/globo-puntos.js): arcos de luz desde Milagro
+     hacia las comunidades Sionas, Secoyas y Cofanes y hacia las naciones; palabra gigante y tarjetas flotantes ===== -->
+<section class="ms-hero">
+  <canvas class="ms-globe" data-globe="hero" data-preset="misiones" aria-hidden="true"></canvas>
+  <div class="container yv-hero-top">
+    <p class="yv-meta">Misiones y Evangelismo<br>Iglesia Galilea<br><span>Milagro, Ecuador</span></p>
+    <div class="yv-pills"><span class="is-on">Próximo viaje</span><span>Dic 2026</span></div>
+    <p class="yv-meta yv-meta-r">Sionas, Secoyas<br>y Cofanes</p>
+  </div>
+  <div class="ms-head">
+    <h1 class="yv-word" aria-label="Misiones" style="--yv-fs:clamp(54px,13.6vw,230px);--yv-fs-m:13.4vw">
+      <span>M</span><span>I</span><span>S</span><span class="yv-gap"><img src="fotos/misiones/06.jpg" alt=""></span><span>I</span><span>O</span><span>N</span><span>E</span><span>S</span>
+    </h1>
+    <p class="ms-tag">Llevamos el amor de Cristo <em>a las naciones</em></p>
+    <div class="ms-actions">
+      <a class="yv-pill-btn" href="https://wa.me/593959009768?text=Hola%2C%20quiero%20participar%20en%20Misiones%20y%20Evangelismo%20de%20Galilea." target="_blank" rel="noopener">Quiero ser parte <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="ms-ghost" href="ofrendas.html#formas"><i class="fa-solid fa-hand-holding-heart"></i> Apoyar las misiones</a>
     </div>
   </div>
-  <div class="mis-chip mis-chip-a"><span><i class="fa-solid fa-plane"></i></span><div><small>Próximo viaje</small><strong>Diciembre 2026</strong></div></div>
-  <div class="mis-chip mis-chip-b"><span><i class="fa-solid fa-gift"></i></span><div><small>Con tu ayuda</small><strong>700 niños · un regalo</strong></div></div>
+  <div class="ms-chip ms-chip-1"><span><i class="fa-solid fa-location-dot"></i></span><div><small>Desde</small><strong>Milagro, Ecuador</strong></div></div>
+  <div class="ms-chip ms-chip-2"><span><i class="fa-solid fa-gift"></i></span><div><small>Con tu ayuda</small><strong>700 niños · un regalo</strong></div></div>
+  <div class="ms-chip ms-chip-3"><span><i class="fa-solid fa-plane-departure"></i></span><div><small>Próximo viaje</small><strong>Diciembre 2026</strong></div></div>
+  <div class="container yv-hero-bottom">
+    <div class="breadcrumb"><a href="index.html">Inicio</a><i class="fa-solid fa-chevron-right"></i><a href="ministerios.html">Ministerios</a><i class="fa-solid fa-chevron-right"></i><span>Misiones</span></div>
+    <p class="ms-note">Evangelismo en Milagro · viajes misioneros</p>
+  </div>
+</section>
+
+<!-- franja de palabras que se mueve -->
+<div class="yv-band" aria-hidden="true">
+  <div class="yv-band-track"><span>Ora</span><b>✦</b><span>Ve</span><b>✦</b><span>Da</span><b>✦</b><span>Milagro</span><b>✦</b><span>Ecuador</span><b>✦</b><span>Las naciones</span><b>✦</b><span>Ora</span><b>✦</b><span>Ve</span><b>✦</b><span>Da</span><b>✦</b><span>Milagro</span><b>✦</b><span>Ecuador</span><b>✦</b><span>Las naciones</span><b>✦</b></div>
+</div>
+
+<section class="yv-statement" id="yvStatement">
+  <div class="container">
+    <p class="yv-small">Milagro <span class="yv-dot"></span> Ecuador <span class="yv-dot"></span> El mundo</p>
+    <h2 class="yv-lines">
+      <span class="yv-line">Llevamos</span><span class="yv-line"><em>el amor de Cristo</em></span><span class="yv-line">a las naciones</span>
+    </h2>
+    <div class="yv-float" aria-hidden="true"><img src="fotos/misiones/05.jpg" alt=""></div>
+    <div class="yv-statement-foot">
+      <p>Evangelismo en las calles de Milagro y viajes misioneros para llevar esperanza a quienes más lo necesitan.</p>
+      <p class="yv-small">Próximo viaje: diciembre 2026</p>
+    </div>
+  </div>
 </section>
 
 <!-- ===== EN NÚMEROS ===== -->
@@ -125,7 +148,7 @@
       </div>
     </div>
     <div class="mis-globe-wrap reveal" aria-hidden="true">
-      <div class="mis-globe"><span class="mis-map"></span></div>
+      <div class="mis-globe"><span class="mis-map"></span><canvas class="mis-globe-canvas" data-globe="small"></canvas></div>
       <svg class="mis-rings" viewBox="0 0 400 400">
         <defs><marker id="misArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#fff"/></marker></defs>
         <g class="mis-ring-1"><path d="M60 230 A150 60 -18 0 1 330 120" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" marker-end="url(#misArrow)"/></g>
@@ -136,10 +159,31 @@
   </div>
 </section>
 
+<section class="yv-wall">
+  <div class="yv-wall-3d" aria-hidden="true">
+      <div class="yv-row"><div class="yv-track"><span style="background-image:url('fotos/misiones/01.jpg')"></span><span style="background-image:url('fotos/misiones/02.jpg')"></span><span style="background-image:url('fotos/misiones/03.jpg')"></span><span style="background-image:url('fotos/misiones/04.jpg')"></span><span style="background-image:url('fotos/misiones/07.jpg')"></span><span style="background-image:url('fotos/misiones/08.jpg')"></span><span style="background-image:url('fotos/misiones/10.jpg')"></span><span style="background-image:url('fotos/misiones/01.jpg')"></span><span style="background-image:url('fotos/misiones/02.jpg')"></span><span style="background-image:url('fotos/misiones/03.jpg')"></span><span style="background-image:url('fotos/misiones/04.jpg')"></span><span style="background-image:url('fotos/misiones/07.jpg')"></span><span style="background-image:url('fotos/misiones/08.jpg')"></span><span style="background-image:url('fotos/misiones/10.jpg')"></span></div></div>
+      <div class="yv-row yv-row-rev"><div class="yv-track"><span style="background-image:url('fotos/misiones/11.jpg')"></span><span style="background-image:url('fotos/misiones/12.jpg')"></span><span style="background-image:url('fotos/misiones/13.jpg')"></span><span style="background-image:url('fotos/misiones/14.jpg')"></span><span style="background-image:url('fotos/misiones/16.jpg')"></span><span style="background-image:url('fotos/misiones/17.jpg')"></span><span style="background-image:url('fotos/misiones/18.jpg')"></span><span style="background-image:url('fotos/misiones/11.jpg')"></span><span style="background-image:url('fotos/misiones/12.jpg')"></span><span style="background-image:url('fotos/misiones/13.jpg')"></span><span style="background-image:url('fotos/misiones/14.jpg')"></span><span style="background-image:url('fotos/misiones/16.jpg')"></span><span style="background-image:url('fotos/misiones/17.jpg')"></span><span style="background-image:url('fotos/misiones/18.jpg')"></span></div></div>
+      <div class="yv-row"><div class="yv-track"><span style="background-image:url('fotos/carrusel/comunidad-05.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-30.jpg')"></span><span style="background-image:url('fotos/misiones/01.jpg')"></span><span style="background-image:url('fotos/misiones/02.jpg')"></span><span style="background-image:url('fotos/misiones/03.jpg')"></span><span style="background-image:url('fotos/misiones/04.jpg')"></span><span style="background-image:url('fotos/misiones/07.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-05.jpg')"></span><span style="background-image:url('fotos/carrusel/comunidad-30.jpg')"></span><span style="background-image:url('fotos/misiones/01.jpg')"></span><span style="background-image:url('fotos/misiones/02.jpg')"></span><span style="background-image:url('fotos/misiones/03.jpg')"></span><span style="background-image:url('fotos/misiones/04.jpg')"></span><span style="background-image:url('fotos/misiones/07.jpg')"></span></div></div>
+      <div class="yv-row yv-row-rev"><div class="yv-track"><span style="background-image:url('fotos/misiones/08.jpg')"></span><span style="background-image:url('fotos/misiones/10.jpg')"></span><span style="background-image:url('fotos/misiones/11.jpg')"></span><span style="background-image:url('fotos/misiones/12.jpg')"></span><span style="background-image:url('fotos/misiones/13.jpg')"></span><span style="background-image:url('fotos/misiones/14.jpg')"></span><span style="background-image:url('fotos/misiones/16.jpg')"></span><span style="background-image:url('fotos/misiones/08.jpg')"></span><span style="background-image:url('fotos/misiones/10.jpg')"></span><span style="background-image:url('fotos/misiones/11.jpg')"></span><span style="background-image:url('fotos/misiones/12.jpg')"></span><span style="background-image:url('fotos/misiones/13.jpg')"></span><span style="background-image:url('fotos/misiones/14.jpg')"></span><span style="background-image:url('fotos/misiones/16.jpg')"></span></div></div>
+  </div>
+  <div class="yv-wall-center">
+    <p class="yv-small">Ora · Ve · Da</p>
+    <h2>Tú también<br>puedes ir</h2>
+    <p class="yv-wall-sub">Hay un lugar para ti en las misiones: orando, saliendo a evangelizar o dando tu ofrenda.</p>
+    <a class="yv-bar" href="https://wa.me/593959009768?text=Hola%2C%20quiero%20participar%20en%20Misiones%20y%20Evangelismo%20de%20Galilea." target="_blank" rel="noopener">
+      <span><i class="fa-brands fa-whatsapp"></i> ¿Quieres ser parte de las misiones? Escríbenos</span>
+      <b>Enviar <i class="fa-solid fa-arrow-right"></i></b>
+    </a>
+    <div class="yv-chips">
+      <a href="#ministerio"><i class="fa-solid fa-hands-praying"></i> Ora</a><a href="#ministerio"><i class="fa-solid fa-person-walking"></i> Ve</a><a href="ofrendas.html"><i class="fa-solid fa-hand-holding-heart"></i> Da</a>
+    </div>
+  </div>
+</section>
+
 <!-- ===== MISIONES Y EVANGELISMO =====
      Página del ministerio. Para agregar fotos: copiarlas a fotos/ y añadir un .mp-photo en la galería
      (reemplazando un "Pronto más fotos"). -->
-<section class="section-pad ministries mp">
+<section class="section-pad ministries mp mp-noir" id="ministerio">
   <span class="give-orb give-orb-1" aria-hidden="true"></span>
   <span class="give-orb give-orb-2" aria-hidden="true"></span>
   <div class="container">
@@ -168,7 +212,25 @@
       <h3><i class="fa-solid fa-images"></i> Momentos</h3>
       <a href="ministerios.html" class="ad-reel-all">Ver todos los ministerios <i class="fa-solid fa-arrow-right"></i></a>
     </div>
-    <div class="mp-gallery">
+    <div class="mp-gallery" data-gallery-more>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/01.jpg" aria-label="Ver foto: Culto evangelístico al aire libre por la noche"><img src="fotos/misiones/01.jpg" alt="Culto evangelístico al aire libre por la noche" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/02.jpg" aria-label="Ver foto: Hermanos levantando las manos en adoración"><img src="fotos/misiones/02.jpg" alt="Hermanos levantando las manos en adoración" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/03.jpg" aria-label="Ver foto: Grupo misionero evangelizando en un parque"><img src="fotos/misiones/03.jpg" alt="Grupo misionero evangelizando en un parque" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/04.jpg" aria-label="Ver foto: Equipo de alabanza ministrando en el escenario"><img src="fotos/misiones/04.jpg" alt="Equipo de alabanza ministrando en el escenario" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/05.jpg" aria-label="Ver foto: Orando por un joven en el parque"><img src="fotos/misiones/05.jpg" alt="Orando por un joven en el parque" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/06.jpg" aria-label="Ver foto: Foto grupal del equipo misionero"><img src="fotos/misiones/06.jpg" alt="Foto grupal del equipo misionero" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/07.jpg" aria-label="Ver foto: Congregación reunida en el culto al aire libre"><img src="fotos/misiones/07.jpg" alt="Congregación reunida en el culto al aire libre" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/08.jpg" aria-label="Ver foto: Compartiendo el evangelio con motociclistas"><img src="fotos/misiones/08.jpg" alt="Compartiendo el evangelio con motociclistas" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/09.jpg" aria-label="Ver foto: Músico tocando el bajo en el culto al aire libre"><img src="fotos/misiones/09.jpg" alt="Músico tocando el bajo en el culto al aire libre" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/10.jpg" aria-label="Ver foto: Compartiendo el mensaje con un vecino"><img src="fotos/misiones/10.jpg" alt="Compartiendo el mensaje con un vecino" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/11.jpg" aria-label="Ver foto: Manos levantadas durante la alabanza"><img src="fotos/misiones/11.jpg" alt="Manos levantadas durante la alabanza" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/12.jpg" aria-label="Ver foto: Carpa de oración en la calle"><img src="fotos/misiones/12.jpg" alt="Carpa de oración en la calle" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/13.jpg" aria-label="Ver foto: Drama con vestuario bíblico en el templo"><img src="fotos/misiones/13.jpg" alt="Drama con vestuario bíblico en el templo" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/14.jpg" aria-label="Ver foto: Orando por un hombre en la calle"><img src="fotos/misiones/14.jpg" alt="Orando por un hombre en la calle" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/15.jpg" aria-label="Ver foto: Hermanos adorando al aire libre"><img src="fotos/misiones/15.jpg" alt="Hermanos adorando al aire libre" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/16.jpg" aria-label="Ver foto: Hermanos evangelizando en la calle"><img src="fotos/misiones/16.jpg" alt="Hermanos evangelizando en la calle" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/17.jpg" aria-label="Ver foto: Personas escuchando atentas la Palabra"><img src="fotos/misiones/17.jpg" alt="Personas escuchando atentas la Palabra" loading="lazy"></button>
+      <button type="button" class="mp-photo reveal" data-ad-open data-full="fotos/misiones/grande/18.jpg" aria-label="Ver foto: Compartiendo con una señora en la calle"><img src="fotos/misiones/18.jpg" alt="Compartiendo con una señora en la calle" loading="lazy"></button>
       <button type="button" class="mp-photo reveal" data-ad-open aria-label="Ver foto: Afiche del Viaje Misionero diciembre 2026"><img src="fotos/anuncios/viaje-misionero.jpg" alt="Afiche del Viaje Misionero diciembre 2026" loading="lazy"></button>
       <button type="button" class="mp-photo reveal" data-ad-open aria-label="Ver foto: Grupo de evangelismo con gorras de Galilea reunido en la calle"><img src="fotos/carrusel/comunidad-14.jpg" alt="Grupo de evangelismo con gorras de Galilea reunido en la calle" loading="lazy"></button>
       <button type="button" class="mp-photo reveal" data-ad-open aria-label="Ver foto: Evangelismo en las calles de Milagro"><img src="fotos/carrusel/comunidad-05.jpg" alt="Evangelismo en las calles de Milagro" loading="lazy"></button>
@@ -241,7 +303,8 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261115d"></script>
+<script src="js/script.js?v=20261116a"></script>
+<script src="js/globo-puntos.js?v=20261116g"></script>
 <script src="js/asistente.js?v=20261109j"></script>
 </body>
 </html>

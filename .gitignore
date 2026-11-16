@@ -3,3 +3,6 @@
 
 # fotos originales sin comprimir (215 MB); el sitio usa las copias de fotos/portada y fotos/carrusel
 fotos evangelismos/
+
+# fotos originales para la versión 2 (69 MB); el sitio usa las copias comprimidas de fotos/
+FOTOS VERSION V2/

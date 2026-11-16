@@ -702,6 +702,31 @@ document.querySelectorAll('[data-ad-reel]').forEach(reel => {
   update();
 });
 document.querySelectorAll('section.ads').forEach(section => { if (!section.querySelector('.ad-card')) section.remove(); });
+// Long photo galleries ([data-gallery-more]) show the first 8 photos and a "Ver más fotos" button for the rest.
+// The hidden photos are lazy, so they only download once the visitor opens the gallery.
+document.querySelectorAll('[data-gallery-more]').forEach(gallery => {
+  const extra = gallery.children.length - 8;
+  if (extra <= 0) return;
+  gallery.classList.add('gal-collapsed');
+  const more = document.createElement('button');
+  more.type = 'button';
+  more.className = 'gal-more';
+  more.setAttribute('aria-expanded', 'false');
+  const label = () => {
+    const open = !gallery.classList.contains('gal-collapsed');
+    more.setAttribute('aria-expanded', String(open));
+    more.innerHTML = open ? '<i class="fa-solid fa-chevron-up"></i> Ver menos'
+      : `<i class="fa-solid fa-images"></i> Ver más fotos <span>(${extra})</span>`;
+  };
+  label();
+  gallery.after(more);
+  more.addEventListener('click', () => {
+    gallery.classList.toggle('gal-collapsed');
+    label();
+    if (gallery.classList.contains('gal-collapsed')) gallery.scrollIntoView({behavior: 'smooth', block: 'start'});
+  });
+});
+
 // any [data-ad-open] button (posters, past-event photos) opens its image full screen
 const adBox = document.getElementById('adLightbox');
 if (adBox) {
@@ -709,7 +734,7 @@ if (adBox) {
   const close = () => { adBox.hidden = true; document.body.style.overflow = ''; };
   document.querySelectorAll('[data-ad-open]').forEach(btn => btn.addEventListener('click', () => {
     const img = btn.querySelector('img');
-    boxImg.src = img.src;
+    boxImg.src = btn.dataset.full || img.src; // data-full: larger copy for the full-screen view
     boxImg.alt = img.alt;
     adBox.hidden = false;
     document.body.style.overflow = 'hidden';
