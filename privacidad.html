@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; connect-src 'self' https://vmujhqeswldmsonoozps.supabase.co https://tiles.maps.eox.at https://tile.openstreetmap.org; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; worker-src 'self' blob:; child-src blob:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; connect-src 'self' https://cloudflareinsights.com https://vmujhqeswldmsonoozps.supabase.co https://tiles.maps.eox.at https://tile.openstreetmap.org; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; worker-src 'self' blob:; child-src blob:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Política de privacidad | Iglesia Cuadrangular Galilea</title>
 <meta name="description" content="Cómo Iglesia Cuadrangular Galilea cuida tus datos personales, qué cookies usa la web y cómo ejercer tus derechos (LOPDP Ecuador).">
@@ -97,7 +97,7 @@
   <div class="container">
     <!-- Resumen, índice y secciones numeradas (el contenido legal va en cada .legal-sec) -->
     <div class="legal-intro reveal">
-      <p class="legal-updated"><i class="fa-regular fa-calendar"></i> Última actualización: 6 de noviembre de 2026</p>
+      <p class="legal-updated"><i class="fa-regular fa-calendar"></i> Última actualización: 16 de noviembre de 2026</p>
       <p class="legal-lead">En Iglesia Cuadrangular Galilea cuidamos tus datos personales. Esta política explica qué datos recibimos a través de esta web, para qué los usamos y cómo puedes ejercer tus derechos según la <strong>Ley Orgánica de Protección de Datos Personales del Ecuador (LOPDP)</strong>.</p>
     </div>
     <div class="legal-summary">
@@ -149,12 +149,13 @@
         <li><strong>OpenStreetMap</strong> y <strong>EOX (Sentinel-2 cloudless)</strong>: imágenes de los mapas y del globo 3D.</li>
         <li><strong>YouTube</strong> y <strong>Google Maps</strong>: videos y mapas incrustados. <strong>Solo se cargan si los permites</strong> (ver punto 4).</li>
         <li><strong>PayPhone</strong>: ofrendas en línea, solo cuando decides ofrendar con tarjeta.</li>
+        <li><strong>Cloudflare Web Analytics</strong>: cuenta las visitas de forma anónima (páginas vistas, país, tipo de dispositivo y desde dónde llegas). No usa cookies ni identifica a las personas.</li>
         </ul>
         <p>Al cargar contenido de estos servicios, tu navegador se conecta con ellos y les comparte datos técnicos como tu dirección IP.</p>
       </section>
       <section class="legal-sec reveal" id="s4">
         <div class="legal-sec-head"><span class="legal-sec-ico"><i class="fa-solid fa-cookie-bite"></i></span><span class="legal-sec-num">04</span><h2>Cookies y almacenamiento en tu navegador</h2></div>
-        <p>Esta web <strong>no usa cookies propias de seguimiento ni de publicidad</strong>, ni herramientas de analítica. Solo guarda en tu navegador lo necesario para funcionar:</p>
+        <p>Esta web <strong>no usa cookies propias de seguimiento ni de publicidad</strong>. Para saber cuántas personas la visitan usa Cloudflare Web Analytics, que no usa cookies ni guarda nada en tu navegador. Solo guarda en tu navegador lo necesario para funcionar:</p>
         <ul>
         <li><strong>Tu elección de privacidad</strong> (permanente, hasta que la cambies o borres los datos del navegador).</li>
         <li><strong>Datos de la sesión</strong> que se borran al cerrar la pestaña: si ya viste la invitación del asistente, el comprobante de una ofrenda recién hecha y la hora del último mensaje enviado (para evitar envíos repetidos).</li>
@@ -259,5 +260,7 @@
 
 <script src="js/script.js?v=20261116s"></script>
 <script src="js/asistente.js?v=20261109j"></script>
+<!-- Cloudflare Web Analytics: visitas anónimas, sin cookies (panel en dash.cloudflare.com > Web Analytics) -->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "92904d62217e499e9b56351bb9851f19"}'></script>
 </body>
 </html>
