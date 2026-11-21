@@ -4202,3 +4202,76 @@
   .cta-strip:not(.pr2-cta):not(.ub-noir),.newsletter:not(.ct-news){background:linear-gradient(135deg,#02060E 0%,#0356C5 140%);}
   .next-event:not(.live-countdown){background:linear-gradient(135deg,#02060E 0%,#0a2552 55%,#0356C5 130%);}
   @media(prefers-reduced-motion:reduce){.ct2-main::before,.pr2-msgs::before,.pr2-danza::before,#envivo.pr2-dark::before,.cells.ub-noir::before,.ct-faq::before{animation:none;}}
+
+  /* =====================================================================================================
+     EL DISEÑO NUEVO EN TODAS LAS PÁGINAS (Midnight Blue + cuadros con borde luminoso + vidrio acanalado)
+     El fondo de la página ya es casi negro: aquí los textos que eran oscuros (pensados para fondo claro) pasan a
+     claros, las secciones y tarjetas blancas pasan a oscuras, y el resto de tarjetas del sitio toma los mismos efectos
+     que Contacto, Prédicas y Ubicación. El chat (.ag-*), las ventanas de pago (.pp-*) y los globos del mapa siguen
+     claros a propósito.
+     ===================================================================================================== */
+  body{color:#c9d3e6;}
+  .eyebrow{color:#7fb0ff;}
+  .eyebrow::before{background:#0356C5;}
+  .section-title{color:#fff;}
+  .section-title span{color:#7fb0ff;--tw-a:#7fb0ff;--tw-b:#ffffff;}
+  .section-desc{color:#b4bfd6;}
+
+  /* secciones que eran claras */
+  .section-pad[style*="#eef2f9"],.events-past,.contact-card-section,.contact-card-section[style]{
+    background:radial-gradient(ellipse 55% 50% at 85% 20%,rgba(3,86,197,.22),transparent 70%),#02060E!important;}
+  /* el negro puro de las páginas de ministerios pasa al casi negro de la paleta */
+  .yv-hero,.yv-statement,.yv-wall,.yv-band,.mis-numbers,.mis-orbit,.ub-noir,.wa-help.ub-noir,.cta-strip.ub-noir{background-color:#02060E;}
+  .ministries.mp-noir{background:radial-gradient(ellipse 60% 45% at 50% 0%,rgba(3,86,197,.22),transparent 65%),#02060E;}
+
+  /* textos que eran oscuros */
+  .value-item h4,.about-badge strong,.faq-q h4,.quicklink-card h3,.leader-card h3,.give-card h3,.contact-card-info h2,.contact-card-item h4,
+  .contact-card-label,.contact-card-form h3,.wa-info strong,.legal-doc h2,.yg-more + .gal-more{color:#fff;}
+  .value-item p,.about-badge span,.faq-a p,.quicklink-card p,.give-card p,.contact-card-info > p,.contact-card-item p,.contact-card-form .fg label,
+  .lang-note p,.wa-intro p,.wa-info small,.consent-check{color:#b4bfd6;}
+  .leader-card span,.quicklink-card a,.give-card p a,.contact-card-item a,.contact-card-info .eyebrow,.consent-check a,.legal-doc a,
+  .legal-inline-btn,.live-toggle button{color:#7fb0ff;}
+  .value-item i,.faq-q i{color:#4f8ff0;}
+  .icon-box{background:#0356C5;color:#fff;box-shadow:0 0 0 1px rgba(205,225,255,.45),0 8px 24px rgba(3,86,197,.55);}
+  .cta-strip p{color:#c3cde2;}
+  .faq-item{border-bottom-color:rgba(255,255,255,.1);}
+
+  /* cuadros con borde luminoso en el resto del sitio */
+  .service-card,.event-card,.series-card,.reel-card,.give-card,.min-card,.mp-info-item,.legal-sum-card,.quicklink-card,.leaders-text .leader-card,.testi-card{
+    background:radial-gradient(120% 115% at 50% 38%,rgba(2,6,14,.96) 38%,rgba(3,38,98,.9) 68%,rgba(3,86,197,.95) 90%,rgba(150,190,255,.9) 100%);
+    border:1px solid rgba(160,195,255,.32);box-shadow:var(--mn-glow);
+    transition:transform .4s ease,box-shadow .45s ease,border-color .45s ease;
+  }
+  .service-card:hover,.event-card:hover,.series-card:hover,.reel-card:hover,.give-card:hover,.min-card:hover,.mp-info-item:hover,
+  .legal-sum-card:hover,.quicklink-card:hover,.leaders-text .leader-card:hover,.testi-card:hover{
+    border-color:rgba(205,225,255,.85);box-shadow:var(--mn-glow-on);
+  }
+  .leaders-text .leader-card{border-top:1px solid rgba(160,195,255,.32);}
+  .events-past .event-card{background:radial-gradient(120% 115% at 50% 38%,rgba(2,6,14,.96) 38%,rgba(3,38,98,.9) 68%,rgba(3,86,197,.95) 90%,rgba(150,190,255,.9) 100%);}
+  .hl-card{box-shadow:inset 0 0 0 1px rgba(160,195,255,.35),0 0 30px rgba(3,86,197,.35),0 18px 44px rgba(0,0,0,.45);}
+  .hl-card:hover{box-shadow:inset 0 0 0 1px rgba(205,225,255,.8),0 0 40px rgba(3,86,197,.7),0 0 90px rgba(3,86,197,.3);}
+
+  /* vidrio acanalado en los paneles grandes del resto del sitio */
+  .next-event:not(.live-countdown),.gv-card,.contact-card,.about-badge{
+    background:
+      repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0,rgba(255,255,255,0) 3px,rgba(255,255,255,0) 19px,rgba(0,0,0,.14) 22px),
+      linear-gradient(160deg,rgba(3,86,197,.4),rgba(3,30,80,.3) 45%,rgba(2,6,14,.75));
+    -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
+    border:1px solid rgba(190,215,255,.22);
+  }
+  .next-event:not(.live-countdown)::before{display:none;}
+  .countdown div{background:rgba(2,6,14,.6);border-color:rgba(160,195,255,.2);}
+  .contact-card-info,.contact-card-form{background:transparent;}
+  .contact-card-info{border-right:1px solid rgba(255,255,255,.08);}
+  .contact-card-icon{background:#0356C5;}
+  .contact-card-divider{background:rgba(255,255,255,.1);}
+  .contact-card-social a{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);color:#fff;box-shadow:none;}
+  .contact-card-form .fg input,.contact-card-form .fg select,.contact-card-form .fg textarea{background:rgba(2,6,14,.6);border-color:rgba(255,255,255,.12);color:#fff;}
+  .contact-card-form .fg select option{background:#061631;color:#fff;}
+  @media(max-width:860px){.contact-card-info{border-right:0;border-bottom:1px solid rgba(255,255,255,.08);}}
+  /* botones de WhatsApp: verde más profundo para que el texto blanco se lea bien */
+  .wa-btn,.wa-btn-lg{background:#0f8a43;}
+  .wa-contact:hover .wa-btn,.wa-btn-lg:hover{background:#0c7438;}
+  /* el botón oscuro ya no se distinguía del fondo casi negro: ahora es de vidrio con borde claro */
+  .btn-dark{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(190,215,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.12);}
+  .btn-dark:hover{background:#fff;color:#02060E;border-color:#fff;}
