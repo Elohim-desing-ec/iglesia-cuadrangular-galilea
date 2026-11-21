@@ -4406,3 +4406,5 @@
     .nav-links > li.nav-give > a[href]::before,.nav-links > li.nav-give > a[href]::after{display:none;}
     .nav-links > li.nav-give > a[href]{counter-increment:none;}
   }
+  /* con el menú abierto se esconde el cursor personalizado: su mezcla de colores teñía de naranja el botón azul */
+  html.menu-open .cur-dot,html.menu-open .cur-ring{opacity:0!important;}

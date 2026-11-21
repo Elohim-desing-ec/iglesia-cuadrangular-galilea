@@ -731,8 +731,8 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 // Status messages can be overridden per page with data-msg-* attributes on the form.
 const SUPABASE_URL = 'https://vmujhqeswldmsonoozps.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_mXiB9Ox4HWVjFVJZO55gPA_m1pzgpEo';
-// Testimonios (testimonios.html): the church's new Supabase project. Empty until that project exists.
-const TESTIMONIOS_DB = {url: '', key: ''};
+// Testimonios (testimonios.html): same Supabase project as the contact form (Web-Galilea), table "testimonios_web".
+const TESTIMONIOS_DB = {url: SUPABASE_URL, key: SUPABASE_ANON_KEY};
 
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
@@ -792,9 +792,9 @@ if (contactForm) {
   });
 }
 
-// Testimonios (testimonios.html). The wall shows only approved testimonies (table "testimonios" in the church's
-// Supabase project, column "aprobado"); the form saves new ones unapproved, so nothing goes public until someone at
-// the church ticks "aprobado" in the Supabase dashboard. Same spam guards as the contact form.
+// Testimonios (testimonios.html). Wall + form on table "testimonios_web" in the church's Supabase project. New
+// testimonies are published right away (column "aprobado" defaults to true); the church removes one by deleting the
+// row or unticking "aprobado" in the Supabase dashboard. Same spam guards as the contact form.
 const tmGrid = document.getElementById('tmGrid');
 if (tmGrid) {
   const DB = TESTIMONIOS_DB;
@@ -840,14 +840,11 @@ if (tmGrid) {
     showAll = false;
     render();
   }));
-  if (DB.url) {
-    fetch(`${DB.url}/rest/v1/testimonios?select=id,nombre,titulo,categoria,testimonio,created_at&order=created_at.desc&limit=200`, {headers})
-      .then(r => r.ok ? r.json() : Promise.reject(r.status))
-      .then(rows => { all = rows; render(); })
-      .catch(() => { empty.hidden = false; });
-  } else {
-    empty.hidden = false;
-  }
+  const load = () => fetch(`${DB.url}/rest/v1/testimonios_web?select=id,nombre,titulo,categoria,testimonio,created_at&order=created_at.desc&limit=200`, {headers})
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(rows => { all = rows; render(); })
+    .catch(() => { empty.hidden = false; });
+  if (DB.url) load(); else empty.hidden = false;
 
   const form = document.getElementById('testimonyForm');
   const status = document.getElementById('tmStatus');
@@ -865,7 +862,7 @@ if (tmGrid) {
     if (titulo.length < 3) return say('Escribe un título corto para tu testimonio.', 'error');
     if (testimonio.length < 20) return say('Cuéntanos un poco más (al menos 20 letras).', 'error');
     if (!data.get('acepto')) return say('Marca la casilla para aceptar que se publique.', 'error');
-    const thanks = '¡Gracias por compartir! Tu testimonio aparecerá aquí en cuanto el equipo lo revise.';
+    const thanks = '¡Gracias por compartir! Tu testimonio ya está publicado.';
     // robots: the hidden field gets filled, or the form is sent within 4 seconds of opening the page
     if (data.get('sitio_web') || Date.now() - loadedAt < 4000) { form.reset(); return say(thanks, 'ok'); }
     let last = 0;
@@ -875,7 +872,7 @@ if (tmGrid) {
     submit.disabled = true;
     say('Enviando…', '');
     try {
-      const res = await fetch(`${DB.url}/rest/v1/testimonios`, {
+      const res = await fetch(`${DB.url}/rest/v1/testimonios_web`, {
         method: 'POST',
         headers: {...headers, 'Content-Type': 'application/json', Prefer: 'return=minimal'},
         body: JSON.stringify({nombre: (data.get('nombre') || '').trim() || null, categoria: data.get('categoria'), titulo, testimonio})
@@ -885,6 +882,11 @@ if (tmGrid) {
       form.reset();
       count.textContent = '0 / 2000';
       say(thanks, 'ok');
+      // show it on the wall right away
+      cat = '';
+      showAll = false;
+      document.querySelectorAll('#tmFilters button').forEach(x => x.classList.toggle('is-on', !x.dataset.cat));
+      load().then(() => document.getElementById('testimonios').scrollIntoView({behavior: 'smooth'}));
     } catch (err) {
       say('No pudimos enviar tu testimonio. Intenta de nuevo en un momento.', 'error');
     } finally {
