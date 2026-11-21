@@ -577,22 +577,62 @@ if (liveBox) {
   setInterval(tick, 1000);
 }
 
-// Prédicas (predicas.html, "Mensajes que marcan la diferencia"): every live service the channel publishes shows up
-// here on its own. data/predicas.json is refreshed by a GitHub task (.github/workflows/predicas.yml); this block
-// shows the newest one large (#sermonFeature) and all of them as cards (#sermonGrid; the one in the big player is
-// marked .is-current). Clicking a card plays it in the big player. The YouTube player goes through the same privacy consent as every other embed (loadExternal).
-const sermonFeature = document.getElementById('sermonFeature');
-if (sermonFeature) {
-  const grid = document.getElementById('sermonGrid');
-  const more = document.getElementById('sermonMore');
-  const part = name => sermonFeature.querySelectorAll(`[data-sermon="${name}"]`);
+// Video galleries (predicas.html): one video large in a glass panel and the rest as glass cards; clicking a card
+// plays it in the large player (the card is marked .is-current). The YouTube player goes through the same privacy
+// consent as every other embed (loadExternal). Markup: .pr2-feature with [data-sermon] parts + a .pr2-grid.
+// - "Mensajes que marcan la diferencia" (#sermonFeature): every live service the channel publishes shows up here on
+//   its own. data/predicas.json is refreshed by a GitHub task (.github/workflows/predicas.yml).
+// - "Adoración en movimiento" (#danzaFeature): the dance videos are the plain links inside #danzaGrid (they stay as
+//   links if this script does not run); to add one, copy one of those <a class="video-card"> lines.
+const galleryDays = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+const galleryMonths = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+const escHTML = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const ytThumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+// videos: [{id, title, kind, when, badge}] — when and badge are optional
+const videoGallery = (feature, grid, more, videos, first = 6) => {
+  const part = name => feature.querySelectorAll(`[data-sermon="${name}"]`);
   const player = part('player')[0];
   const poster = player.innerHTML;
-  const FIRST = 6; // cards shown before "Ver más mensajes"
-  const days = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-  const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-  const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const show = (v, play) => {
+    player.innerHTML = poster;
+    const img = player.querySelector('img');
+    img.src = `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`;
+    img.onerror = () => { img.onerror = null; img.src = ytThumb(v.id); };
+    img.alt = v.title;
+    part('title')[0].textContent = v.title;
+    part('date')[0].textContent = v.when || '';
+    part('badge')[0].textContent = v.badge || v.kind;
+    part('yt')[0].href = `https://www.youtube.com/watch?v=${v.id}`;
+    part('play').forEach(b => { b.onclick = () => show(v, true); });
+    grid.querySelectorAll('.pr2-card').forEach(c => c.classList.toggle('is-current', c.dataset.id === v.id));
+    if (!play) return;
+    player.innerHTML = `<iframe data-consent-src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0" title="${escHTML(v.title)}"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    loadExternal(player.querySelector('iframe'));
+  };
+  grid.innerHTML = videos.map((v, i) => `<button type="button" class="pr2-card"${i >= first ? ' hidden' : ''} data-id="${escHTML(v.id)}">
+      <span class="pr2-thumb"><img src="${ytThumb(escHTML(v.id))}" alt="" loading="lazy"><span class="pr2-mini-play"><i class="fa-solid fa-play"></i></span></span>
+      <span class="pr2-meta"><span class="pr2-kind">${escHTML(v.kind)}</span><span class="pr2-when">${v.when || ''}</span></span>
+      <span class="pr2-title">${escHTML(v.title)}</span>
+      <span class="pr2-again"><span>Ver de nuevo <i class="fa-solid fa-arrow-right"></i></span><em>Reproduciendo</em></span>
+    </button>`).join('');
+  grid.querySelectorAll('.pr2-card').forEach((card, i) => card.addEventListener('click', () => {
+    show(videos[i], true);
+    feature.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }));
+  show(videos[0], false);
+  feature.hidden = false;
+  if (more && videos.length > first) {
+    more.hidden = false;
+    more.addEventListener('click', () => {
+      grid.querySelectorAll('.pr2-card[hidden]').forEach(c => { c.hidden = false; });
+      more.hidden = true;
+    });
+  }
+};
 
+const sermonFeature = document.getElementById('sermonFeature');
+if (sermonFeature) {
   // "🔴 ¡ESTAMOS EN VIVO! - CULTO DOMINICAL - SANTA CENA🔴" -> {title: 'Santa Cena', kind: 'Culto dominical'}
   const KEEP_CAPS = /(^|[^\p{L}])(dios|jesús|jesucristo|cristo|señor|espíritu santo|santa cena|jericó|galilea)(?=[^\p{L}]|$)/giu;
   const tidy = text => {
@@ -615,60 +655,31 @@ if (sermonFeature) {
   const when = iso => {
     const d = new Date(new Date(iso).getTime() + LIVE_OFFSET);
     if (d.getUTCDay() === 1) d.setUTCDate(d.getUTCDate() - 1);
-    return `${days[d.getUTCDay()]} ${d.getUTCDate()} de ${months[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
+    return `${galleryDays[d.getUTCDay()]} ${d.getUTCDate()} de ${galleryMonths[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
   };
-  const thumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-
-  let videos = [];
-  const feature = (v, play) => {
-    const info = parse(v.title);
-    player.innerHTML = poster;
-    player.querySelector('img').src = `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`;
-    player.querySelector('img').onerror = function () { this.onerror = null; this.src = thumb(v.id); };
-    player.querySelector('img').alt = info.title;
-    part('title')[0].textContent = info.title;
-    part('date')[0].textContent = when(v.published);
-    // the newest video during service hours is the live itself
-    const liveNow = v === videos[0] && Date.now() >= nextServiceStart(Date.now()) && Date.now() - new Date(v.published) < LIVE_DURATION + 3 * 3600e3;
-    part('badge')[0].textContent = liveNow ? 'En vivo ahora' : v === videos[0] ? 'Último culto' : info.kind;
-    part('yt')[0].href = `https://www.youtube.com/watch?v=${v.id}`;
-    part('play').forEach(b => { b.onclick = () => feature(v, true); });
-    grid.querySelectorAll('.pr2-card').forEach(c => c.classList.toggle('is-current', c.dataset.id === v.id));
-    if (!play) return;
-    player.innerHTML = `<iframe data-consent-src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0" title="${esc(info.title)}"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    loadExternal(player.querySelector('iframe'));
-  };
-
   fetch(`data/predicas.json?v=${Math.floor(Date.now() / 6e5)}`)
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(list => {
-      videos = list.filter(v => v && v.id);
+      const videos = list.filter(v => v && v.id).map(v => ({id: v.id, ...parse(v.title), when: when(v.published)}));
       if (!videos.length) return;
-      grid.innerHTML = videos.map((v, i) => {
-        const info = parse(v.title);
-        return `<button type="button" class="pr2-card"${i >= FIRST ? ' hidden' : ''} data-id="${esc(v.id)}">
-          <span class="pr2-thumb"><img src="${thumb(esc(v.id))}" alt="" loading="lazy"><span class="pr2-mini-play"><i class="fa-solid fa-play"></i></span></span>
-          <span class="pr2-meta"><span class="pr2-kind">${esc(info.kind)}</span><span class="pr2-when">${when(v.published)}</span></span>
-          <span class="pr2-title">${esc(info.title)}</span>
-          <span class="pr2-again"><span>Ver de nuevo <i class="fa-solid fa-arrow-right"></i></span><em>Reproduciendo</em></span>
-        </button>`;
-      }).join('');
-      grid.querySelectorAll('.pr2-card').forEach((card, i) => card.addEventListener('click', () => {
-        feature(videos[i], true);
-        sermonFeature.scrollIntoView({behavior: 'smooth', block: 'center'});
-      }));
-      feature(videos[0], false);
-      sermonFeature.hidden = false;
-      if (videos.length > FIRST) {
-        more.hidden = false;
-        more.addEventListener('click', () => {
-          grid.querySelectorAll('.pr2-card[hidden]').forEach(c => { c.hidden = false; });
-          more.hidden = true;
-        });
-      }
+      // the newest video during service hours is the live itself
+      const now = Date.now();
+      const liveNow = now >= nextServiceStart(now) && now - new Date(list[0].published) < LIVE_DURATION + 3 * 3600e3;
+      videos[0].badge = liveNow ? 'En vivo ahora' : 'Último culto';
+      videoGallery(sermonFeature, document.getElementById('sermonGrid'), document.getElementById('sermonMore'), videos);
     })
     .catch(() => { /* without the list, the "Ver todos los cultos" button still links to the channel */ });
+}
+
+const danzaFeature = document.getElementById('danzaFeature');
+if (danzaFeature) {
+  const grid = document.getElementById('danzaGrid');
+  const videos = [...grid.querySelectorAll('a.video-card')].map(a => ({
+    id: (a.href.match(/[?&]v=([\w-]{6,})/) || [])[1],
+    title: a.querySelector('.video-card-title').textContent.trim(),
+    kind: 'Danza'
+  })).filter(v => v.id);
+  if (videos.length) videoGallery(danzaFeature, grid, document.getElementById('danzaMore'), videos);
 }
 
 // Home "Destacados" (index.html): hide highlights whose date has passed, keep only the next featured event,

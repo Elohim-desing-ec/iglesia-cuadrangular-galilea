@@ -1836,7 +1836,7 @@
   /* con el menú abierto la barra de arriba no usa vidrio: un vidrio dentro de otro dejaba ver la página detrás */
   html.menu-open header{-webkit-backdrop-filter:none;backdrop-filter:none;background:transparent;box-shadow:none;border-bottom-color:transparent;}
   @media(max-width:960px){
-    .logo,.burger{position:relative;z-index:1101;}
+    header .logo,.burger{position:relative;z-index:1101;} /* solo el logo de arriba: el del pie quedaba encima del menú abierto */
     .burger span{transition:transform .45s cubic-bezier(.7,0,.2,1),opacity .3s ease;}
     .nav-links{
       position:fixed;top:0;left:0;right:0;width:100%;height:100vh;height:100dvh;z-index:1050;
@@ -4127,3 +4127,78 @@
     .pr2-actions .pr2-btn{width:100%;justify-content:center;}
     .pr2-dark .live-countdown{border-radius:20px;}
   }
+
+  /* =====================================================================================================
+     PALETA "MIDNIGHT BLUE" (#02060E casi negro + #0356C5 azul) Y EFECTOS DE LUZ
+     - variables del sitio con la paleta nueva (afecta a todas las páginas)
+     - .mn-aurora: secciones con luces azules que se mueven despacio detrás del vidrio
+     - cuadros con borde luminoso (centro oscuro, la luz azul sale de los bordes; al pasar o elegir se encienden)
+     - vidrio acanalado (franjas verticales) en los paneles grandes, como vidrio esmerilado sobre la luz
+     ===================================================================================================== */
+  :root{
+    --navy-950:#02060E;--navy-900:#030b1c;--navy-800:#061631;--navy-700:#0a2552;--navy-600:#0d3a80;
+    --accent-400:#4f8ff0;--accent-500:#0356C5;--accent-600:#02449c;--text-muted:#93a6c6;
+    --shadow-accent:0 10px 30px rgba(3,86,197,.45);--glass-dark:rgba(3,20,52,.45);
+    --mn-glow:0 0 0 1px rgba(3,86,197,.25),inset 0 1px 0 rgba(255,255,255,.22),inset 0 0 18px rgba(90,150,255,.28),0 18px 50px rgba(0,0,0,.45);
+    --mn-glow-on:inset 0 0 0 1px rgba(205,225,255,.75),inset 0 0 28px rgba(120,175,255,.7),0 0 34px rgba(3,86,197,.75),0 0 90px rgba(3,86,197,.35);
+  }
+  html,body{background:#02060E;}
+  footer{background:#02060E;}
+
+  /* fondos de las secciones nuevas: casi negro con luces azules */
+  .page-banner.ct2-hero,.ct2-main,.ct-faq,.ct-news,.pr2-dark,.pr2-msgs,.pr2-danza,.pr2-cta,#envivo.pr2-dark,.cells.ub-noir{
+    background:radial-gradient(ellipse 60% 55% at 85% 15%,rgba(3,86,197,.32),transparent 70%),radial-gradient(ellipse 50% 50% at 5% 95%,rgba(3,86,197,.18),transparent 70%),#02060E;}
+  .ct2-social{background:#030b1c;}
+  .ct2-beam{background:linear-gradient(180deg,rgba(3,86,197,.85),rgba(3,86,197,.3) 45%,transparent 80%);}
+
+  /* luces que se mueven detrás del vidrio */
+  .ct2-main,.pr2-msgs,.pr2-danza,#envivo.pr2-dark,.cells.ub-noir,.ct-faq{position:relative;isolation:isolate;overflow:hidden;overflow:clip;}
+  .ct2-main::before,.pr2-msgs::before,.pr2-danza::before,#envivo.pr2-dark::before,.cells.ub-noir::before,.ct-faq::before{
+    content:'';position:absolute;z-index:-1;pointer-events:none;width:70vmax;height:70vmax;right:-18vmax;top:10%;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(3,86,197,.55),rgba(3,86,197,.18) 55%,transparent);
+    animation:mn-drift 22s ease-in-out infinite alternate;
+  }
+  .pr2-danza::before,.ct-faq::before{right:auto;left:-20vmax;top:auto;bottom:-10%;animation-duration:26s;animation-direction:alternate-reverse;}
+  @keyframes mn-drift{0%{transform:translate(0,0) scale(1);}50%{transform:translate(-14vmax,6vmax) scale(1.12);}100%{transform:translate(-4vmax,-8vmax) scale(.95);}}
+
+  /* cuadros con borde luminoso */
+  .ct2-card,.pr2-card,.ub-noir .cell-card,.ct-faq .faq-item{
+    background:
+      radial-gradient(120% 115% at 50% 38%,rgba(2,6,14,.96) 38%,rgba(3,38,98,.9) 68%,rgba(3,86,197,.95) 90%,rgba(150,190,255,.9) 100%);
+    border:1px solid rgba(160,195,255,.32);box-shadow:var(--mn-glow);
+    transition:transform .4s ease,box-shadow .45s ease,border-color .45s ease,filter .45s ease;
+  }
+  .ct2-card:hover,.pr2-card:hover,.pr2-card.is-current,.ub-noir .cell-card:hover,.ub-noir .cell-card.active,.ct-faq .faq-item:hover,.ct-faq .faq-item.open{
+    border-color:rgba(205,225,255,.85);box-shadow:var(--mn-glow-on);
+    background:radial-gradient(120% 115% at 50% 38%,rgba(2,6,14,.9) 30%,rgba(3,52,130,.92) 64%,rgba(3,86,197,1) 86%,rgba(190,215,255,1) 100%);
+  }
+  /* los cuadros vecinos se apagan un poco mientras uno está encendido */
+  @media(hover:hover){
+    .ct2-cards:hover .ct2-card:not(:hover),.pr2-grid:hover .pr2-card:not(:hover),.cells-list:hover .cell-card:not(:hover){filter:brightness(.72) saturate(.9);}
+  }
+  .ct2-ico{background:#0356C5;color:#fff;box-shadow:0 0 0 1px rgba(205,225,255,.5),0 8px 24px rgba(3,86,197,.6);}
+  .ct2-pill,.pr2-kind{background:rgba(2,6,14,.85);border-color:rgba(160,195,255,.25);}
+  .ub-noir .cell-card.active .cell-num{background:#0356C5;border-color:#9cc0ff;}
+  .pr2-mini-play{background:#0356C5;color:#fff;box-shadow:0 0 18px rgba(3,86,197,.8);}
+
+  /* vidrio acanalado en los paneles grandes */
+  .ct2-form,.pr2-feature,.pr2-dark .live-countdown,.ct-news .newsletter-wrap{
+    background:
+      repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0,rgba(255,255,255,0) 3px,rgba(255,255,255,0) 19px,rgba(0,0,0,.14) 22px),
+      linear-gradient(160deg,rgba(3,86,197,.34),rgba(3,30,80,.22) 45%,rgba(2,6,14,.5));
+    -webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);
+    border-color:rgba(190,215,255,.22);
+  }
+  .pr2-info{background:linear-gradient(180deg,rgba(2,6,14,.25),rgba(2,6,14,.55));}
+
+  /* botones y acentos en el azul de la paleta */
+  .btn-accent,.pr2-btn,.pr2-more,.pr2-cta .btn,.ct2-form .btn-accent,.pr2-dark .live-countdown .btn-accent,.ct-news .newsletter-form button{
+    background:linear-gradient(135deg,#0356C5,#02449c);color:#fff;box-shadow:0 0 0 1px rgba(160,200,255,.35),0 14px 36px rgba(3,86,197,.5);}
+  .btn-accent:hover,.pr2-btn:hover,.pr2-more:hover,.pr2-cta .btn:hover,.ct2-form .btn-accent:hover,.ct-news .newsletter-form button:hover{
+    background:linear-gradient(135deg,#1a6be0,#0356C5);color:#fff;}
+  .ct2-hero h1 mark{background:#0356C5;color:#fff;box-shadow:0 0 40px rgba(3,86,197,.6);}
+  .ct2-hero h1 mark .tw-i{color:#fff;}
+  .pr2-pill{background:#0356C5;color:#fff;}
+  .cta-strip:not(.pr2-cta):not(.ub-noir),.newsletter:not(.ct-news){background:linear-gradient(135deg,#02060E 0%,#0356C5 140%);}
+  .next-event:not(.live-countdown){background:linear-gradient(135deg,#02060E 0%,#0a2552 55%,#0356C5 130%);}
+  @media(prefers-reduced-motion:reduce){.ct2-main::before,.pr2-msgs::before,.pr2-danza::before,#envivo.pr2-dark::before,.cells.ub-noir::before,.ct-faq::before{animation:none;}}
