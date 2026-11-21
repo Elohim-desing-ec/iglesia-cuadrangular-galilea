@@ -577,6 +577,100 @@ if (liveBox) {
   setInterval(tick, 1000);
 }
 
+// Prédicas (predicas.html, "Mensajes que marcan la diferencia"): every live service the channel publishes shows up
+// here on its own. data/predicas.json is refreshed by a GitHub task (.github/workflows/predicas.yml); this block
+// shows the newest one large (#sermonFeature) and all of them as cards (#sermonGrid; the one in the big player is
+// marked .is-current). Clicking a card plays it in the big player. The YouTube player goes through the same privacy consent as every other embed (loadExternal).
+const sermonFeature = document.getElementById('sermonFeature');
+if (sermonFeature) {
+  const grid = document.getElementById('sermonGrid');
+  const more = document.getElementById('sermonMore');
+  const part = name => sermonFeature.querySelectorAll(`[data-sermon="${name}"]`);
+  const player = part('player')[0];
+  const poster = player.innerHTML;
+  const FIRST = 6; // cards shown before "Ver más mensajes"
+  const days = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const esc = s => s.replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+
+  // "🔴 ¡ESTAMOS EN VIVO! - CULTO DOMINICAL - SANTA CENA🔴" -> {title: 'Santa Cena', kind: 'Culto dominical'}
+  const KEEP_CAPS = /(^|[^\p{L}])(dios|jesús|jesucristo|cristo|señor|espíritu santo|santa cena|jericó|galilea)(?=[^\p{L}]|$)/giu;
+  const tidy = text => {
+    if (text !== text.toUpperCase()) return text;
+    const t = text.toLowerCase().replace(KEEP_CAPS, (m, pre, w) => pre + w.replace(/(^|\s)\p{L}/gu, c => c.toUpperCase()));
+    return t.replace(/^([¡¿"«]*)(\p{L})/u, (m, p, c) => p + c.toUpperCase());
+  };
+  const parse = raw => {
+    const parts = raw.replace(/\p{Extended_Pictographic}|️/gu, '').split(/\s+[-|–]\s+/).map(s => s.trim()).filter(Boolean);
+    let kind = '';
+    const rest = parts.filter(p => {
+      if (/^¡?\s*(estamos\s+)?en vivo\s*!?$/i.test(p)) return false;
+      if (/^culto dominical$/i.test(p)) { kind = 'Culto dominical'; return false; }
+      return true;
+    });
+    return {title: tidy(rest.join(' · ')) || kind || 'Culto en vivo', kind: kind || 'Mensaje'};
+  };
+  // the video is published right after the service (often in the early hours of Monday, Ecuador time),
+  // so a Sunday/Monday date is shown as that Sunday's service
+  const when = iso => {
+    const d = new Date(new Date(iso).getTime() + LIVE_OFFSET);
+    if (d.getUTCDay() === 1) d.setUTCDate(d.getUTCDate() - 1);
+    return `${days[d.getUTCDay()]} ${d.getUTCDate()} de ${months[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
+  };
+  const thumb = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+  let videos = [];
+  const feature = (v, play) => {
+    const info = parse(v.title);
+    player.innerHTML = poster;
+    player.querySelector('img').src = `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`;
+    player.querySelector('img').onerror = function () { this.onerror = null; this.src = thumb(v.id); };
+    player.querySelector('img').alt = info.title;
+    part('title')[0].textContent = info.title;
+    part('date')[0].textContent = when(v.published);
+    // the newest video during service hours is the live itself
+    const liveNow = v === videos[0] && Date.now() >= nextServiceStart(Date.now()) && Date.now() - new Date(v.published) < LIVE_DURATION + 3 * 3600e3;
+    part('badge')[0].textContent = liveNow ? 'En vivo ahora' : v === videos[0] ? 'Último culto' : info.kind;
+    part('yt')[0].href = `https://www.youtube.com/watch?v=${v.id}`;
+    part('play').forEach(b => { b.onclick = () => feature(v, true); });
+    grid.querySelectorAll('.pr2-card').forEach(c => c.classList.toggle('is-current', c.dataset.id === v.id));
+    if (!play) return;
+    player.innerHTML = `<iframe data-consent-src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0" title="${esc(info.title)}"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    loadExternal(player.querySelector('iframe'));
+  };
+
+  fetch(`data/predicas.json?v=${Math.floor(Date.now() / 6e5)}`)
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(list => {
+      videos = list.filter(v => v && v.id);
+      if (!videos.length) return;
+      grid.innerHTML = videos.map((v, i) => {
+        const info = parse(v.title);
+        return `<button type="button" class="pr2-card"${i >= FIRST ? ' hidden' : ''} data-id="${esc(v.id)}">
+          <span class="pr2-thumb"><img src="${thumb(esc(v.id))}" alt="" loading="lazy"><span class="pr2-mini-play"><i class="fa-solid fa-play"></i></span></span>
+          <span class="pr2-meta"><span class="pr2-kind">${esc(info.kind)}</span><span class="pr2-when">${when(v.published)}</span></span>
+          <span class="pr2-title">${esc(info.title)}</span>
+          <span class="pr2-again"><span>Ver de nuevo <i class="fa-solid fa-arrow-right"></i></span><em>Reproduciendo</em></span>
+        </button>`;
+      }).join('');
+      grid.querySelectorAll('.pr2-card').forEach((card, i) => card.addEventListener('click', () => {
+        feature(videos[i], true);
+        sermonFeature.scrollIntoView({behavior: 'smooth', block: 'center'});
+      }));
+      feature(videos[0], false);
+      sermonFeature.hidden = false;
+      if (videos.length > FIRST) {
+        more.hidden = false;
+        more.addEventListener('click', () => {
+          grid.querySelectorAll('.pr2-card[hidden]').forEach(c => { c.hidden = false; });
+          more.hidden = true;
+        });
+      }
+    })
+    .catch(() => { /* without the list, the "Ver todos los cultos" button still links to the channel */ });
+}
+
 // Home "Destacados" (index.html): hide highlights whose date has passed, keep only the next featured event,
 // tick off finished sermons in the series list, and show a compact countdown to Sunday's live service.
 const highlights = document.getElementById('destacados');

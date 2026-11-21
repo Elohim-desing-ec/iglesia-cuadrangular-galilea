@@ -523,7 +523,7 @@
   }
   .contact-info-item h4{color:var(--white);font-size:16px;margin-bottom:4px;}
   .contact-info-item p{color:var(--text-muted);font-size:14px;}
-  .contact-social{display:flex;gap:12px;margin-top:10px;}
+  .contact-social{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;}
   .contact-social a{
     width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);
     display:flex;align-items:center;justify-content:center;color:var(--white);transition:.3s;
@@ -3944,7 +3944,7 @@
   .ct2-side .section-title span{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;color:#a9c6ff;}
   .ct2-side > p{color:#b4bfd6;font-size:15.5px;line-height:1.7;margin-bottom:22px;max-width:460px;}
   .ct2-label{display:block;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8fa8d4;margin-bottom:12px;}
-  .ct2-mini-social{display:flex;gap:10px;}
+  .ct2-mini-social{display:flex;flex-wrap:wrap;gap:10px;}
   .ct2-mini-social a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;
     background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);transition:background .3s,color .3s,border-color .3s;}
   .ct2-mini-social a:hover{background:#fff;border-color:#fff;color:#071022;}
@@ -3999,4 +3999,131 @@
     .ct2-form .form-row2{grid-template-columns:1fr;gap:0;}
     .ct2-form h3{font-size:24px;}
     .ct2-map{height:260px;}
+  }
+
+  /* =====================================================================================================
+     PRÉDICAS (predicas.html): mismo estilo que Contacto y Ubicación, azul noche con vidrio.
+     En vivo (cuenta regresiva en vidrio), "Mensajes que marcan la diferencia" (el último culto en grande y los
+     anteriores en tarjetas de vidrio, ver js/script.js bloque "Prédicas"), Danza, franja final y boletín.
+     ===================================================================================================== */
+  .pr2-dark,.pr2-msgs{background:#050b1a;}
+  .pr2-dark .eyebrow,.pr2-msgs .eyebrow{color:#8fb6ff;}
+  .pr2-dark .section-title,.pr2-msgs .section-title{color:#fff;}
+  .pr2-dark .section-title span,.pr2-msgs .section-title span{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;color:#a9c6ff;--tw-a:#a9c6ff;--tw-b:#ffffff;}
+  .pr2-dark .section-desc,.pr2-msgs .section-desc{color:#b4bfd6;}
+
+  /* en vivo: tarjeta de vidrio con doble marco */
+  #envivo.pr2-dark{background:radial-gradient(ellipse 50% 45% at 85% 30%,rgba(47,95,224,.2),transparent 70%),#050b1a;}
+  .pr2-dark .live-countdown{
+    border:1px solid rgba(255,255,255,.14);border-radius:26px;
+    background:linear-gradient(160deg,rgba(120,150,255,.16),rgba(255,255,255,.025) 65%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);
+    box-shadow:0 0 0 8px rgba(255,255,255,.025),0 0 0 9px rgba(255,255,255,.07),inset 0 1px 0 rgba(255,255,255,.12),0 40px 80px rgba(0,0,0,.4);
+  }
+  .pr2-dark .live-countdown::before{display:none;}
+  .pr2-dark .live-countdown.is-live{background:linear-gradient(160deg,rgba(220,60,80,.22),rgba(255,255,255,.025) 65%);}
+  .pr2-dark .countdown div{background:rgba(5,11,26,.6);border-color:rgba(255,255,255,.1);border-radius:16px;}
+  .pr2-dark .next-event .event-meta i{color:#8fb6ff;}
+  .pr2-dark .live-countdown .btn-accent{background:linear-gradient(90deg,#8fb6ff,#dbe7ff);color:#071022;border:0;box-shadow:0 14px 36px rgba(111,163,250,.3);}
+  .pr2-dark .live-countdown .btn-outline{border-color:rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.04);}
+  .pr2-dark .live-countdown .btn-outline:hover{background:#fff;color:#071022;border-color:#fff;}
+  .pr2-dark .live-toggle button{color:#a9c6ff;}
+  .pr2-dark .live-toggle button:hover{background:rgba(169,198,255,.08);}
+  .pr2-dark .sermon-embed-wrap{border-radius:22px;border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 80px rgba(0,0,0,.45);}
+
+  /* mensajes: el último culto en grande */
+  .pr2-msgs{padding-top:40px;background:
+    radial-gradient(ellipse 45% 40% at 15% 35%,rgba(47,95,224,.18),transparent 70%),
+    radial-gradient(ellipse 40% 40% at 90% 80%,rgba(111,163,250,.1),transparent 70%),#050b1a;}
+  .pr2-feature{
+    display:grid;grid-template-columns:1.6fr 1fr;gap:0;margin-bottom:34px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.14);border-radius:26px;
+    background:linear-gradient(160deg,rgba(120,150,255,.15),rgba(255,255,255,.025) 65%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);
+    box-shadow:0 0 0 8px rgba(255,255,255,.025),0 0 0 9px rgba(255,255,255,.07),inset 0 1px 0 rgba(255,255,255,.12),0 40px 80px rgba(0,0,0,.45);
+  }
+  .pr2-feature[hidden]{display:none;}
+  .pr2-player{position:relative;aspect-ratio:16/9;background:#000;}
+  .pr2-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .pr2-poster{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;background:#000;}
+  .pr2-poster img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .4s ease,transform .6s ease;}
+  .pr2-poster:hover img{opacity:1;transform:scale(1.03);}
+  .pr2-play{position:absolute;left:50%;top:50%;width:78px;height:78px;margin:-39px 0 0 -39px;border-radius:50%;display:grid;place-items:center;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);color:#fff;font-size:24px;
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 0 0 10px rgba(255,255,255,.07);transition:transform .3s ease,background .3s ease,color .3s ease;}
+  .pr2-play i{margin-left:4px;}
+  .pr2-poster:hover .pr2-play{transform:scale(1.08);background:#fff;color:#071022;}
+  .pr2-player .ext-ph{position:absolute;inset:0;min-height:0;}
+  .pr2-info{display:flex;flex-direction:column;justify-content:center;padding:34px 34px;border-left:1px solid rgba(255,255,255,.08);}
+  .pr2-pill{align-self:flex-start;padding:6px 14px;border-radius:100px;background:#a9c6ff;color:#071022;font-size:11.5px;font-weight:700;letter-spacing:.04em;margin-bottom:16px;}
+  .pr2-date{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8fa8d4;margin-bottom:10px;}
+  .pr2-info h3{font-size:clamp(22px,2.2vw,30px);line-height:1.2;color:#fff;margin-bottom:12px;}
+  .pr2-info p{color:#b4bfd6;font-size:14.5px;line-height:1.65;margin-bottom:24px;}
+  .pr2-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .pr2-btn{border:0;border-radius:100px;color:#071022;font-weight:700;background:linear-gradient(90deg,#8fb6ff,#dbe7ff);box-shadow:0 14px 36px rgba(111,163,250,.3);}
+  .pr2-btn:hover{background:linear-gradient(90deg,#dbe7ff,#fff);color:#071022;}
+  .pr2-link{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#fff;}
+  .pr2-link:hover{color:#a9c6ff;}
+
+  /* mensajes anteriores: tarjetas de vidrio */
+  .pr2-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:40px;}
+  .pr2-card{
+    display:flex;flex-direction:column;text-align:left;padding:12px 12px 18px;cursor:pointer;color:inherit;font:inherit;
+    border:1px solid rgba(255,255,255,.12);border-radius:20px;
+    background:linear-gradient(160deg,rgba(120,150,255,.12),rgba(255,255,255,.02) 70%);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 24px 50px rgba(0,0,0,.3);
+    transition:transform .35s ease,border-color .35s ease,background .35s ease;
+  }
+  .pr2-card[hidden]{display:none;}
+  .pr2-card:hover{transform:translateY(-4px);border-color:rgba(169,198,255,.35);}
+  .pr2-card.is-current{border-color:rgba(169,198,255,.6);background:linear-gradient(160deg,rgba(47,95,224,.28),rgba(255,255,255,.03) 70%);}
+  .pr2-thumb{position:relative;display:block;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0b1328;margin-bottom:14px;}
+  .pr2-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .pr2-card:hover .pr2-thumb img{transform:scale(1.05);}
+  .pr2-mini-play{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+    background:#fff;color:#071022;font-size:13px;box-shadow:0 8px 20px rgba(0,0,0,.35);}
+  .pr2-mini-play i{margin-left:2px;}
+  .pr2-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 6px;margin-bottom:10px;}
+  .pr2-kind{padding:5px 12px;border-radius:100px;background:#050b1a;border:1px solid rgba(255,255,255,.1);font-size:11px;font-weight:600;color:#fff;white-space:nowrap;}
+  .pr2-when{font-size:12px;color:#8fa8d4;text-align:right;}
+  .pr2-title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;padding:0 6px;margin-bottom:14px;
+    font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;line-height:1.35;color:#fff;}
+  .pr2-again{margin-top:auto;padding:12px 6px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12.5px;font-weight:600;color:#fff;}
+  .pr2-again i{font-size:11px;margin-left:4px;transition:transform .3s ease;}
+  .pr2-card:hover .pr2-again i{transform:translateX(4px);}
+  .pr2-again em{display:none;font-style:normal;color:#a9c6ff;}
+  .pr2-card.is-current .pr2-again span{display:none;}
+  .pr2-card.is-current .pr2-again em{display:inline;}
+  .pr2-more{border:0;border-radius:100px;color:#071022;font-weight:700;background:linear-gradient(90deg,#8fb6ff,#dbe7ff);}
+  .pr2-more[hidden]{display:none;}
+  .pr2-ghost,.pr2-danza .sermon-links .btn{border-radius:100px;color:#fff;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.22);box-shadow:none;}
+  .pr2-ghost:hover,.pr2-danza .sermon-links .btn:hover{background:#fff;color:#071022;border-color:#fff;}
+
+  /* danza: tarjetas de vidrio */
+  .pr2-danza{background:radial-gradient(ellipse 50% 40% at 50% 0%,rgba(47,95,224,.14),transparent 70%),#050b1a;}
+  .pr2-danza .video-card{padding:8px;border:1px solid rgba(255,255,255,.12);border-radius:18px;
+    background:linear-gradient(160deg,rgba(120,150,255,.12),rgba(255,255,255,.02) 70%);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);}
+  .pr2-danza .video-card:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 20px 40px rgba(0,0,0,.4);border-color:rgba(169,198,255,.35);}
+  .pr2-danza .video-card-thumb{border-radius:12px;}
+  .pr2-danza .video-card-title{color:#fff;}
+  .pr2-danza .video-row::-webkit-scrollbar-track{background:rgba(255,255,255,.06);}
+  .pr2-danza .video-row::-webkit-scrollbar-thumb{background:#8fb6ff;}
+
+  .pr2-cta{background:#050b1a;border-top:1px solid rgba(255,255,255,.06);}
+  .pr2-cta .btn{border:0;border-radius:100px;color:#071022;font-weight:700;background:linear-gradient(90deg,#8fb6ff,#dbe7ff);}
+  .pr2-cta + .ct-news{padding-top:0;}
+
+  @media(max-width:1000px){
+    .pr2-feature{grid-template-columns:1fr;}
+    .pr2-info{border-left:0;border-top:1px solid rgba(255,255,255,.08);}
+    .pr2-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:600px){
+    .pr2-feature{border-radius:20px;}
+    .pr2-info{padding:24px 20px;}
+    .pr2-play{width:62px;height:62px;margin:-31px 0 0 -31px;font-size:19px;}
+    .pr2-grid{grid-template-columns:1fr;gap:18px;}
+    .pr2-actions .pr2-btn{width:100%;justify-content:center;}
+    .pr2-dark .live-countdown{border-radius:20px;}
   }
