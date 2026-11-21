@@ -6,3 +6,8 @@ fotos evangelismos/
 
 # fotos originales para la versión 2 (69 MB); el sitio usa las copias comprimidas de fotos/
 FOTOS VERSION V2/
+
+# material de trabajo que la web no usa (logo original, fotos sin uso)
+_material/
+# registros del navegador de pruebas
+.playwright-mcp/
