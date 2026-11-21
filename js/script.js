@@ -731,6 +731,8 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 // Status messages can be overridden per page with data-msg-* attributes on the form.
 const SUPABASE_URL = 'https://vmujhqeswldmsonoozps.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_mXiB9Ox4HWVjFVJZO55gPA_m1pzgpEo';
+// Testimonios (testimonios.html): the church's new Supabase project. Empty until that project exists.
+const TESTIMONIOS_DB = {url: '', key: ''};
 
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
@@ -786,6 +788,107 @@ if (contactForm) {
       if (statusEl) { statusEl.textContent = msg.error; statusEl.style.color = '#c0392b'; }
     } finally {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = '1'; }
+    }
+  });
+}
+
+// Testimonios (testimonios.html). The wall shows only approved testimonies (table "testimonios" in the church's
+// Supabase project, column "aprobado"); the form saves new ones unapproved, so nothing goes public until someone at
+// the church ticks "aprobado" in the Supabase dashboard. Same spam guards as the contact form.
+const tmGrid = document.getElementById('tmGrid');
+if (tmGrid) {
+  const DB = TESTIMONIOS_DB;
+  const headers = {apikey: DB.key, Authorization: `Bearer ${DB.key}`};
+  const empty = document.getElementById('tmEmpty');
+  const more = document.getElementById('tmMore');
+  const FIRST = 9;
+  const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const when = iso => { const d = new Date(iso); return `${d.getDate()} de ${months[d.getMonth()]} de ${d.getFullYear()}`; };
+  let all = [];
+  let cat = '';
+  let showAll = false;
+  const render = () => {
+    const list = all.filter(t => !cat || t.categoria === cat);
+    tmGrid.innerHTML = list.map((t, i) => `<article class="tm-card"${!showAll && i >= FIRST ? ' hidden' : ''}>
+        <div class="tm-top"><span class="tm-quote"><i class="fa-solid fa-quote-left"></i></span><span class="tm-cat">${esc(t.categoria || 'Otro')}</span></div>
+        <h3>${esc(t.titulo)}</h3>
+        <p class="tm-text">${esc(t.testimonio)}</p>
+        <button type="button" class="tm-read" hidden>Leer completo <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="tm-foot"><span class="tm-avatar">${esc((t.nombre || 'A').trim().charAt(0).toUpperCase())}</span>
+          <span><b>${esc(t.nombre || 'Anónimo')}</b><small>${when(t.created_at)}</small></span></div>
+      </article>`).join('');
+    // "Leer completo" only on the long ones
+    tmGrid.querySelectorAll('.tm-card').forEach(card => {
+      const text = card.querySelector('.tm-text');
+      const btn = card.querySelector('.tm-read');
+      if (text.scrollHeight > text.clientHeight + 4) {
+        btn.hidden = false;
+        btn.addEventListener('click', () => {
+          const open = card.classList.toggle('is-open');
+          btn.innerHTML = open ? 'Mostrar menos <i class="fa-solid fa-chevron-up"></i>' : 'Leer completo <i class="fa-solid fa-chevron-down"></i>';
+        });
+      }
+    });
+    empty.hidden = list.length > 0;
+    more.hidden = showAll || list.length <= FIRST;
+  };
+  more.addEventListener('click', () => { showAll = true; render(); });
+  document.querySelectorAll('#tmFilters button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#tmFilters button').forEach(x => x.classList.toggle('is-on', x === b));
+    cat = b.dataset.cat;
+    showAll = false;
+    render();
+  }));
+  if (DB.url) {
+    fetch(`${DB.url}/rest/v1/testimonios?select=id,nombre,titulo,categoria,testimonio,created_at&order=created_at.desc&limit=200`, {headers})
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(rows => { all = rows; render(); })
+      .catch(() => { empty.hidden = false; });
+  } else {
+    empty.hidden = false;
+  }
+
+  const form = document.getElementById('testimonyForm');
+  const status = document.getElementById('tmStatus');
+  const submit = document.getElementById('tmSubmit');
+  const text = document.getElementById('tmTexto');
+  const count = document.getElementById('tmCount');
+  text.addEventListener('input', () => { count.textContent = `${text.value.length} / 2000`; });
+  const loadedAt = Date.now();
+  const say = (msg, kind) => { status.textContent = msg; status.dataset.kind = kind || ''; };
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const titulo = (data.get('titulo') || '').trim();
+    const testimonio = (data.get('testimonio') || '').trim();
+    if (titulo.length < 3) return say('Escribe un título corto para tu testimonio.', 'error');
+    if (testimonio.length < 20) return say('Cuéntanos un poco más (al menos 20 letras).', 'error');
+    if (!data.get('acepto')) return say('Marca la casilla para aceptar que se publique.', 'error');
+    const thanks = '¡Gracias por compartir! Tu testimonio aparecerá aquí en cuanto el equipo lo revise.';
+    // robots: the hidden field gets filled, or the form is sent within 4 seconds of opening the page
+    if (data.get('sitio_web') || Date.now() - loadedAt < 4000) { form.reset(); return say(thanks, 'ok'); }
+    let last = 0;
+    try { last = Number(sessionStorage.getItem('testimonio-enviado')) || 0; } catch (err) {}
+    if (Date.now() - last < 60000) return say('Ya recibimos tu testimonio. Espera un minuto antes de enviar otro.', '');
+    if (!DB.url) return say('Muy pronto podrás compartir tu testimonio aquí.', '');
+    submit.disabled = true;
+    say('Enviando…', '');
+    try {
+      const res = await fetch(`${DB.url}/rest/v1/testimonios`, {
+        method: 'POST',
+        headers: {...headers, 'Content-Type': 'application/json', Prefer: 'return=minimal'},
+        body: JSON.stringify({nombre: (data.get('nombre') || '').trim() || null, categoria: data.get('categoria'), titulo, testimonio})
+      });
+      if (!res.ok) throw new Error(res.status);
+      try { sessionStorage.setItem('testimonio-enviado', String(Date.now())); } catch (err) {}
+      form.reset();
+      count.textContent = '0 / 2000';
+      say(thanks, 'ok');
+    } catch (err) {
+      say('No pudimos enviar tu testimonio. Intenta de nuevo en un momento.', 'error');
+    } finally {
+      submit.disabled = false;
     }
   });
 }

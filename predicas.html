@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=2">
 <link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261121e">
+<link rel="stylesheet" href="css/style.css?v=20261121f">
 </head>
 <body>
 
@@ -65,7 +65,13 @@
           </ul>
         </li>
         <li><a href="ubicacion.html">Ubicación</a></li>
-        <li><a href="predicas.html" class="active">Prédicas</a></li>
+        <li class="has-dropdown">
+          <a href="predicas.html" class="dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Prédicas <i class="fa-solid fa-chevron-down"></i></a>
+          <ul class="dropdown">
+            <li><a href="testimonios.html"><i class="fa-solid fa-hand-holding-heart"></i><span><strong>Testimonios</strong><small>Lo que Dios ha hecho en nuestras vidas</small></span></a></li>
+            <li class="dropdown-all"><a href="predicas.html"><i class="fa-solid fa-play"></i><span>Ver todas las prédicas</span></a></li>
+          </ul>
+        </li>
         <li><a href="contacto.html">Contacto</a></li>
         <li class="nav-give"><a href="ofrendas.html"><i class="fa-solid fa-hand-holding-heart"></i> Ofrendar</a></li>
       </ul>
@@ -338,6 +344,7 @@
           <li><a href="ubicacion.html">Ubicación</a></li>
           <li><a href="eventos.html">Eventos</a></li>
           <li><a href="predicas.html">Prédicas</a></li>
+          <li><a href="testimonios.html">Testimonios</a></li>
         </ul>
       </div>
       <div>
@@ -367,7 +374,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261121d"></script>
+<script src="js/script.js?v=20261121f"></script>
 <script src="js/asistente.js?v=20261109j"></script>
 <!-- Cloudflare Web Analytics: visitas anónimas, sin cookies (panel en dash.cloudflare.com > Web Analytics) -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "92904d62217e499e9b56351bb9851f19"}'></script>
