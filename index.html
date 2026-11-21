@@ -79,44 +79,29 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=2">
 <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png?v=2">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=2">
-<script src="js/intro.js?v=20261115e"></script>
+<script src="js/intro.js?v=20261121a"></script>
 <link rel="stylesheet" href="css/fonts.css?v=20261109j">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=20261116k">
+<link rel="stylesheet" href="css/style.css?v=20261121b">
 </head>
 <body>
 
-<!-- ===== INTRO: fotos de la iglesia moviéndose al fondo, el logo bajo un haz de luz, versículo y "Ingresar".
-     Entra sola a los 5 s (la línea bajo el botón se va llenando) o antes con "Ingresar"; se abre un portal desde el botón. Solo la primera vez por visita:
+<!-- ===== INTRO: pantalla formal tipo invitación. Fondo negro azulado con marco fino y esquinas, el logo aparece suave,
+     línea con rombo, "Bienvenido a casa", botón "Ingresar" (su borde inferior se llena hasta que entra sola a los 5 s) y el versículo.
+     Al entrar, una línea de luz cruza el centro y la pantalla se abre como un telón. Solo la primera vez por visita:
      js/intro.js decide y la abre/cierra, css .intro la anima. ===== -->
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Bienvenida a Iglesia Cuadrangular Galilea">
-  <div class="intro-mosaic" aria-hidden="true">
-    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-13.jpg" alt=""><img src="fotos/carrusel/comunidad-03.jpg" alt=""><img src="fotos/carrusel/comunidad-02.jpg" alt=""><img src="fotos/carrusel/comunidad-13.jpg" alt=""><img src="fotos/carrusel/comunidad-03.jpg" alt=""><img src="fotos/carrusel/comunidad-02.jpg" alt=""></div></div>
-    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-32.jpg" alt=""><img src="fotos/carrusel/comunidad-31.jpg" alt=""><img src="fotos/carrusel/comunidad-33.jpg" alt=""><img src="fotos/carrusel/comunidad-32.jpg" alt=""><img src="fotos/carrusel/comunidad-31.jpg" alt=""><img src="fotos/carrusel/comunidad-33.jpg" alt=""></div></div>
-    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-17.jpg" alt=""><img src="fotos/carrusel/comunidad-29.jpg" alt=""><img src="fotos/carrusel/comunidad-01.jpg" alt=""><img src="fotos/carrusel/comunidad-17.jpg" alt=""><img src="fotos/carrusel/comunidad-29.jpg" alt=""><img src="fotos/carrusel/comunidad-01.jpg" alt=""></div></div>
-    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-27.jpg" alt=""><img src="fotos/carrusel/comunidad-08.jpg" alt=""><img src="fotos/carrusel/comunidad-18.jpg" alt=""><img src="fotos/carrusel/comunidad-27.jpg" alt=""><img src="fotos/carrusel/comunidad-08.jpg" alt=""><img src="fotos/carrusel/comunidad-18.jpg" alt=""></div></div>
-    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-09.jpg" alt=""><img src="fotos/carrusel/comunidad-07.jpg" alt=""><img src="fotos/carrusel/comunidad-24.jpg" alt=""><img src="fotos/carrusel/comunidad-09.jpg" alt=""><img src="fotos/carrusel/comunidad-07.jpg" alt=""><img src="fotos/carrusel/comunidad-24.jpg" alt=""></div></div>
-    <div class="im-col"><div class="im-track"><img src="fotos/carrusel/comunidad-11.jpg" alt=""><img src="fotos/carrusel/comunidad-22.jpg" alt=""><img src="fotos/carrusel/comunidad-34.jpg" alt=""><img src="fotos/carrusel/comunidad-11.jpg" alt=""><img src="fotos/carrusel/comunidad-22.jpg" alt=""><img src="fotos/carrusel/comunidad-34.jpg" alt=""></div></div>
-  </div>
-  <div class="intro-veil" aria-hidden="true"></div>
-  <div class="intro-beam" aria-hidden="true"></div>
-  <div class="intro-glow" aria-hidden="true"></div>
-  <div class="intro-sparks" aria-hidden="true"><span style="--x:72%;--s:3px;--d:18s;--t:-14s"></span><span style="--x:76%;--s:3px;--d:14s;--t:-5s"></span><span style="--x:95%;--s:3px;--d:18s;--t:-5s"></span><span style="--x:10%;--s:2.5px;--d:15s;--t:-4s"></span><span style="--x:9%;--s:3px;--d:11s;--t:-12s"></span><span style="--x:72%;--s:3px;--d:13s;--t:-0s"></span><span style="--x:77%;--s:1.5px;--d:11s;--t:-1s"></span><span style="--x:16%;--s:2px;--d:11s;--t:-14s"></span><span style="--x:24%;--s:2.5px;--d:14s;--t:-16s"></span><span style="--x:18%;--s:2px;--d:18s;--t:-0s"></span><span style="--x:86%;--s:1.5px;--d:18s;--t:-8s"></span><span style="--x:70%;--s:3px;--d:12s;--t:-8s"></span><span style="--x:24%;--s:2px;--d:15s;--t:-0s"></span><span style="--x:8%;--s:3px;--d:12s;--t:-12s"></span></div>
+  <div class="intro-halo" aria-hidden="true"></div>
+  <div class="intro-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <p class="intro-kicker">Iglesia Cuadrangular</p>
   <div class="intro-stage">
-    <p class="intro-kicker">Iglesia Cuadrangular</p>
-    <div class="intro-logo-wrap">
-      <div class="intro-logo">
-        <img src="img/logo-galilea.png" alt="Galilea">
-        <span class="intro-shine" aria-hidden="true"></span>
-      </div>
-      <span class="intro-scan" aria-hidden="true"></span>
-    </div>
+    <div class="intro-logo"><img src="img/logo-galilea.png" alt="Galilea"></div>
     <div class="intro-rule" aria-hidden="true"><span></span><i></i><span></span></div>
     <p class="intro-tagline">Bienvenido a casa</p>
-    <button type="button" class="intro-enter" data-intro-enter><span>Ingresar</span><i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></button>
-    <span class="intro-timer" aria-hidden="true"><i></i></span>
+    <button type="button" class="intro-enter" data-intro-enter><span>Ingresar</span><i class="intro-timer" aria-hidden="true"></i></button>
   </div>
   <p class="intro-verse">«Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar.» <span>Mateo 11:28</span></p>
+  <span class="intro-seam" aria-hidden="true"></span>
 </div>
 
 <!-- ===== HEADER ===== -->
@@ -926,7 +911,7 @@
 
 <button class="to-top" id="toTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
 
-<script src="js/script.js?v=20261116s"></script>
+<script src="js/script.js?v=20261121b"></script>
 <script src="js/asistente.js?v=20261109j"></script>
 <!-- Cloudflare Web Analytics: visitas anónimas, sin cookies (panel en dash.cloudflare.com > Web Analytics) -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "92904d62217e499e9b56351bb9851f19"}'></script>

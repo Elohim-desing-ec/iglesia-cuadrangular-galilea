@@ -1,5 +1,5 @@
-// Intro de la página de inicio: fotos de la iglesia al fondo, el logo bajo un haz de luz y la pantalla se queda
-// unos segundos y entra sola (o antes, con "Ingresar" / Enter / Esc); al entrar se abre un portal desde el botón.
+// Intro de la página de inicio: pantalla formal con marco, logo, "Bienvenido a casa" y versículo; se queda
+// unos segundos y entra sola (o antes, con "Ingresar" / Enter / Esc); al entrar se abre como un telón desde el centro.
 // Se muestra una vez por visita (sesión del navegador) y nunca a quien pidió menos movimiento. Va en el <head> para decidirlo antes de que se pinte la página; la animación está en
 // css/style.css (.intro). Toda la lógica vive aquí: si este archivo no carga, simplemente no hay intro.
 (() => {
@@ -26,14 +26,10 @@
       if (entered) return;
       entered = true;
       page.forEach(el => { el.inert = false; });
-      // el portal se abre desde el centro del botón
-      const r = enterBtn.getBoundingClientRect();
-      intro.style.setProperty('--ix', Math.round(r.left + r.width / 2) + 'px');
-      intro.style.setProperty('--iy', Math.round(r.top + r.height / 2) + 'px');
       root.classList.add('intro-leaving');
       // js/script.js espera este aviso para animar el título de la portada
       document.dispatchEvent(new Event('galilea:intro-open'));
-      setTimeout(() => { root.classList.remove('intro-on', 'intro-leaving'); intro.remove(); }, 1400);
+      setTimeout(() => { root.classList.remove('intro-on', 'intro-leaving'); intro.remove(); }, 1650);
     };
     enterBtn.addEventListener('click', enter);
     // no se queda esperando: entra sola cuando termina la animación (la línea bajo el botón marca el tiempo)

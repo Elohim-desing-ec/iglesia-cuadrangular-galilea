@@ -1159,7 +1159,7 @@ if (yvStatement) {
   }
 }
 
-// ===== EFECTOS DE MOVIMIENTO (intro, cursor, fotos que vuelan, muro de fotos, texto que se ilumina, GALILEA gigante) =====
+// ===== EFECTOS DE MOVIMIENTO (intro, cursor, fotos que vuelan, muro de fotos, texto que se ilumina) =====
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const docEl = document.documentElement;
 // one rAF-throttled scroll loop shared by every scroll-driven effect below
@@ -1340,30 +1340,6 @@ if (!reduceMotion && 'IntersectionObserver' in window) {
   }));
   litEls.forEach(el => litObserver.observe(el));
   scrollJobs.push(litJob);
-}
-
-// Giant "GALILEA" at the foot of every page: the letters rise one by one when the footer comes into view
-const siteFooter = document.querySelector('footer');
-if (siteFooter) {
-  const mark = document.createElement('div');
-  mark.className = 'footer-mark';
-  mark.setAttribute('aria-hidden', 'true');
-  [...'GALILEA'].forEach((ch, i) => {
-    const s = document.createElement('span');
-    s.textContent = ch;
-    s.style.setProperty('--i', i);
-    mark.appendChild(s);
-  });
-  siteFooter.appendChild(mark);
-  if (reduceMotion || !('IntersectionObserver' in window)) mark.classList.add('fm-in');
-  else {
-    const markObserver = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      mark.classList.add('fm-in');
-      markObserver.disconnect();
-    }, {threshold: 0.35});
-    markObserver.observe(mark);
-  }
 }
 
 // Custom cursor (computers with a mouse only): a dot that follows exactly and a ring that trails behind it.
